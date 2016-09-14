@@ -1,4 +1,4 @@
-package com.pedrodavidlp.sportsmanager;
+package com.pedrodavidlp.footballmanager;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

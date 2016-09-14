@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "724117243630",
+    "firebase_url": "https://footballmanager-cae78.firebaseio.com",
+    "project_id": "footballmanager-cae78",
+    "storage_bucket": "footballmanager-cae78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724117243630:android:0481cc4b51535613",
+        "android_client_info": {
+          "package_name": "com.pedrodavidlp.footballmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724117243630-7tss7m2n9m3vekj4f36d3gjmi6opj1bc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO6SJ2gQ4loAMhlYoPOm-VzLC0N7syzpQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
