@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:columnCount="3"
+        android:rowCount="8"
+        android:background="#FF000F">
+        <TextView
+            android:layout_column="1"
+            android:layout_row="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#F9F9"
+            android:text="HOLA"/>
+    </GridLayout>
+</merge>

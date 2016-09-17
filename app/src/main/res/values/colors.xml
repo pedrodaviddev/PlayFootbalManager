@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorMatchTab">#66BB6A</color>
+    <color name="colorTeamTab">#29B6F6</color>
+    <color name="colorListTab">#D4E157</color>
+    <color name="colorPayTab">#FFCA28</color>
 </resources>

@@ -6,5 +6,7 @@ package com.pedrodavidlp.footballmanager.domain.model;
 public class Player {
     private String name;
     private int skill;
+    private boolean isOrganizator;
+    private boolean isAdmin;
 
 }

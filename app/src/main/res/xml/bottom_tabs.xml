@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_match"
+        icon="@drawable/icon_list"
+        title="Partido"
+        barColorWhenSelected="@color/colorMatchTab"/>
+    <tab
+        id="@+id/tab_teams"
+        icon="@drawable/icon_ball"
+        title="Equipos"
+        barColorWhenSelected="@color/colorTeamTab"/>
+    <tab
+        id="@+id/tab_list"
+        icon="@drawable/icon_people"
+        title="Lista"
+        barColorWhenSelected="@color/colorListTab"/>
+</tabs>
