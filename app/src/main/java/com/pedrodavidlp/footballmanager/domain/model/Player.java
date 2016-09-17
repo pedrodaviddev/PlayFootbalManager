@@ -9,4 +9,7 @@ public class Player {
     private boolean isOrganizator;
     private boolean isAdmin;
 
+    public String getName() {
+        return name;
+    }
 }

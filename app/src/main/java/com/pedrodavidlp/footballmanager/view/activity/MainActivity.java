@@ -8,9 +8,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.github.clans.fab.FloatingActionMenu;
 import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.presenter.ListPlayersPresenter;
 import com.pedrodavidlp.footballmanager.view.fragment.ListPlayersFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.MatchFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.PayFragment;
@@ -20,8 +22,9 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 public class MainActivity extends AppCompatActivity {
     BottomBar bottomBar;
-    com.github.clans.fab.FloatingActionButton fabPlay;
     FloatingActionMenu fabOptions;
+    com.github.clans.fab.FloatingActionButton fabPlay;
+    com.github.clans.fab.FloatingActionButton addActionMenu;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -30,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
         fabPlay=(com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabPlay);
         fabOptions=(FloatingActionMenu) findViewById(R.id.fabOptions);
         bottomBar=(BottomBar)findViewById(R.id.bottomBar);
+        addActionMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {

@@ -38,6 +38,7 @@
             app:menu_icon="@drawable/icon_action"
             >
             <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/addActionMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_add"
