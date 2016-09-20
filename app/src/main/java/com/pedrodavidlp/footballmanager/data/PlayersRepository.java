@@ -24,7 +24,7 @@ public class PlayersRepository implements PlayersRepo {
 
     @Override
     public void add(Player player) {
-        reference.setValue(player);
+        reference.child("players").setValue(player);
     }
 
     @Override

@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         fabPlay=(com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabPlay);
         fabOptions=(FloatingActionMenu) findViewById(R.id.fabOptions);
         bottomBar=(BottomBar)findViewById(R.id.bottomBar);
+        addActionMenu=(com.github.clans.fab.FloatingActionButton)findViewById(R.id.addActionMenu);
         addActionMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
