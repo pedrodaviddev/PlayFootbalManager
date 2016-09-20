@@ -18,6 +18,10 @@ import java.util.List;
 public class ListPlayersAdapter extends RecyclerView.Adapter<ListPlayersAdapter.ListPlayersHolder>{
     List<Player> players;
 
+    public void setData(List<Player> list) {
+        players = list;
+    }
+
     public static class ListPlayersHolder extends RecyclerView.ViewHolder{
         private TextView name;
         public ListPlayersHolder(View itemView) {
@@ -45,6 +49,6 @@ public class ListPlayersAdapter extends RecyclerView.Adapter<ListPlayersAdapter.
 
     @Override
     public int getItemCount() {
-        return players.size();
+        return players == null ? 0 : players.size();
     }
 }

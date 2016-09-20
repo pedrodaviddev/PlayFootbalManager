@@ -2,7 +2,9 @@ package com.pedrodavidlp.footballmanager.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,24 +41,36 @@ public class ListPlayersFragment extends Fragment implements ViewList<Player> {
 
         Executor executor = new ThreadExecutor();
         MainThread mainThread = new MainThreadImp();
-        useCase = new GetListUseCase(executor,mainThread);
+        useCase = new GetListUseCase(mainThread,executor);
         presenter = new ListPlayersPresenter(useCase);
+        presenter.setView(this);
+        presenter.init();
+
 
         return rootView;
     }
 
     @Override
     public void loadList(List<Player> list) {
-
+        adapter.setData(list);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void initUi() {
-
+        adapter = new ListPlayersAdapter();
+        listPlayers.setAdapter(adapter);
+        listPlayers.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     @Override
     public void error(Exception e) {
+        Snackbar.make(getView(),"Se ha producido un error",Snackbar.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.loadList();
     }
 }

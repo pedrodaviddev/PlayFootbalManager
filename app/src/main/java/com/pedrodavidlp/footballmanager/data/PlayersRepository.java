@@ -24,23 +24,7 @@ public class PlayersRepository implements PlayersRepo {
 
     @Override
     public void add(Player player) {
-        reference.child("players").setValue(player);
+        reference.child("players").child(player.getName()).setValue(player);
     }
 
-    @Override
-    public List<Player> getAll() {
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Player value=dataSnapshot.getValue(Player.class);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        return null;
-    }
 }

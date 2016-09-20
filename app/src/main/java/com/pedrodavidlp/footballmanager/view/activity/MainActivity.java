@@ -1,5 +1,6 @@
 package com.pedrodavidlp.footballmanager.view.activity;
 
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         addActionMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getApplicationContext(),AddPlayerActivity.class));
+                fabOptions.close(false);
             }
         });
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
