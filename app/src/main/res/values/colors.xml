@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorMatchTab">#66BB6A</color>
     <color name="colorTeamTab">#29B6F6</color>
-    <color name="colorListTab">#D4E157</color>
+    <color name="colorListTab">#C0CA33</color>
+    <color name="backgroundListTab">#F2EFD2</color>
     <color name="colorPayTab">#FFCA28</color>
 </resources>

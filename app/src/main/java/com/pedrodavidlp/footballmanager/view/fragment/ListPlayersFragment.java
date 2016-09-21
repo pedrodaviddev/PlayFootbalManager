@@ -20,6 +20,7 @@ import com.pedrodavidlp.footballmanager.view.executor.MainThreadImp;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 import com.tonilopezmr.interactorexecutor.ThreadExecutor;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
 
@@ -31,14 +32,14 @@ public class ListPlayersFragment extends Fragment implements ViewList<Player> {
     private GetListUseCase useCase;
     private ListPlayersAdapter adapter;
     private ListPlayersPresenter presenter;
-
+    private AVLoadingIndicatorView loading;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView=inflater.inflate(R.layout.fragment_list,container,false);
         listPlayers = (RecyclerView) rootView.findViewById(R.id.playersRecView);
-
+        loading = (AVLoadingIndicatorView) rootView.findViewById(R.id.loadingListPlayers);
         Executor executor = new ThreadExecutor();
         MainThread mainThread = new MainThreadImp();
         useCase = new GetListUseCase(mainThread,executor);
@@ -53,6 +54,8 @@ public class ListPlayersFragment extends Fragment implements ViewList<Player> {
     @Override
     public void loadList(List<Player> list) {
         adapter.setData(list);
+        listPlayers.setVisibility(View.VISIBLE);
+        loading.hide();
         adapter.notifyDataSetChanged();
     }
 
@@ -71,6 +74,7 @@ public class ListPlayersFragment extends Fragment implements ViewList<Player> {
     @Override
     public void onResume() {
         super.onResume();
+        loading.show();
         presenter.loadList();
     }
 }

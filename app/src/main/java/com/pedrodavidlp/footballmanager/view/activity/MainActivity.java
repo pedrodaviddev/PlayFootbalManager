@@ -1,14 +1,16 @@
 package com.pedrodavidlp.footballmanager.view.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.IdRes;
-import android.support.design.widget.FloatingActionButton;
+import android.widget.RelativeLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.github.clans.fab.FloatingActionMenu;
@@ -22,10 +24,11 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
 public class MainActivity extends AppCompatActivity {
-    BottomBar bottomBar;
-    FloatingActionMenu fabOptions;
-    com.github.clans.fab.FloatingActionButton fabPlay;
-    com.github.clans.fab.FloatingActionButton addActionMenu;
+    private BottomBar bottomBar;
+    private FloatingActionMenu fabOptions;
+    private com.github.clans.fab.FloatingActionButton fabPlay;
+    private com.github.clans.fab.FloatingActionButton addActionMenu;
+    private RelativeLayout rootView;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         fabPlay=(com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabPlay);
         fabOptions=(FloatingActionMenu) findViewById(R.id.fabOptions);
+        rootView = (RelativeLayout) findViewById(R.id.rootActivity);
         bottomBar=(BottomBar)findViewById(R.id.bottomBar);
         addActionMenu=(com.github.clans.fab.FloatingActionButton)findViewById(R.id.addActionMenu);
         addActionMenu.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (tabId){
                     case R.id.tab_match:
                         setFragment(0);
+
                         fabOptions.hideMenuButton(true);
                         fabPlay.show(true);
                         break;
@@ -58,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.tab_list:
                         setFragment(2);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            rootView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.backgroundListTab));
+                        }else {
+                            rootView.setBackgroundColor(getResources().getColor(R.color.backgroundListTab));
+                        }
                         fabPlay.hide(true);
                         fabOptions.showMenuButton(true);
                         break;

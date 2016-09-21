@@ -1,9 +1,11 @@
 package com.pedrodavidlp.footballmanager.view.adapter;
 
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pedrodavidlp.footballmanager.R;
@@ -25,14 +27,36 @@ public class ListPlayersAdapter extends RecyclerView.Adapter<ListPlayersAdapter.
     }
 
     public static class ListPlayersHolder extends RecyclerView.ViewHolder{
+        private AppCompatImageView image;
         private TextView name;
         public ListPlayersHolder(View itemView) {
             super(itemView);
-            name=(TextView)itemView.findViewById(R.id.namePlayer);
+            name = (TextView)itemView.findViewById(R.id.namePlayer);
+            image = (AppCompatImageView) itemView.findViewById(R.id.imagePlayer);
+            setImage();
         }
 
         public void setName(String name) {
             this.name.setText(name);
+        }
+        public void setImage() {
+            switch ((int) (Math.random()*4+1)){
+                case 1:
+                    this.image.setImageResource(R.drawable.icon_player1);
+                    break;
+                case 2:
+
+                    this.image.setImageResource(R.drawable.icon_player2);
+                    break;
+                case 3:
+
+                    this.image.setImageResource(R.drawable.icon_player3);
+                    break;
+                default:
+
+                    this.image.setImageResource(R.drawable.icon_player4);
+                    break;
+            }
         }
     }
 
