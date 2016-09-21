@@ -35,13 +35,13 @@
             android:layout_margin="@dimen/fab_margin"
             android:layout_marginBottom="@dimen/bb_height"
             app:menu_colorNormal="@color/colorListTab"
-            app:menu_icon="@drawable/icon_action"
+            app:menu_icon="@drawable/image_action"
             >
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/addActionMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_add"
+                android:src="@drawable/image_add"
                 app:fab_size="mini"
                 app:fab_label="Añadir"/>
 
