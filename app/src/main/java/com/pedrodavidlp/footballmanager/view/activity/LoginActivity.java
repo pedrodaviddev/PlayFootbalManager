@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,15 +37,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.pedrodavidlp.footballmanager.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -58,8 +69,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public static final int ITEM_DELAY = 300;
     GoogleApiClient apiClient;
     private boolean animationStarted = false;
-
-
+    private SignInButton signWithGoogleButton;
+    private static final int RC_SIGN_IN = 9001;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private final String TAG = getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,26 +83,54 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        loginGoogle();
+        loginFacebook();
+        loginTwitter();
+
+    }
+
+    private void loginTwitter() {
+
+    }
+
+    private void loginFacebook() {
+
+    }
+
+    private void loginGoogle() {
+        Log.d(TAG, "loginGoogle: gola");
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.client_id_server))
                 .requestEmail()
                 .build();
+
         apiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        firebaseAuth = FirebaseAuth.getInstance();
 
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                //updateUI(null);
+            }
+        };
 
-        Button singing = (Button) findViewById(R.id.btn_choice2);
-        singing.setOnClickListener(new OnClickListener() {
+        signWithGoogleButton = (SignInButton) findViewById(R.id.signWithGoogleButton);
+        signWithGoogleButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("Logged",true);
-                editor.apply();
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                finish();
+                Intent signIntent = Auth.GoogleSignInApi.getSignInIntent(apiClient);
+                startActivityForResult(signIntent, RC_SIGN_IN);
             }
         });
 
@@ -96,9 +138,33 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Snackbar.make(getCurrentFocus(),"Conexión fallida",Snackbar.LENGTH_LONG).show();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: "+requestCode+"   "+resultCode);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result =
+                    Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            Log.d(TAG, "onActivityResult: "+result.getStatus().getStatusMessage() + " ");
+            if (result.isSuccess()) {
 
+                GoogleSignInAccount account = result.getSignInAccount();
+                firebaseAuthWithGoogle(account);
+                updateUI(null);
+            } else {
+            }
+        }
+    }
+
+    private void updateUI(GoogleSignInResult result) {
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            finish();
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d(TAG, "handleSignInResultasdasdasd: "+connectionResult.getErrorMessage());
+        Snackbar.make(getCurrentFocus(),"Conexión fallida",Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -111,6 +177,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         animate();
 
         super.onWindowFocusChanged(hasFocus);
+    }
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
+                        }
+                    }
+                });
     }
 
 
@@ -127,20 +209,40 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         for (int i = 0; i < container.getChildCount(); i++) {
             View v = container.getChildAt(i);
             ViewPropertyAnimatorCompat viewAnimator;
-
-            if (!(v instanceof Button)) {
-                viewAnimator = ViewCompat.animate(v)
-                        .translationY(50).alpha(1)
-                        .setStartDelay((ITEM_DELAY * i) + 500)
-                        .setDuration(1000);
-            } else {
+            if(v instanceof SignInButton){
                 viewAnimator = ViewCompat.animate(v)
                         .scaleY(1).scaleX(1)
                         .setStartDelay((ITEM_DELAY * i) + 500)
                         .setDuration(500);
-            }
+            }else {
 
+                if (!(v instanceof Button)) {
+                    viewAnimator = ViewCompat.animate(v)
+                            .translationY(50).alpha(1)
+                            .setStartDelay((ITEM_DELAY * i) + 500)
+                            .setDuration(1000);
+                } else {
+                    viewAnimator = ViewCompat.animate(v)
+                            .scaleY(1).scaleX(1)
+                            .setStartDelay((ITEM_DELAY * i) + 500)
+                            .setDuration(500);
+                }
+            }
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            firebaseAuth.removeAuthStateListener(mAuthListener);
         }
     }
 }

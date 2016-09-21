@@ -25,11 +25,8 @@ public class LauncherActivity extends AppCompatActivity {
 
         if(info !=null && info.isConnected()){
 
-        SharedPreferences prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-        if (!prefs.getBoolean("Logged",false)){
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("Logged",false);
-            editor.apply();
+
+        if (true){
             intent = new Intent(getApplicationContext(),LoginActivity.class);
         } else {
             intent = new Intent(getApplicationContext(), MainActivity.class);

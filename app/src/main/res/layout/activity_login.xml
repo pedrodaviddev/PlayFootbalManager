@@ -45,7 +45,7 @@
             />
 
         <com.google.android.gms.common.SignInButton
-            android:id="@+id/btn_choice1"
+            android:id="@+id/signWithGoogleButton"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
@@ -55,16 +55,6 @@
             android:theme="@style/Button"
             />
 
-        <Button
-            android:id="@+id/btn_choice2"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:scaleX="0"
-            android:scaleY="0"
-            android:text="Entra!!"
-            android:theme="@style/Button"
-            />
 
     </LinearLayout>
 
