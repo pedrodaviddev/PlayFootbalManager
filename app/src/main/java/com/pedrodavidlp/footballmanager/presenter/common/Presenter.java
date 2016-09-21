@@ -1,4 +1,4 @@
-package com.pedrodavidlp.footballmanager.presenter;
+package com.pedrodavidlp.footballmanager.presenter.common;
 
 import com.pedrodavidlp.footballmanager.view.View;
 

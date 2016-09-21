@@ -2,6 +2,7 @@ package com.pedrodavidlp.footballmanager.presenter;
 
 import com.pedrodavidlp.footballmanager.domain.interactor.AddPlayerUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
+import com.pedrodavidlp.footballmanager.presenter.common.Presenter;
 import com.pedrodavidlp.footballmanager.view.View;
 
 /**

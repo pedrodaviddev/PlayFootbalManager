@@ -1,5 +1,7 @@
 package com.pedrodavidlp.footballmanager.domain.interactor;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,6 +19,9 @@ import java.util.List;
  * Created by PedroDavidLP on 15/9/16.
  */
 public class GetListUseCase implements Interactor{
+
+    private final String TAG = getClass().getSimpleName();
+
     public interface Callback{
         void onListLoaded(List<Player> list);
         void onError(Exception e);
@@ -42,6 +47,7 @@ public class GetListUseCase implements Interactor{
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     res.add(data.getValue(Player.class));
                 }
+               // Log.d(TAG, "Esto se ha ejecutado y el primer nombre es " + res.get(0).getName() );
                 callback.onListLoaded(res);
             }
 

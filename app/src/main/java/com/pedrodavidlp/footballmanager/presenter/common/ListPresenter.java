@@ -1,8 +1,6 @@
-package com.pedrodavidlp.footballmanager.presenter;
+package com.pedrodavidlp.footballmanager.presenter.common;
 
 import com.pedrodavidlp.footballmanager.view.ViewList;
-
-import java.util.List;
 
 /**
  * Created by PedroDavidLP on 20/9/16.

@@ -8,15 +8,15 @@ import android.widget.TextView;
 
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
-import com.pedrodavidlp.footballmanager.view.fragment.ListPlayersFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListPlayersAdapter extends RecyclerView.Adapter<ListPlayersAdapter.ListPlayersHolder>{
+
+public class PlayersOnMatchAdapter extends RecyclerView.Adapter<PlayersOnMatchAdapter.PlayersOnMatchHolder> {
     private List<Player> players;
 
-    public ListPlayersAdapter() {
+    public PlayersOnMatchAdapter() {
         this.players = new ArrayList<>();
     }
 
@@ -24,11 +24,11 @@ public class ListPlayersAdapter extends RecyclerView.Adapter<ListPlayersAdapter.
         players = list;
     }
 
-    public static class ListPlayersHolder extends RecyclerView.ViewHolder{
+    public static class PlayersOnMatchHolder extends RecyclerView.ViewHolder{
         private TextView name;
-        public ListPlayersHolder(View itemView) {
+        public PlayersOnMatchHolder(View itemView) {
             super(itemView);
-            name=(TextView)itemView.findViewById(R.id.namePlayer);
+            name=(TextView)itemView.findViewById(R.id.nameOfPlayerInMatch);
         }
 
         public void setName(String name) {
@@ -37,15 +37,15 @@ public class ListPlayersAdapter extends RecyclerView.Adapter<ListPlayersAdapter.
     }
 
     @Override
-    public ListPlayersHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PlayersOnMatchHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.items_list_players,parent,false);
-        ListPlayersHolder holder=new ListPlayersHolder(view);
+                .inflate(R.layout.items_players_on_match,parent,false);
+        PlayersOnMatchHolder holder=new PlayersOnMatchHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(ListPlayersHolder holder, int position) {
+    public void onBindViewHolder(PlayersOnMatchHolder holder, int position) {
         holder.setName(players.get(position).getName());
     }
 

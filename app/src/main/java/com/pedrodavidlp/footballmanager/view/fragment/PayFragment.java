@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 
 import com.pedrodavidlp.footballmanager.R;
 
-/**
- * Created by PedroDavidLP on 14/9/16.
- */
 public class PayFragment extends Fragment{
     @Nullable
     @Override
