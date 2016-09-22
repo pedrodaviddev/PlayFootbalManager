@@ -5,14 +5,16 @@ import java.util.List;
 public class Group {
     private List<Player> players;
     private String id;
+    private String password;
 
     public Group() {
 
     }
 
-    public Group(List<Player> players, String id) {
+    public Group(List<Player> players, String id , String password) {
         this.players = players;
         this.id = id;
+        this.password = password;
     }
 
     public List<Player> getPlayers() {
@@ -29,5 +31,13 @@ public class Group {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
