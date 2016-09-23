@@ -9,11 +9,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
+import com.pedrodavidlp.footballmanager.domain.repository.UserRepo;
 
-public class UserRepository {
+public class UserRepository implements UserRepo {
 
-    public void currentPlayer(){
-
+    @Override
+    public void add(Object o) {
 
     }
 }

@@ -56,7 +56,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.data.UserRepository;
+import com.pedrodavidlp.footballmanager.domain.interactor.JoinUserUseCase;
+import com.pedrodavidlp.footballmanager.domain.model.Player;
+import com.pedrodavidlp.footballmanager.domain.repository.UserRepo;
+import com.pedrodavidlp.footballmanager.presenter.LoginPresenter;
+import com.pedrodavidlp.footballmanager.view.executor.MainThreadImp;
+import com.tonilopezmr.interactorexecutor.Executor;
+import com.tonilopezmr.interactorexecutor.MainThread;
+import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -67,10 +78,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public static final int STARTUP_DELAY = 300;
     public static final int ANIM_ITEM_DURATION = 1000;
     public static final int ITEM_DELAY = 300;
-    GoogleApiClient apiClient;
+    private GoogleApiClient apiClient;
     private boolean animationStarted = false;
     private SignInButton signWithGoogleButton;
     private static final int RC_SIGN_IN = 9001;
+    private FirebaseUser user;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private final String TAG = getClass().getSimpleName();
@@ -82,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         loginGoogle();
         loginFacebook();
@@ -115,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
@@ -156,8 +169,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void updateUI(GoogleSignInResult result) {
-            startActivity(new Intent(getApplicationContext(),JoinGroupActivity.class));
-            finish();
+        startActivity(new Intent(getApplicationContext(),JoinGroupActivity.class));
+        finish();
 
     }
 

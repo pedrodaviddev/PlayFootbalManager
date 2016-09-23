@@ -4,8 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorMatchTab">#66BB6A</color>
+    <color name="backgroundMatchTab">#C9F2C7</color>
     <color name="colorTeamTab">#29B6F6</color>
+    <color name="backgroundTeamTab">#E0FBFC</color>
     <color name="colorListTab">#C0CA33</color>
     <color name="backgroundListTab">#F2EFD2</color>
     <color name="colorPayTab">#FFCA28</color>
+    <color name="backgroundPayTab">#EFF7CF</color>
 </resources>

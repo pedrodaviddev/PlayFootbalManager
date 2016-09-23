@@ -29,15 +29,18 @@ public class ListPlayersAdapter extends RecyclerView.Adapter<ListPlayersAdapter.
     public static class ListPlayersHolder extends RecyclerView.ViewHolder{
         private AppCompatImageView image;
         private TextView name;
+        private TextView nick;
         public ListPlayersHolder(View itemView) {
             super(itemView);
             name = (TextView)itemView.findViewById(R.id.namePlayer);
+            nick = (TextView)itemView.findViewById(R.id.nickPlayer);
             image = (AppCompatImageView) itemView.findViewById(R.id.imagePlayer);
             setImage();
         }
 
-        public void setName(String name) {
-            this.name.setText(name);
+        public void setAttrs(Player player) {
+            this.nick.setText("@"+player.getNickname());
+            this.name.setText(player.getName());
         }
         public void setImage() {
             switch ((int) (Math.random()*4+1)){
@@ -70,7 +73,8 @@ public class ListPlayersAdapter extends RecyclerView.Adapter<ListPlayersAdapter.
 
     @Override
     public void onBindViewHolder(ListPlayersHolder holder, int position) {
-        holder.setName(players.get(position).getName());
+        holder.setAttrs(players.get(position));
+
     }
 
     @Override

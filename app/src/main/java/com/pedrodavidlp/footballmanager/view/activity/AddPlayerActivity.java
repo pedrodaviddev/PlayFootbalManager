@@ -2,8 +2,12 @@ package com.pedrodavidlp.footballmanager.view.activity;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.data.PlayersRepository;
@@ -29,7 +33,6 @@ public class AddPlayerActivity extends AppCompatActivity implements View<Player>
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_player);
 
-        namePlayerText = (TextInputEditText) findViewById(R.id.insertNamePlayer);
         addPlayerFab = (FloatingActionButton) findViewById(R.id.addPlayerFab);
         Executor executor = new ThreadExecutor();
         MainThread mainThread = new MainThreadImp();
@@ -47,7 +50,7 @@ public class AddPlayerActivity extends AppCompatActivity implements View<Player>
         addPlayerFab.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
-                presenter.addPlayer(new Player(namePlayerText.getText().toString(),1,false,false));
+              //  presenter.addPlayer(new Player(namePlayerText.getText().toString(),1,false,false));
                 finish();
             }
         });
@@ -57,4 +60,6 @@ public class AddPlayerActivity extends AppCompatActivity implements View<Player>
     public void error(Exception e) {
 
     }
+
+
 }

@@ -58,23 +58,6 @@ public class GroupPresenter implements Presenter<ViewQuery<Group>> {
     }
 
     public void createGroup(final Group group){
-
-        currentPlayerUseCase.execute(new GetCurrentPlayerUseCase.Callback() {
-            @Override
-            public void onPlayerFound(Player player) {
-                List<Player> list = new ArrayList<>();
-                list.add(player);
-                group.setPlayers(list);
-                uploadGroup(group);
-            }
-
-            @Override
-            public void onError(Exception e) {
-
-            }
-        });
-    }
-    private void uploadGroup(Group group){
         createUseCase.execute(new CreateGroupUseCase.Callback() {
             @Override
             public void onSuccesfulCreated() {
@@ -86,6 +69,10 @@ public class GroupPresenter implements Presenter<ViewQuery<Group>> {
                 view.error(e);
             }
         },group);
+
+    }
+    private void uploadGroup(Group group){
+
     }
 
 }

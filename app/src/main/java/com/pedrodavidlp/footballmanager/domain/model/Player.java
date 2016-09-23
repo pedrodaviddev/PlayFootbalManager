@@ -1,9 +1,12 @@
 package com.pedrodavidlp.footballmanager.domain.model;
 
+import java.util.List;
+
 /**
  * Created by PedroDavidLP on 14/9/16.
  */
 public class Player {
+    private String nickname;
     private String name;
     private int skill;
     private boolean isOrganizator;
@@ -12,7 +15,8 @@ public class Player {
     public Player() {
     }
 
-    public Player(String name, int skill, boolean isOrganizator, boolean isAdmin) {
+    public Player(String nickname, String name, int skill, boolean isOrganizator, boolean isAdmin) {
+        this.nickname = nickname;
         this.name = name;
         this.skill = skill;
         this.isOrganizator = isOrganizator;
@@ -49,5 +53,13 @@ public class Player {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

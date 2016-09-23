@@ -1,13 +1,20 @@
 package com.pedrodavidlp.footballmanager.view.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.data.GroupRepository;
 import com.pedrodavidlp.footballmanager.domain.interactor.CreateGroupUseCase;
@@ -25,6 +32,7 @@ import com.tonilopezmr.interactorexecutor.MainThread;
 import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Group> {
     private Button buttonCreate;
@@ -33,6 +41,7 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
     private TextInputEditText nameGroup;
     private TextInputEditText passGroup;
     private TextInputEditText confirmpassGroup;
+    private TextInputEditText nickname;
     private GroupPresenter presenter;
 
     @Override
@@ -61,6 +70,7 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
         nameGroup = (TextInputEditText) findViewById(R.id.nameGroupInput);
         passGroup = (TextInputEditText) findViewById(R.id.passwordGroupInput);
         confirmpassGroup = (TextInputEditText) findViewById(R.id.confirmPasswordInput);
+        nickname = (TextInputEditText) findViewById(R.id.nicknameInput);
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +99,21 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
             @Override
             public void onClick(View v) {
                 if(checkNameAndPasswords()){
-                   presenter.createGroup(new Group(new ArrayList<Player>(),nameGroup.getText().toString(),passGroup.getText().toString()));
+                    FirebaseAuth auth = FirebaseAuth.getInstance();
+                    FirebaseUser user = auth.getCurrentUser();
+                    List<Player> idsPlayer =new ArrayList<>();
+                    List<String> groups = new ArrayList<>();
+                    groups.add(nameGroup.getText().toString());
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference reference = database.getReference();
+                    reference.child("player").child(user.getUid()).setValue(groups);
+                    idsPlayer.add(new Player(nickname.getText().toString(),user.getDisplayName(),0,false,false));
+                   presenter.createGroup(new Group(idsPlayer,nameGroup.getText().toString(),passGroup.getText().toString(),null));
+                    SharedPreferences preferences = getApplicationContext().getSharedPreferences("preferencesGroup", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("currentGroup",nameGroup.getText().toString());
+                    editor.apply();
+                    finish();
                 }
             }
         });

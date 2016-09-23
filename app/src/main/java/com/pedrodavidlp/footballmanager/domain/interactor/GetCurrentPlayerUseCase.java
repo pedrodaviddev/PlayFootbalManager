@@ -41,10 +41,11 @@ public class GetCurrentPlayerUseCase implements Interactor {
             Log.d(TAG, "run: "+user);
             Log.d(TAG, "run: "+user.getUid());
             Log.d(TAG, "run: "+user.getDisplayName());
-            reference.child("gg").child("players").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            reference.child("player").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Player player = dataSnapshot.getValue(Player.class);
+                    Log.d(TAG, "onDataChange: "+player+" "+player.getName()+" "+user+ " "+ user.getDisplayName());
                     player.setName(user.getDisplayName());
                     callback.onPlayerFound(player);
                 }

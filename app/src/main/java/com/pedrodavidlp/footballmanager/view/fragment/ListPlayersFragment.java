@@ -42,7 +42,7 @@ public class ListPlayersFragment extends Fragment implements ViewList<Player> {
         loading = (AVLoadingIndicatorView) rootView.findViewById(R.id.loadingListPlayers);
         Executor executor = new ThreadExecutor();
         MainThread mainThread = new MainThreadImp();
-        useCase = new GetListUseCase(mainThread,executor);
+        useCase = new GetListUseCase(mainThread,executor,getContext());
         presenter = new ListPlayersPresenter(useCase);
         presenter.setView(this);
         presenter.init();

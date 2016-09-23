@@ -45,7 +45,32 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/image_add"
                 app:fab_size="mini"
-                app:fab_label="Añadir"/>
+                app:fab_label="Añadir jugador sin cuenta"/>
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/deletePlayer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_delete_player"
+                app:fab_size="mini"
+                app:fab_label="Expulsar jugador" />
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/changePermissions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_size="mini"
+                app:fab_label="Cambiar permisos"/>
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/seeInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_size="mini"
+                app:fab_label="Ver informacion del jugador"/>
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/sendMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_size="mini"
+                app:fab_label="Enviar notificacion"/>
 
         </com.github.clans.fab.FloatingActionMenu>
     </android.support.design.widget.CoordinatorLayout>

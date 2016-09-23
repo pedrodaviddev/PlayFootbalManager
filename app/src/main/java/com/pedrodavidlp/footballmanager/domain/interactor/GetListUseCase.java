@@ -1,7 +1,10 @@
 package com.pedrodavidlp.footballmanager.domain.interactor;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.firebase.auth.api.model.StringList;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +22,7 @@ import java.util.List;
  * Created by PedroDavidLP on 15/9/16.
  */
 public class GetListUseCase implements Interactor{
+    private Context context;
 
     private final String TAG = getClass().getSimpleName();
 
@@ -31,22 +35,27 @@ public class GetListUseCase implements Interactor{
     private MainThread mainThread;
     private Executor executor;
 
-    public GetListUseCase(MainThread mainThread, Executor executor) {
+    public GetListUseCase(MainThread mainThread, Executor executor, Context context) {
         this.mainThread = mainThread;
         this.executor = executor;
+        this.context = context;
     }
 
     @Override
     public void run() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reference = firebaseDatabase.getReference();
-        reference.child("message").child("players").addValueEventListener(new ValueEventListener() {
+        SharedPreferences preferences = context.getSharedPreferences("preferencesGroup",Context.MODE_PRIVATE);
+        Log.d(TAG, "onDataChange: 777"+preferences.getString("currentGroup","no hay"));
+        reference.child("group").child(preferences.getString("currentGroup",null)).child("players").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Player> res = new ArrayList<>();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     res.add(data.getValue(Player.class));
+                    Log.d(TAG, "onDataChange: 777"+data.getValue(Player.class).getName());
                 }
+
                 callback.onListLoaded(res);
             }
 

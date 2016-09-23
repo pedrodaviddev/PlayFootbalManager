@@ -1,5 +1,7 @@
 package com.pedrodavidlp.footballmanager.presenter;
 
+import android.util.Log;
+
 import com.pedrodavidlp.footballmanager.domain.interactor.GetListUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.presenter.common.ListPresenter;
@@ -11,6 +13,7 @@ import java.util.List;
  * Created by PedroDavidLP on 15/9/16.
  */
 public class ListPlayersPresenter implements ListPresenter<Player> {
+    private final String TAG = getClass().getSimpleName();
     private GetListUseCase getListUseCase;
     private ViewList<Player> viewList;
 
@@ -37,6 +40,7 @@ public class ListPlayersPresenter implements ListPresenter<Player> {
 
     @Override
     public void loadList() {
+        Log.d(TAG, "loadList: ahora estamos en el loadlist 777");
         getListUseCase.execute(new GetListUseCase.Callback() {
             @Override
             public void onListLoaded(List<Player> list) {

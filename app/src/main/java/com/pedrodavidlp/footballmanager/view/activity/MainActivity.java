@@ -52,12 +52,21 @@ public class MainActivity extends AppCompatActivity {
                 switch (tabId){
                     case R.id.tab_match:
                         setFragment(0);
-
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            rootView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.backgroundMatchTab));
+                        }else {
+                            rootView.setBackgroundColor(getResources().getColor(R.color.backgroundMatchTab));
+                        }
                         fabOptions.hideMenuButton(true);
                         fabPlay.show(true);
                         break;
                     case R.id.tab_teams:
                         setFragment(1);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            rootView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.backgroundTeamTab));
+                        }else {
+                            rootView.setBackgroundColor(getResources().getColor(R.color.backgroundTeamTab));
+                        }
                         fabOptions.hideMenuButton(true);
                         fabPlay.hide(true);
                         break;

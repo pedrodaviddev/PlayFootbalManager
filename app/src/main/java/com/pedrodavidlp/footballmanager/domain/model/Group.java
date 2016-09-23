@@ -6,15 +6,17 @@ public class Group {
     private List<Player> players;
     private String id;
     private String password;
+    private List<Player> playersOnMatch;
 
     public Group() {
 
     }
 
-    public Group(List<Player> players, String id , String password) {
+    public Group(List<Player> players, String id, String password, List<Player> playersOnMatch) {
         this.players = players;
         this.id = id;
         this.password = password;
+        this.playersOnMatch = playersOnMatch;
     }
 
     public List<Player> getPlayers() {
@@ -39,5 +41,13 @@ public class Group {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Player> getPlayersOnMatch() {
+        return playersOnMatch;
+    }
+
+    public void setPlayersOnMatch(List<Player> playersOnMatch) {
+        this.playersOnMatch = playersOnMatch;
     }
 }
