@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class Player {
     private String nickname;
-    private String name;
     private int skill;
     private boolean isOrganizator;
     private boolean isAdmin;
@@ -15,20 +14,11 @@ public class Player {
     public Player() {
     }
 
-    public Player(String nickname, String name, int skill, boolean isOrganizator, boolean isAdmin) {
+    public Player(String nickname, int skill, boolean isOrganizator, boolean isAdmin) {
         this.nickname = nickname;
-        this.name = name;
         this.skill = skill;
         this.isOrganizator = isOrganizator;
         this.isAdmin = isAdmin;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getSkill() {

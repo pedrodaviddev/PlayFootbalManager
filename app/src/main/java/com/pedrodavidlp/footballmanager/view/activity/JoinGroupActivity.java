@@ -1,26 +1,16 @@
 package com.pedrodavidlp.footballmanager.view.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.data.GroupRepository;
 import com.pedrodavidlp.footballmanager.domain.interactor.CreateGroupUseCase;
-import com.pedrodavidlp.footballmanager.domain.interactor.GetCurrentPlayerUseCase;
-import com.pedrodavidlp.footballmanager.domain.interactor.JoinGroupUseCase;
-import com.pedrodavidlp.footballmanager.domain.interactor.SearchGroupUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Group;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.domain.repository.GroupRepo;
@@ -30,9 +20,6 @@ import com.pedrodavidlp.footballmanager.view.executor.MainThreadImp;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 import com.tonilopezmr.interactorexecutor.ThreadExecutor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Group> {
     private Button buttonCreate;
@@ -51,12 +38,10 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
 
         Executor executor = new ThreadExecutor();
         MainThread mainThread = new MainThreadImp();
-        GroupRepo repository = new GroupRepository();
+        GroupRepo repository = new GroupRepository(getApplicationContext());
         CreateGroupUseCase createGroupUseCase = new CreateGroupUseCase(mainThread,executor,repository);
-        JoinGroupUseCase joinGroupUseCase = new JoinGroupUseCase(mainThread,executor,repository);
-        SearchGroupUseCase searchGroupUseCase = new SearchGroupUseCase(mainThread,executor);
-        GetCurrentPlayerUseCase getCurrentPlayerUseCase = new GetCurrentPlayerUseCase(mainThread,executor);
-        presenter = new GroupPresenter(joinGroupUseCase,searchGroupUseCase,createGroupUseCase,getCurrentPlayerUseCase);
+
+        presenter = new GroupPresenter(createGroupUseCase);
 
         presenter.setView(this);
         presenter.init();
@@ -99,28 +84,8 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
             @Override
             public void onClick(View v) {
                 if(checkNameAndPasswords()){
-                    FirebaseAuth auth = FirebaseAuth.getInstance();
-                    FirebaseUser user = auth.getCurrentUser();
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference reference = database.getReference();
-
-                    Player player = new Player(nickname.getText().toString(),user.getDisplayName(),0,false,false);
-
-                    reference.child(getString(R.string.branch_player)).child(player.getNickname()).setValue(player);
-                    reference.child(getString(R.string.branch_user)).child(user.getUid()).setValue(player.getNickname());
-                    List<String> groups = new ArrayList<>();
-                    reference.child(getString(R.string.branch_player))
-                            .child(player.getNickname()).child(getString(R.string.groups)).setValue(groups);
-                    groups.add(nameGroup.getText().toString());
-                    presenter.createGroup(new Group(nameGroup.getText().toString(),passGroup.getText().toString()));
-                    reference.child(getString(R.string.branch_groups))
-                            .child(nameGroup.getText().toString()).child("players")
-                            .child(player.getNickname()).setValue(player);
-                    SharedPreferences preferences = getApplicationContext().getSharedPreferences(getString(R.string.preferences_group), Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(getString(R.string.current_group),nameGroup.getText().toString());
-                    editor.apply();
-                    finish();
+                    presenter.createGroup(new Group(nameGroup.getText().toString(),passGroup.getText().toString()),
+                                            new Player(nickname.getText().toString(),0,false,false));
                 }
             }
         });
@@ -134,6 +99,7 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
     @Override
     public void successfulAccess() {
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        finish();
     }
 
     @Override

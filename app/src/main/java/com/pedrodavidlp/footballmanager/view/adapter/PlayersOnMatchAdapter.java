@@ -46,7 +46,7 @@ public class PlayersOnMatchAdapter extends RecyclerView.Adapter<PlayersOnMatchAd
 
     @Override
     public void onBindViewHolder(PlayersOnMatchHolder holder, int position) {
-        holder.setName(players.get(position).getName());
+        holder.setName(players.get(position).getNickname());
     }
 
     @Override

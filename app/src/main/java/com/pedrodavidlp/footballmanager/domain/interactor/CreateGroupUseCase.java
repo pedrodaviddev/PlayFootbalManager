@@ -27,6 +27,7 @@ public class CreateGroupUseCase implements Interactor {
     private Executor executor;
     private GroupRepo repository;
     private Group group;
+    private Player creator;
 
     public CreateGroupUseCase(MainThread mainThread, Executor executor, GroupRepo repository) {
         this.mainThread = mainThread;
@@ -37,7 +38,7 @@ public class CreateGroupUseCase implements Interactor {
     @Override
     public void run() {
         try {
-            repository.add(group);
+            repository.create(group,creator);
             callback.onSuccesfulCreated();
         } catch (Exception e) {
             callback.onError(e);
@@ -46,12 +47,13 @@ public class CreateGroupUseCase implements Interactor {
 
     }
 
-    public void execute(final Callback callback, Group group){
+    public void execute(final Callback callback, Group group, Player creator){
         if(callback == null){
             throw new IllegalArgumentException("CALLBACK CANT BE NULL");
         }
         this.callback = callback;
         this.group = group;
+        this.creator = creator;
         this.executor.run(this);
     }
 }

@@ -48,7 +48,6 @@ public class ListPlayersAdapter extends RecyclerView.Adapter<ListPlayersAdapter.
 
         public void setAttrs(Player player) {
             this.nick.setText("@"+player.getNickname());
-            this.name.setText(player.getName());
         }
         public void setImage() {
             switch ((int) (Math.random()*4+1)){

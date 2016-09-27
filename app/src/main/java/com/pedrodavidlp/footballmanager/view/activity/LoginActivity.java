@@ -176,7 +176,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d(TAG, "handleSignInResultasdasdasd: "+connectionResult.getErrorMessage());
         Snackbar.make(getCurrentFocus(),"Conexión fallida",Snackbar.LENGTH_LONG).show();
     }
 
