@@ -42,6 +42,7 @@ public class LauncherActivity extends AppCompatActivity {
             if (user == null){
                 intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
+                finish();
             } else {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference reference = database.getReference();

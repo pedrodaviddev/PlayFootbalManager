@@ -37,7 +37,7 @@
             android:layout_margin="@dimen/fab_margin"
             android:layout_marginBottom="@dimen/bb_height"
             app:menu_colorNormal="@color/colorListTab"
-            app:menu_icon="@drawable/image_action"
+            app:menu_icon="@drawable/image_more_options"
             >
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/addActionMenu"
@@ -57,18 +57,21 @@
                 android:id="@+id/changePermissions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/image_edit_permissions"
                 app:fab_size="mini"
                 app:fab_label="Cambiar permisos"/>
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/seeInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/image_see_info_player"
                 app:fab_size="mini"
                 app:fab_label="Ver informacion del jugador"/>
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/sendMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/image_send"
                 app:fab_size="mini"
                 app:fab_label="Enviar notificacion"/>
 

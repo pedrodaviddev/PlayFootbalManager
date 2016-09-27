@@ -106,12 +106,12 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
                     groups.add(nameGroup.getText().toString());
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference reference = database.getReference();
-                    reference.child("player").child(user.getUid()).setValue(groups);
                     idsPlayer.add(new Player(nickname.getText().toString(),user.getDisplayName(),0,false,false));
-                   presenter.createGroup(new Group(idsPlayer,nameGroup.getText().toString(),passGroup.getText().toString(),null));
-                    SharedPreferences preferences = getApplicationContext().getSharedPreferences("preferencesGroup", Context.MODE_PRIVATE);
+                    reference.child(getString(R.string.branch_player)).child(user.getUid()).setValue(idsPlayer.get(0));
+                    presenter.createGroup(new Group(idsPlayer,nameGroup.getText().toString(),passGroup.getText().toString(),null));
+                    SharedPreferences preferences = getApplicationContext().getSharedPreferences(getString(R.string.preferences_group), Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("currentGroup",nameGroup.getText().toString());
+                    editor.putString(getString(R.string.current_group),nameGroup.getText().toString());
                     editor.apply();
                     finish();
                 }

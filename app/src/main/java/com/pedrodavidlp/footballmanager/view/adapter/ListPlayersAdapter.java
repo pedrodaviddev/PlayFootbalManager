@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,15 +17,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListPlayersAdapter extends RecyclerView.Adapter<ListPlayersAdapter.ListPlayersHolder>{
+    public interface OnItemLongClickListener {
+        public boolean onItemLongClicked(View v);
+    }
+
+    private ListPlayersFragment fragment;
     private List<Player> players;
 
-    public ListPlayersAdapter() {
+    public ListPlayersAdapter(ListPlayersFragment fragment) {
+        this.fragment = fragment;
         this.players = new ArrayList<>();
     }
 
     public void setData(List<Player> list) {
         players = list;
     }
+
 
     public static class ListPlayersHolder extends RecyclerView.ViewHolder{
         private AppCompatImageView image;
@@ -68,6 +76,13 @@ public class ListPlayersAdapter extends RecyclerView.Adapter<ListPlayersAdapter.
         View view= LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.items_list_players,parent,false);
         ListPlayersHolder holder=new ListPlayersHolder(view);
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                fragment.onItemLongClicked(v);
+                return true;
+            }
+        });
         return holder;
     }
 

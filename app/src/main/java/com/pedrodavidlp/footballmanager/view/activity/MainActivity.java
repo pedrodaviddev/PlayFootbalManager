@@ -46,6 +46,17 @@ public class MainActivity extends AppCompatActivity {
                 fabOptions.close(false);
             }
         });
+
+        fabPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MatchFragment matchFragment =(MatchFragment) getSupportFragmentManager().findFragmentByTag("FRAGMENT_MATCH");
+                matchFragment.joinMatch();
+            }
+        });
+
+
+
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
@@ -78,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                             rootView.setBackgroundColor(getResources().getColor(R.color.backgroundListTab));
                         }
                         fabPlay.hide(true);
-                        fabOptions.showMenuButton(true);
+                        fabOptions.hideMenuButton(true);
                         break;
                     case 3:
                         setFragment(3);
@@ -99,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 manager=getSupportFragmentManager();
                 transaction=manager.beginTransaction();
                 MatchFragment matchFragment=new MatchFragment();
-                transaction.replace(R.id.fragment_container,matchFragment);
+                transaction.replace(R.id.fragment_container,matchFragment,"FRAGMENT_MATCH");
                 transaction.commit();
                 break;
             case 1:
@@ -125,5 +136,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
         }
+    }
+    public void setFabMenu(){
+        fabOptions.showMenuButton(true);
     }
 }

@@ -1,5 +1,9 @@
 package com.pedrodavidlp.footballmanager.domain.interactor;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,9 +17,10 @@ import com.tonilopezmr.interactorexecutor.MainThread;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetPlayersOnMatchUseCase implements Interactor {
+public class GetPlayersOnMatchUseCase implements Interactor{
+    private Context context;
     public interface Callback{
-        void onPlayersLoaded(List<Player> list);
+        void onListMatchLoaded(List<Player> list);
         void onError(Exception e);
     }
 
@@ -23,23 +28,27 @@ public class GetPlayersOnMatchUseCase implements Interactor {
     private MainThread mainThread;
     private Executor executor;
 
-    public GetPlayersOnMatchUseCase(MainThread mainThread, Executor executor) {
+    public GetPlayersOnMatchUseCase(MainThread mainThread, Executor executor, Context context) {
         this.mainThread = mainThread;
         this.executor = executor;
+        this.context = context;
     }
 
     @Override
     public void run() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reference = firebaseDatabase.getReference();
-        reference.child("message").child("match").addValueEventListener(new ValueEventListener() {
+        SharedPreferences preferences = context.getSharedPreferences("preferencesGroup",Context.MODE_PRIVATE);
+        reference.child("group").child(preferences.getString("currentGroup",null)).child("match")
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Player> res = new ArrayList<>();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     res.add(data.getValue(Player.class));
                 }
-                callback.onPlayersLoaded(res);
+
+                callback.onListMatchLoaded(res);
             }
 
             @Override
@@ -56,5 +65,4 @@ public class GetPlayersOnMatchUseCase implements Interactor {
         this.callback = callback;
         this.executor.run(this);
     }
-
 }

@@ -26,7 +26,7 @@ public class MatchPresenter implements ListPresenter<Player> {
 
     @Override
     public void setView(ViewList<Player> view) {
-        if (view != null) {
+        if (view == null) {
             throw new IllegalArgumentException("Error setting view");
         }
         this.view = view;
@@ -35,8 +35,9 @@ public class MatchPresenter implements ListPresenter<Player> {
     @Override
     public void loadList() {
         playersOnMatchUseCase.execute(new GetPlayersOnMatchUseCase.Callback() {
+
             @Override
-            public void onPlayersLoaded(List<Player> list) {
+            public void onListMatchLoaded(List<Player> list) {
                 view.loadList(list);
             }
 

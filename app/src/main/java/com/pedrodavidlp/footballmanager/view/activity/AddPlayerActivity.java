@@ -47,6 +47,7 @@ public class AddPlayerActivity extends AppCompatActivity implements View<Player>
 
     @Override
     public void initUi() {
+
         addPlayerFab.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
