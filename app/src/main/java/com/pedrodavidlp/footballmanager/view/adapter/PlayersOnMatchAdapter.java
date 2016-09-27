@@ -28,7 +28,7 @@ public class PlayersOnMatchAdapter extends RecyclerView.Adapter<PlayersOnMatchAd
         private TextView name;
         public PlayersOnMatchHolder(View itemView) {
             super(itemView);
-            name=(TextView)itemView.findViewById(R.id.nameOfPlayerInMatch);
+            name=(TextView)itemView.findViewById(R.id.namePlayerOnMatch);
         }
 
         public void setName(String name) {

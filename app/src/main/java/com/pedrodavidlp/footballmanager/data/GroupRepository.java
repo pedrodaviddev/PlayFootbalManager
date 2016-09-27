@@ -30,6 +30,7 @@ public class GroupRepository implements GroupRepo {
 
     @Override
     public void create(Group group, Player creator) {
+        currentGroup = group;
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
 
@@ -42,6 +43,9 @@ public class GroupRepository implements GroupRepo {
         reference.child(context.getString(R.string.branch_user)).child(user.getUid())
                 .child(context.getString(R.string.groups)).setValue(groupsID);
         reference.child("group").child(group.getId()).child("password").setValue(group.getPassword());
+        reference.child(context.getString(R.string.branch_groups)).child(group.getId()).setValue(group);
+        reference.child(context.getString(R.string.branch_groups)).child(group.getId())
+                .child(context.getString(R.string.players)).child(creator.getNickname()).setValue(creator);
 
 
     }

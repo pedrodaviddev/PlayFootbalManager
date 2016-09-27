@@ -13,6 +13,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.data.GroupRepository;
+import com.pedrodavidlp.footballmanager.domain.model.Group;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.domain.repository.PlayersRepo;
 import com.tonilopezmr.interactorexecutor.Executor;
@@ -62,7 +64,9 @@ public class SelectStateUseCase implements Interactor{
             } else {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference reference = database.getReference();
-                reference.child(context.getString(R.string.branch_user)).addListenerForSingleValueEvent(new ValueEventListener() {
+                reference.child(context.getString(R.string.branch_user))
+                        .child(user.getUid()).child(context.getString(R.string.groups))
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     List<String> groups = new ArrayList<>();
@@ -70,6 +74,7 @@ public class SelectStateUseCase implements Interactor{
                                         groups.add(data.getValue(String.class));
                                     }
                                     if (groups.size()>0){
+                                        GroupRepository.currentGroup=new Group(groups.get(0),"");
                                         callback.goToState(NORMAL_USER);
                                     } else {
                                         callback.goToState(NO_GROUP);

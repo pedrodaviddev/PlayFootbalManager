@@ -9,6 +9,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.data.GroupRepository;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;
@@ -38,8 +40,7 @@ public class GetPlayersOnMatchUseCase implements Interactor{
     public void run() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reference = firebaseDatabase.getReference();
-        SharedPreferences preferences = context.getSharedPreferences("preferencesGroup",Context.MODE_PRIVATE);
-        reference.child("group").child(preferences.getString("currentGroup",null)).child("match")
+        reference.child(context.getString(R.string.branch_groups)).child(GroupRepository.currentGroup.getId()).child("match")
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -47,7 +48,6 @@ public class GetPlayersOnMatchUseCase implements Interactor{
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     res.add(data.getValue(Player.class));
                 }
-
                 callback.onListMatchLoaded(res);
             }
 

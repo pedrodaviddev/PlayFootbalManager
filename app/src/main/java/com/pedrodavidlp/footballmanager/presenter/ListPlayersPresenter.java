@@ -40,7 +40,6 @@ public class ListPlayersPresenter implements ListPresenter<Player> {
 
     @Override
     public void loadList() {
-        Log.d(TAG, "loadList: ahora estamos en el loadlist 777");
         getListUseCase.execute(new GetListUseCase.Callback() {
             @Override
             public void onListLoaded(List<Player> list) {

@@ -27,12 +27,13 @@ public class MatchRepository implements MatchRepo {
 
     @Override
     public void join() {
-        SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.preferences_user),Context.MODE_PRIVATE);
-        reference.child(context.getString(R.string.branch_player)).child(context.getString(R.string.groups))
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        reference.child(context.getString(R.string.branch_user)).child(user.getUid()).child("nickname")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                join(dataSnapshot.getValue(String.class));
+                findPlayer(dataSnapshot.getValue(String.class));
             }
 
             @Override
@@ -43,25 +44,22 @@ public class MatchRepository implements MatchRepo {
 
 
     }
-    private void join(final String nickname){
-        final SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.preferences_group),Context.MODE_PRIVATE);
-        reference.child(context.getString(R.string.branch_player)).child(nickname)
+
+    private void findPlayer(final String nick) {
+        reference.child(context.getString(R.string.branch_groups)).child(GroupRepository.currentGroup.getId())
+                .child(context.getString(R.string.players)).child(nick)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                reference.child(context.getString(R.string.branch_groups))
-                        .child(preferences.getString(context.getString(R.string.current_group),null))
-                        .child(context.getString(R.string.match)).child(nickname).setValue(dataSnapshot.getValue(Player.class));
-            }
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        reference.child(context.getString(R.string.branch_groups)).child(GroupRepository.currentGroup.getId())
+                                .child(context.getString(R.string.match)).child(nick).setValue(dataSnapshot.getValue(Player.class));
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
     }
 
-    private Object getActualUser() {
-        return null;
-    }
 }

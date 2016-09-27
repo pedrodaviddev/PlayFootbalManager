@@ -188,4 +188,5 @@
     <string name="match">match</string>
     <string name="groups">groups</string>
     <string name="preferences_user">userPreferences</string>
+    <string name="players">players</string>
 </resources>

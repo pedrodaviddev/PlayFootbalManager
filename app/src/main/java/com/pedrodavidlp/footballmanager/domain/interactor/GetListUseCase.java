@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.data.GroupRepository;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;
@@ -46,9 +47,8 @@ public class GetListUseCase implements Interactor{
     public void run() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
-        SharedPreferences preferences = context.getSharedPreferences("preferencesGroup",Context.MODE_PRIVATE);
 
-        reference.child(context.getString(R.string.branch_groups)).child(preferences.getString("currentGroup",null))
+        reference.child(context.getString(R.string.branch_groups)).child(GroupRepository.currentGroup.getId())
                 .child("players").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
