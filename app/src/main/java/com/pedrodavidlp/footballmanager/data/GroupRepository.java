@@ -24,9 +24,7 @@ public class GroupRepository implements GroupRepo {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reference = firebaseDatabase.getReference();
         reference.child("group").child(group.getId()).child("password").setValue(group.getPassword());
-        for (Player player : group.getPlayers()) {
-            reference.child("group").child(group.getId()).child("players").setValue(player.getNickname());
-        }
+
 
     }
 }

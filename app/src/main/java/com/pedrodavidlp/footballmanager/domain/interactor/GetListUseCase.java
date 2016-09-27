@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;
@@ -44,16 +45,16 @@ public class GetListUseCase implements Interactor{
     @Override
     public void run() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference();
+        final DatabaseReference reference = firebaseDatabase.getReference();
         SharedPreferences preferences = context.getSharedPreferences("preferencesGroup",Context.MODE_PRIVATE);
-        Log.d(TAG, "onDataChange: 777"+preferences.getString("currentGroup","no hay"));
-        reference.child("group").child(preferences.getString("currentGroup",null)).child("players").addValueEventListener(new ValueEventListener() {
+
+        reference.child(context.getString(R.string.branch_groups)).child(preferences.getString("currentGroup",null))
+                .child("players").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Player> res = new ArrayList<>();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     res.add(data.getValue(Player.class));
-                    Log.d(TAG, "onDataChange: 777"+data.getValue(Player.class).getName());
                 }
 
                 callback.onListLoaded(res);

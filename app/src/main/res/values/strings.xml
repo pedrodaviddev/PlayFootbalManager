@@ -184,4 +184,8 @@
     <string name="current_group">currentGroup</string>
     <string name="branch_player">player</string>
     <string name="branch_groups">group</string>
+    <string name="branch_user">user</string>
+    <string name="match">match</string>
+    <string name="groups">groups</string>
+    <string name="preferences_user">userPreferences</string>
 </resources>

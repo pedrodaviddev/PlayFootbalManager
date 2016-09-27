@@ -101,14 +101,21 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
                 if(checkNameAndPasswords()){
                     FirebaseAuth auth = FirebaseAuth.getInstance();
                     FirebaseUser user = auth.getCurrentUser();
-                    List<Player> idsPlayer =new ArrayList<>();
-                    List<String> groups = new ArrayList<>();
-                    groups.add(nameGroup.getText().toString());
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference reference = database.getReference();
-                    idsPlayer.add(new Player(nickname.getText().toString(),user.getDisplayName(),0,false,false));
-                    reference.child(getString(R.string.branch_player)).child(user.getUid()).setValue(idsPlayer.get(0));
-                    presenter.createGroup(new Group(idsPlayer,nameGroup.getText().toString(),passGroup.getText().toString(),null));
+
+                    Player player = new Player(nickname.getText().toString(),user.getDisplayName(),0,false,false);
+
+                    reference.child(getString(R.string.branch_player)).child(player.getNickname()).setValue(player);
+                    reference.child(getString(R.string.branch_user)).child(user.getUid()).setValue(player.getNickname());
+                    List<String> groups = new ArrayList<>();
+                    reference.child(getString(R.string.branch_player))
+                            .child(player.getNickname()).child(getString(R.string.groups)).setValue(groups);
+                    groups.add(nameGroup.getText().toString());
+                    presenter.createGroup(new Group(nameGroup.getText().toString(),passGroup.getText().toString()));
+                    reference.child(getString(R.string.branch_groups))
+                            .child(nameGroup.getText().toString()).child("players")
+                            .child(player.getNickname()).setValue(player);
                     SharedPreferences preferences = getApplicationContext().getSharedPreferences(getString(R.string.preferences_group), Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString(getString(R.string.current_group),nameGroup.getText().toString());

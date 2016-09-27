@@ -19,59 +19,64 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.domain.interactor.SelectStateUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
+import com.pedrodavidlp.footballmanager.presenter.LauncherPresenter;
+import com.pedrodavidlp.footballmanager.view.ViewMode;
+import com.pedrodavidlp.footballmanager.view.executor.MainThreadImp;
+import com.tonilopezmr.interactorexecutor.Executor;
+import com.tonilopezmr.interactorexecutor.MainThread;
+import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LauncherActivity extends AppCompatActivity {
-    private final String TAG = getClass().getSimpleName();
-    private Intent intent;
+public class LauncherActivity extends AppCompatActivity implements ViewMode {
+    private LauncherPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-        View view = findViewById(R.id.trial);
-        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = cm.getActiveNetworkInfo();
 
-        if(info !=null && info.isConnected()){
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            FirebaseUser user = auth.getCurrentUser();
-            if (user == null){
+        MainThread mainThread = new MainThreadImp();
+        Executor executor = new ThreadExecutor();
+        SelectStateUseCase stateUseCase = new SelectStateUseCase(getApplicationContext(),mainThread,executor);
+        presenter = new LauncherPresenter(stateUseCase);
+        presenter.setView(this);
+        presenter.init();
+
+    }
+
+    @Override
+    public void initUi(int mode) {
+        Intent intent=null;
+        switch (mode){
+            case SelectStateUseCase.NO_CONNECTION:
+                Snackbar.make(getWindow().getCurrentFocus(),"No hay conexion a internet",Snackbar.LENGTH_INDEFINITE).show();
+                return;
+            case SelectStateUseCase.NOT_LOGGED:
                 intent = new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference reference = database.getReference();
-                reference.child("player").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<String> groups = new ArrayList<>();
-                        for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            groups.add(data.getValue(String.class));
-                        }
-
-                        if (groups.size() != 0) {
-                            intent = new Intent(getApplicationContext(), MainActivity.class);
-                        } else {
-                            intent = new Intent(getApplicationContext(),JoinGroupActivity.class);
-                        }
-                        startActivity(intent);
-                        finish();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-        } else {
-            Snackbar.make(view.getRootView(),"No hay conexion a internet",Snackbar.LENGTH_INDEFINITE).show();
+                break;
+            case SelectStateUseCase.NO_GROUP:
+                intent = new Intent(getApplicationContext(),JoinGroupActivity.class);
+                break;
+            case SelectStateUseCase.NORMAL_USER:
+                intent = new Intent(getApplicationContext(),MainActivity.class);
+                break;
         }
+        startActivity(intent);
+        finish();
+
+    }
+
+    @Override
+    public void initUi() {
+
+    }
+
+    @Override
+    public void error(Exception e) {
 
     }
 }

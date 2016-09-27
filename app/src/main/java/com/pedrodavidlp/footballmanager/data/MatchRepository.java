@@ -16,24 +16,23 @@ import com.pedrodavidlp.footballmanager.domain.repository.MatchRepo;
 
 public class MatchRepository implements MatchRepo {
     private Context context;
+    private DatabaseReference reference;
+    FirebaseDatabase firebaseDatabase;
 
     public MatchRepository(Context context) {
         this.context = context;
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        reference = firebaseDatabase.getReference();
     }
 
     @Override
     public void join() {
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = firebaseDatabase.getReference();
-        final SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.preferences_group),Context.MODE_PRIVATE);
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        final FirebaseUser user = auth.getCurrentUser();
-        reference.child("player").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.preferences_user),Context.MODE_PRIVATE);
+        reference.child(context.getString(R.string.branch_player)).child(context.getString(R.string.groups))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                reference.child(context.getString(R.string.branch_groups))
-                        .child(preferences.getString(context.getString(R.string.current_group),null))
-                        .child("match").child(user.getUid()).setValue((dataSnapshot.getValue(Player.class)).getNickname());
+                join(dataSnapshot.getValue(String.class));
             }
 
             @Override
@@ -43,6 +42,23 @@ public class MatchRepository implements MatchRepo {
         });
 
 
+    }
+    private void join(final String nickname){
+        final SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.preferences_group),Context.MODE_PRIVATE);
+        reference.child(context.getString(R.string.branch_player)).child(nickname)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                reference.child(context.getString(R.string.branch_groups))
+                        .child(preferences.getString(context.getString(R.string.current_group),null))
+                        .child(context.getString(R.string.match)).child(nickname).setValue(dataSnapshot.getValue(Player.class));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private Object getActualUser() {
