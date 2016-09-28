@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (tabId){
                     case R.id.tab_match:
                         setFragment(0);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        if  (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                             rootView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.backgroundMatchTab));
                         }else {
                             rootView.setBackgroundColor(getResources().getColor(R.color.backgroundMatchTab));

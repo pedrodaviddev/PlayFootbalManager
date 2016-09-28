@@ -29,8 +29,6 @@ public class ChangeMatchUseCase implements Interactor {
     public void run() {
         try {
             repository.change();
-
-
         } catch (Exception e) {
             callback.onError(e);
             e.printStackTrace();

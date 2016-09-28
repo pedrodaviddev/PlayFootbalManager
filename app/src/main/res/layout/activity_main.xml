@@ -81,8 +81,8 @@
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         app:bb_tabXmlResource="@xml/bottom_tabs"
-        app:bb_behavior="shifting|underNavbar" />
+        app:bb_behavior="underNavbar" />
 </RelativeLayout>

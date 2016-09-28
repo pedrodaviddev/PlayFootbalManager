@@ -2,11 +2,15 @@ package com.pedrodavidlp.footballmanager.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.domain.model.Group;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
@@ -16,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupRepository implements GroupRepo {
+    private final String TAG = getClass().getSimpleName();
     public static Group currentGroup;
     private Context context;
 
@@ -49,6 +54,29 @@ public class GroupRepository implements GroupRepo {
 
     @Override
     public void create(Group group, Player creator) {
+        checkIfExist(group,creator);
+    }
+
+    private void checkIfExist(Group group, Player creator) {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference = firebaseDatabase.getReference();
+        reference.child(context.getString(R.string.branch_groups)).child(group.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "onDataChange: "+dataSnapshot+" "+dataSnapshot.exists()+dataSnapshot.getChildren());
+                if (dataSnapshot.exists()){
+                    throw new IllegalArgumentException();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void createGroup(Group group,Player creator){
         currentGroup = group;
         UserRepository.currentNickname=creator.getNickname();
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -56,6 +84,7 @@ public class GroupRepository implements GroupRepo {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reference = firebaseDatabase.getReference();
+
 
         List<String> groupsID = new ArrayList<>();
         groupsID.add(group.getId());
@@ -66,8 +95,6 @@ public class GroupRepository implements GroupRepo {
         reference.child(context.getString(R.string.branch_groups)).child(group.getId()).setValue(group);
         reference.child(context.getString(R.string.branch_groups)).child(group.getId())
                 .child(context.getString(R.string.players)).child(creator.getNickname()).setValue(creator);
-
-
     }
 
     @Override

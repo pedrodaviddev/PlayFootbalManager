@@ -19,6 +19,8 @@ import java.util.List;
 public class CreateGroupUseCase implements Interactor {
     public interface Callback{
         void onSuccesfulCreated();
+        void nameTaken();
+        void nickTaken();
         void onError(Exception e);
     }
 
@@ -39,10 +41,9 @@ public class CreateGroupUseCase implements Interactor {
     public void run() {
         try {
             repository.create(group,creator);
-            callback.onSuccesfulCreated();
-        } catch (Exception e) {
-            callback.onError(e);
-            e.printStackTrace();
+           // callback.onSuccesfulCreated();
+        } catch (IllegalArgumentException e) {
+            callback.nickTaken();
         }
 
     }

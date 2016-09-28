@@ -18,7 +18,6 @@ import java.util.List;
 
 
 public class PlayersOnMatchAdapter extends RecyclerView.Adapter<PlayersOnMatchAdapter.PlayersOnMatchHolder> {
-    private final String TAG = getClass().getSimpleName();
     private List<Player> players;
     private Context context;
 
@@ -46,10 +45,9 @@ public class PlayersOnMatchAdapter extends RecyclerView.Adapter<PlayersOnMatchAd
 
                 builder.setContentTitle("Se han unido al partidoooo");
                 builder.setContentText(list.get(0).getNickname() + "se ha unido.");
-                Log.d(TAG, "buildNotification: "+list.get(0).getNickname() + "se ha unido.");
             }
         }
-        builder.setSmallIcon(R.drawable.player_icon);
+        builder.setSmallIcon(R.drawable.icon_play);
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(123123,builder.build());

@@ -39,6 +39,16 @@ public class GroupPresenter implements Presenter<ViewQuery<Group>> {
             }
 
             @Override
+            public void nameTaken() {
+                view.groupNameTaken();
+            }
+
+            @Override
+            public void nickTaken() {
+                view.nickNameTaken();
+            }
+
+            @Override
             public void onError(Exception e) {
                 view.error(e);
             }

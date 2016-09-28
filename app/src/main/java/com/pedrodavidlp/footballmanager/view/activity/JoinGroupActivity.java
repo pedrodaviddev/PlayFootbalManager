@@ -23,6 +23,8 @@ import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 
+import org.w3c.dom.Text;
+
 public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Group> {
     private Button buttonCreate;
     private Button buttonJoin;
@@ -31,7 +33,10 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
     private TextInputEditText passGroup;
     private TextInputEditText confirmpassGroup;
     private TextInputEditText nickname;
+    private TextInputLayout passGroupLayout;
     private TextInputLayout confirmPassGroupLayout;
+    private TextInputLayout nicknameLayout;
+    private TextInputLayout nameGroupLayout;
     private GroupPresenter presenter;
 
     @Override
@@ -59,7 +64,10 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
         passGroup = (TextInputEditText) findViewById(R.id.passwordGroupInput);
         confirmpassGroup = (TextInputEditText) findViewById(R.id.confirmPasswordInput);
         confirmPassGroupLayout = (TextInputLayout) findViewById(R.id.confirmPasswordInputLayout);
+        passGroupLayout = (TextInputLayout) findViewById(R.id.passwordGroupInputLayout);
         nickname = (TextInputEditText) findViewById(R.id.nicknameInput);
+        nicknameLayout = (TextInputLayout) findViewById(R.id.nicknameInputLayout);
+        nameGroupLayout = (TextInputLayout) findViewById(R.id.nameGroupInputLayout);
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,17 +109,21 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkNameAndPasswords()){
+                if(checkPassword()){
                     presenter.createGroup(new Group(nameGroup.getText().toString(),passGroup.getText().toString()),
                                             new Player(nickname.getText().toString(),0,false,false));
+                } else {
+                    passGroupLayout.setError("Las contraseñas no coinciden");
+                    confirmpassGroup.getText().clear();
+                    passGroup.getText().clear();
                 }
             }
         });
         buttonCreate.setText("Crear!");
     }
 
-    private boolean checkNameAndPasswords() {
-        return true;
+    private boolean checkPassword() {
+        return passGroup.getText().toString().equals(confirmpassGroup.getText().toString());
     }
 
     @Override
@@ -123,6 +135,25 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
     @Override
     public void successfulSearch(Group group) {
 
+    }
+
+    @Override
+    public void nickNameTaken() {
+        nicknameLayout.setError("El nombre de usuario ya existe");
+        confirmpassGroup.getText().clear();
+        passGroup.getText().clear();
+    }
+
+    @Override
+    public void groupNotExist() {
+
+    }
+
+    @Override
+    public void groupNameTaken() {
+        nicknameLayout.setError("El nombre del grupo ya existe");
+        confirmpassGroup.getText().clear();
+        passGroup.getText().clear();
     }
 
 
