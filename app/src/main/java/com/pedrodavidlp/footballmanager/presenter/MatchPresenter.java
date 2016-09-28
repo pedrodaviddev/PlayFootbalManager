@@ -1,7 +1,7 @@
 package com.pedrodavidlp.footballmanager.presenter;
 
 import com.pedrodavidlp.footballmanager.domain.interactor.GetPlayersOnMatchUseCase;
-import com.pedrodavidlp.footballmanager.domain.interactor.JoinMatchUseCase;
+import com.pedrodavidlp.footballmanager.domain.interactor.ChangeMatchUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.presenter.common.ListPresenter;
 import com.pedrodavidlp.footballmanager.view.ViewList;
@@ -10,12 +10,12 @@ import java.util.List;
 
 public class MatchPresenter implements ListPresenter<Player> {
     private GetPlayersOnMatchUseCase playersOnMatchUseCase;
-    private JoinMatchUseCase joinMatchUseCase;
+    private ChangeMatchUseCase changeMatchUseCase;
     private  ViewList<Player> view;
 
-    public MatchPresenter(GetPlayersOnMatchUseCase playersOnMatchUseCase, JoinMatchUseCase joinMatchUseCase) {
+    public MatchPresenter(GetPlayersOnMatchUseCase playersOnMatchUseCase, ChangeMatchUseCase changeMatchUseCase) {
         this.playersOnMatchUseCase = playersOnMatchUseCase;
-        this.joinMatchUseCase = joinMatchUseCase;
+        this.changeMatchUseCase = changeMatchUseCase;
     }
 
     @Override
@@ -48,10 +48,13 @@ public class MatchPresenter implements ListPresenter<Player> {
         });
     }
 
-    public void joinMatch(){
-        joinMatchUseCase.execute(new JoinMatchUseCase.Callback() {
+    public void changeMatch(){
+        changeMatchUseCase.execute(new ChangeMatchUseCase.Callback() {
             @Override
-            public void onSuccesfulJoin() {
+            public void hasJoined() {
+
+            }
+            public void hasLeft(){
 
             }
 

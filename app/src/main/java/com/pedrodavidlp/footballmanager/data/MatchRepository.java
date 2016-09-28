@@ -25,15 +25,20 @@ public class MatchRepository implements MatchRepo {
         reference = firebaseDatabase.getReference();
     }
 
+
+
     @Override
-    public void join() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        reference.child(context.getString(R.string.branch_user)).child(user.getUid()).child("nickname")
+    public void change() {
+        reference.child(context.getString(R.string.branch_groups)).child(GroupRepository.currentGroup.getId())
+                .child(context.getString(R.string.match)).child(UserRepository.currentNickname)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                findPlayer(dataSnapshot.getValue(String.class));
+                if (dataSnapshot.hasChildren()){
+                    leave();
+                } else {
+                    join();
+                }
             }
 
             @Override
@@ -41,18 +46,18 @@ public class MatchRepository implements MatchRepo {
 
             }
         });
-
-
     }
 
-    private void findPlayer(final String nick) {
+    @Override
+    public void join() {
         reference.child(context.getString(R.string.branch_groups)).child(GroupRepository.currentGroup.getId())
-                .child(context.getString(R.string.players)).child(nick)
+                .child(context.getString(R.string.players)).child(UserRepository.currentNickname)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         reference.child(context.getString(R.string.branch_groups)).child(GroupRepository.currentGroup.getId())
-                                .child(context.getString(R.string.match)).child(nick).setValue(dataSnapshot.getValue(Player.class));
+                                .child(context.getString(R.string.match)).child(UserRepository.currentNickname)
+                                .setValue(dataSnapshot.getValue(Player.class));
                     }
 
                     @Override
@@ -60,6 +65,11 @@ public class MatchRepository implements MatchRepo {
 
                     }
                 });
+    }
+
+    private void leave() {
+        reference.child(context.getString(R.string.branch_groups)).child(GroupRepository.currentGroup.getId())
+                .child(context.getString(R.string.match)).child(UserRepository.currentNickname).removeValue();
     }
 
 }

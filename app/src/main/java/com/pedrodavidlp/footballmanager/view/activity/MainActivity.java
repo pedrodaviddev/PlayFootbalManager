@@ -4,18 +4,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.IdRes;
 import android.widget.RelativeLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.github.clans.fab.FloatingActionMenu;
 import com.pedrodavidlp.footballmanager.R;
-import com.pedrodavidlp.footballmanager.presenter.ListPlayersPresenter;
 import com.pedrodavidlp.footballmanager.view.fragment.ListPlayersFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.MatchFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.PayFragment;
@@ -51,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MatchFragment matchFragment =(MatchFragment) getSupportFragmentManager().findFragmentByTag("FRAGMENT_MATCH");
-                matchFragment.joinMatch();
+                matchFragment.changeStateMatch();
             }
         });
 

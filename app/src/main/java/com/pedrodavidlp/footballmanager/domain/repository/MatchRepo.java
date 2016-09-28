@@ -5,4 +5,6 @@ import com.pedrodavidlp.footballmanager.domain.repository.common.Repository;
 
 public interface MatchRepo {
     void join();
+
+    void change();
 }

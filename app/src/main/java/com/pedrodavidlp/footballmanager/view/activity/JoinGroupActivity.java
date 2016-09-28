@@ -2,6 +2,7 @@ package com.pedrodavidlp.footballmanager.view.activity;
 
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.data.GroupRepository;
 import com.pedrodavidlp.footballmanager.domain.interactor.CreateGroupUseCase;
+import com.pedrodavidlp.footballmanager.domain.interactor.JoinGroupUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Group;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.domain.repository.GroupRepo;
@@ -29,6 +31,7 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
     private TextInputEditText passGroup;
     private TextInputEditText confirmpassGroup;
     private TextInputEditText nickname;
+    private TextInputLayout confirmPassGroupLayout;
     private GroupPresenter presenter;
 
     @Override
@@ -40,8 +43,8 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
         MainThread mainThread = new MainThreadImp();
         GroupRepo repository = new GroupRepository(getApplicationContext());
         CreateGroupUseCase createGroupUseCase = new CreateGroupUseCase(mainThread,executor,repository);
-
-        presenter = new GroupPresenter(createGroupUseCase);
+        JoinGroupUseCase joinGroupUseCase = new JoinGroupUseCase(mainThread,executor,repository);
+        presenter = new GroupPresenter(createGroupUseCase,joinGroupUseCase);
 
         presenter.setView(this);
         presenter.init();
@@ -55,6 +58,7 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
         nameGroup = (TextInputEditText) findViewById(R.id.nameGroupInput);
         passGroup = (TextInputEditText) findViewById(R.id.passwordGroupInput);
         confirmpassGroup = (TextInputEditText) findViewById(R.id.confirmPasswordInput);
+        confirmPassGroupLayout = (TextInputLayout) findViewById(R.id.confirmPasswordInputLayout);
         nickname = (TextInputEditText) findViewById(R.id.nicknameInput);
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +75,20 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
     }
 
     private void showJoinUi() {
+        containerInputs.setVisibility(View.VISIBLE);
+        buttonCreate.setVisibility(View.GONE);
+        nickname.setHint("Elige tu nick");
+        nameGroup.setHint("Nombre de tu grupo");
+        passGroup.setHint("Pon una contraseña");
+        confirmPassGroupLayout.setVisibility(View.GONE);
+        buttonJoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.joinGroup(
+                        new Group(nameGroup.getText().toString(),passGroup.getText().toString()),
+                        new Player(nickname.getText().toString(),0,false,false));
+            }
+        });
 
     }
 

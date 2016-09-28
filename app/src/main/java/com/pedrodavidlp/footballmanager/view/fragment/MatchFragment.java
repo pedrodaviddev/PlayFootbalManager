@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.data.MatchRepository;
 import com.pedrodavidlp.footballmanager.domain.interactor.GetPlayersOnMatchUseCase;
-import com.pedrodavidlp.footballmanager.domain.interactor.JoinMatchUseCase;
+import com.pedrodavidlp.footballmanager.domain.interactor.ChangeMatchUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.domain.repository.MatchRepo;
 import com.pedrodavidlp.footballmanager.presenter.MatchPresenter;
@@ -25,9 +25,6 @@ import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 
 import java.util.List;
 
-/**
- * Created by PedroDavidLP on 14/9/16.
- */
 public class MatchFragment extends Fragment implements ViewList<Player>{
     private RecyclerView playersOnMatch;
     private PlayersOnMatchAdapter adapter;
@@ -43,8 +40,8 @@ public class MatchFragment extends Fragment implements ViewList<Player>{
         Executor executor = new ThreadExecutor();
         MatchRepo repository = new MatchRepository(getContext());
         GetPlayersOnMatchUseCase playersOnMatchUseCase = new GetPlayersOnMatchUseCase(mainThread,executor,getContext());
-        JoinMatchUseCase joinMatchUseCase = new JoinMatchUseCase(mainThread,executor,repository);
-        presenter = new MatchPresenter(playersOnMatchUseCase,joinMatchUseCase);
+        ChangeMatchUseCase changeMatchUseCase = new ChangeMatchUseCase(mainThread,executor,repository);
+        presenter = new MatchPresenter(playersOnMatchUseCase, changeMatchUseCase);
         presenter.setView(this);
         presenter.init();
         return rootView;
@@ -69,7 +66,7 @@ public class MatchFragment extends Fragment implements ViewList<Player>{
 
     }
 
-    public void joinMatch() {
-        presenter.joinMatch();
+    public void changeStateMatch() {
+        presenter.changeMatch();
     }
 }

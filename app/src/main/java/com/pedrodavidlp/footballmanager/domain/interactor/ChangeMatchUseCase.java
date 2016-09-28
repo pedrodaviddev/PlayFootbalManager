@@ -7,9 +7,10 @@ import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 
-public class JoinMatchUseCase implements Interactor {
+public class ChangeMatchUseCase implements Interactor {
     public interface Callback{
-        void onSuccesfulJoin();
+        void hasJoined();
+        void hasLeft();
         void onError(Exception e);
     }
 
@@ -18,7 +19,7 @@ public class JoinMatchUseCase implements Interactor {
     private Executor executor;
     private MatchRepo repository;
 
-    public JoinMatchUseCase(MainThread mainThread, Executor executor, MatchRepo repository) {
+    public ChangeMatchUseCase(MainThread mainThread, Executor executor, MatchRepo repository) {
         this.mainThread = mainThread;
         this.executor = executor;
         this.repository = repository;
@@ -27,8 +28,9 @@ public class JoinMatchUseCase implements Interactor {
     @Override
     public void run() {
         try {
-            repository.join();
-            callback.onSuccesfulJoin();
+            repository.change();
+
+
         } catch (Exception e) {
             callback.onError(e);
             e.printStackTrace();

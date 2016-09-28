@@ -5,6 +5,6 @@ import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.domain.repository.common.Repository;
 
 public interface GroupRepo extends Repository<Group> {
-    void join();
+    void join(Group group,Player toJoin);
     void create(Group group,Player creator);
 }

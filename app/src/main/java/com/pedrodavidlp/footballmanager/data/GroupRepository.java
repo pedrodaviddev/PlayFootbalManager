@@ -24,13 +24,33 @@ public class GroupRepository implements GroupRepo {
     }
 
     @Override
-    public void join() {
+    public void join(Group group,Player toJoin) {
+        currentGroup = group;
+        UserRepository.currentNickname=toJoin.getNickname();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference = firebaseDatabase.getReference();
+
+
+        List<String> groupsID = new ArrayList<>();
+        groupsID.add(group.getId());
+
+        reference.child(context.getString(R.string.branch_user)).child(user.getUid()).child("nickname").setValue(toJoin.getNickname());
+        reference.child(context.getString(R.string.branch_user)).child(user.getUid())
+                .child(context.getString(R.string.groups)).setValue(groupsID);
+        reference.child(context.getString(R.string.branch_groups)).child(group.getId())
+                .child(context.getString(R.string.players)).child(toJoin.getNickname()).setValue(toJoin);
+
+
 
     }
 
     @Override
     public void create(Group group, Player creator) {
         currentGroup = group;
+        UserRepository.currentNickname=creator.getNickname();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
 

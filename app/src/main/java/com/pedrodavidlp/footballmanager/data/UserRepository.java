@@ -12,9 +12,11 @@ import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.domain.repository.UserRepo;
 
 public class UserRepository implements UserRepo {
+    public static String currentNickname;
 
     @Override
     public void add(Object o) {
 
     }
+
 }
