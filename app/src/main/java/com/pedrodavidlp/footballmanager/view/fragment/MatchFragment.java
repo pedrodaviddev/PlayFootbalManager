@@ -56,7 +56,7 @@ public class MatchFragment extends Fragment implements ViewList<Player>{
 
     @Override
     public void initUi() {
-        adapter = new PlayersOnMatchAdapter();
+        adapter = new PlayersOnMatchAdapter(getContext());
         playersOnMatch.setAdapter(adapter);
         playersOnMatch.setLayoutManager(new LinearLayoutManager(getContext()));
     }
