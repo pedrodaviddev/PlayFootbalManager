@@ -182,11 +182,11 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="preferences_group">preferencesGroup</string>
     <string name="current_group">currentGroup</string>
-    <string name="branch_player">player</string>
     <string name="branch_groups">group</string>
     <string name="branch_user">user</string>
     <string name="match">match</string>
     <string name="groups">groups</string>
     <string name="preferences_user">userPreferences</string>
     <string name="players">players</string>
+    <string name="branch_nickname">nickname</string>
 </resources>

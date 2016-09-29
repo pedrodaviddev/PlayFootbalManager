@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.domain.interactor.CreateGroupUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Group;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.domain.repository.GroupRepo;
@@ -43,6 +44,7 @@ public class GroupRepository implements GroupRepo {
         groupsID.add(group.getId());
 
         reference.child(context.getString(R.string.branch_user)).child(user.getUid()).child("nickname").setValue(toJoin.getNickname());
+        reference.child(context.getString(R.string.branch_nickname)).child(toJoin.getNickname()).setValue(toJoin.getSkill());
         reference.child(context.getString(R.string.branch_user)).child(user.getUid())
                 .child(context.getString(R.string.groups)).setValue(groupsID);
         reference.child(context.getString(R.string.branch_groups)).child(group.getId())
@@ -53,11 +55,11 @@ public class GroupRepository implements GroupRepo {
     }
 
     @Override
-    public void create(Group group, Player creator) {
-        checkIfExist(group,creator);
+    public void create(Group group, Player creator, CreateGroupUseCase.Callback callback) {
+        checkIfExist(group,creator,callback);
     }
 
-    private void checkIfExist(Group group, Player creator) {
+    private void checkIfExist(final Group group, final Player creator, final CreateGroupUseCase.Callback callback) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reference = firebaseDatabase.getReference();
         reference.child(context.getString(R.string.branch_groups)).child(group.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -65,7 +67,9 @@ public class GroupRepository implements GroupRepo {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d(TAG, "onDataChange: "+dataSnapshot+" "+dataSnapshot.exists()+dataSnapshot.getChildren());
                 if (dataSnapshot.exists()){
-                    throw new IllegalArgumentException();
+                   callback.nameTaken();
+                } else {
+                    checkNickname(group,creator,callback);
                 }
             }
 
@@ -76,7 +80,28 @@ public class GroupRepository implements GroupRepo {
         });
     }
 
-    private void createGroup(Group group,Player creator){
+    private void checkNickname(final Group group, final Player creator, final CreateGroupUseCase.Callback callback) {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference = firebaseDatabase.getReference();
+        reference.child(context.getString(R.string.branch_nickname)).child(creator.getNickname())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    callback.nickTaken();
+                } else {
+                    createGroup(group,creator,callback);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void createGroup(Group group, Player creator, CreateGroupUseCase.Callback callback){
         currentGroup = group;
         UserRepository.currentNickname=creator.getNickname();
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -91,10 +116,12 @@ public class GroupRepository implements GroupRepo {
         reference.child(context.getString(R.string.branch_user)).child(user.getUid()).child("nickname").setValue(creator.getNickname());
         reference.child(context.getString(R.string.branch_user)).child(user.getUid())
                 .child(context.getString(R.string.groups)).setValue(groupsID);
+        reference.child(context.getString(R.string.branch_nickname)).child(creator.getNickname()).setValue(creator.getSkill());
         reference.child("group").child(group.getId()).child("password").setValue(group.getPassword());
         reference.child(context.getString(R.string.branch_groups)).child(group.getId()).setValue(group);
         reference.child(context.getString(R.string.branch_groups)).child(group.getId())
                 .child(context.getString(R.string.players)).child(creator.getNickname()).setValue(creator);
+        callback.onSuccesfulCreated();
     }
 
     @Override

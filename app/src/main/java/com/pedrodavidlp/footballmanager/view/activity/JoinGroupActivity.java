@@ -109,6 +109,8 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                nicknameLayout.setError(null);
+                nameGroupLayout.setError(null);
                 if(checkPassword()){
                     presenter.createGroup(new Group(nameGroup.getText().toString(),passGroup.getText().toString()),
                                             new Player(nickname.getText().toString(),0,false,false));
@@ -151,7 +153,7 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
 
     @Override
     public void groupNameTaken() {
-        nicknameLayout.setError("El nombre del grupo ya existe");
+        nameGroupLayout.setError("El nombre del grupo ya existe");
         confirmpassGroup.getText().clear();
         passGroup.getText().clear();
     }

@@ -40,10 +40,9 @@ public class CreateGroupUseCase implements Interactor {
     @Override
     public void run() {
         try {
-            repository.create(group,creator);
-           // callback.onSuccesfulCreated();
-        } catch (IllegalArgumentException e) {
-            callback.nickTaken();
+            repository.create(group,creator,callback);
+        } catch (Exception e) {
+            callback.onError(e);
         }
 
     }
