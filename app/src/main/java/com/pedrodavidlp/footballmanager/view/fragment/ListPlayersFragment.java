@@ -58,9 +58,9 @@ public class ListPlayersFragment extends Fragment implements ViewList<Player>,Li
     @Override
     public void loadList(List<Player> list) {
         adapter.setData(list);
+        adapter.notifyDataSetChanged();
         listPlayers.setVisibility(View.VISIBLE);
         loading.hide();
-        adapter.notifyDataSetChanged();
     }
 
     @Override

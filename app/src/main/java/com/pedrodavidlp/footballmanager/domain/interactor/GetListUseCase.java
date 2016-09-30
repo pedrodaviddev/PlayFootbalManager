@@ -56,7 +56,10 @@ public class GetListUseCase implements Interactor{
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     res.add(data.getValue(Player.class));
                 }
-
+                for (Player player : res) {
+                    Log.d(TAG, "onDataChange: "+player.getNickname());
+                    Log.d(TAG, "onDataChange: "+res.size());
+                }
                 callback.onListLoaded(res);
             }
 

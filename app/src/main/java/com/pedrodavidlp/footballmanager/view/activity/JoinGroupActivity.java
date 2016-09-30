@@ -38,6 +38,7 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
     private TextInputLayout nicknameLayout;
     private TextInputLayout nameGroupLayout;
     private GroupPresenter presenter;
+    private boolean admin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
 
     @Override
     public void initUi() {
+        admin = false;
         buttonCreate = (Button) findViewById(R.id.createGroupButton);
         buttonJoin = (Button) findViewById(R.id.joinGroupButton);
         containerInputs = (LinearLayout) findViewById(R.id.containerInputsGroup);
@@ -92,6 +94,7 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
         buttonJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                admin = false;
                 presenter.joinGroup(
                         new Group(nameGroup.getText().toString(),passGroup.getText().toString()),
                         new Player(nickname.getText().toString(),0,false,false));
@@ -112,6 +115,7 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
                 nicknameLayout.setError(null);
                 nameGroupLayout.setError(null);
                 if(checkPassword()){
+                    admin = true;
                     presenter.createGroup(new Group(nameGroup.getText().toString(),passGroup.getText().toString()),
                                             new Player(nickname.getText().toString(),0,false,false));
                 } else {
@@ -130,7 +134,9 @@ public class JoinGroupActivity extends AppCompatActivity implements ViewQuery<Gr
 
     @Override
     public void successfulAccess() {
-        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        intent.putExtra("admin",admin);
+        startActivity(intent);
         finish();
     }
 

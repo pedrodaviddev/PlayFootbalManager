@@ -35,6 +35,12 @@ public class MainActivity extends AppCompatActivity {
         fabOptions=(FloatingActionMenu) findViewById(R.id.fabOptions);
         rootView = (RelativeLayout) findViewById(R.id.rootActivity);
         bottomBar=(BottomBar)findViewById(R.id.bottomBar);
+
+        if(getIntent().getBooleanExtra("admin",false)){
+            bottomBar.getTabAtPosition(3).setVisibility(View.GONE);
+        } else {
+            bottomBar.getTabAtPosition(3).setVisibility(View.VISIBLE);
+        }
         addActionMenu=(com.github.clans.fab.FloatingActionButton)findViewById(R.id.addActionMenu);
         addActionMenu.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -15,4 +15,11 @@
         icon="@drawable/icon_people"
         title="Lista"
         barColorWhenSelected="@color/colorListTab"/>
+    <tab
+        id="@+id/tab_pay"
+        icon="@drawable/icon_pay"
+        title="Pagos"
+        barColorWhenSelected="@color/colorPayTab"
+        visible="false"
+        />
 </tabs>

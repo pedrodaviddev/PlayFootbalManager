@@ -61,6 +61,10 @@ public class SelectStateUseCase implements Interactor{
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseUser user = auth.getCurrentUser();
             if(user == null){
+                int i =0;
+                while(i<Integer.MAX_VALUE){
+                    i++;
+                }
                 callback.goToState(NOT_LOGGED);
             } else {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();

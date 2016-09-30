@@ -8,8 +8,10 @@ import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,12 +35,14 @@ import java.util.List;
 
 public class LauncherActivity extends AppCompatActivity implements ViewMode {
     private LauncherPresenter presenter;
+    private AppCompatImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-
+        imageView = (AppCompatImageView) findViewById(R.id.image_loading);
+        imageView.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate));
         MainThread mainThread = new MainThreadImp();
         Executor executor = new ThreadExecutor();
         SelectStateUseCase stateUseCase = new SelectStateUseCase(getApplicationContext(),mainThread,executor);
@@ -63,6 +67,7 @@ public class LauncherActivity extends AppCompatActivity implements ViewMode {
                 break;
             case SelectStateUseCase.NORMAL_USER:
                 intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.putExtra("admin",false);
                 break;
         }
         startActivity(intent);
