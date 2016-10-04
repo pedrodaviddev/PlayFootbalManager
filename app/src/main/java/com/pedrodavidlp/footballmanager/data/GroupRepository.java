@@ -69,27 +69,6 @@ public class GroupRepository implements GroupRepo {
                 if (dataSnapshot.exists()){
                    callback.nameTaken();
                 } else {
-                    checkNickname(group,creator,callback);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void checkNickname(final Group group, final Player creator, final CreateGroupUseCase.Callback callback) {
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference();
-        reference.child(context.getString(R.string.branch_nickname)).child(creator.getNickname())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    callback.nickTaken();
-                } else {
                     createGroup(group,creator,callback);
                 }
             }
@@ -113,7 +92,6 @@ public class GroupRepository implements GroupRepo {
 
         List<String> groupsID = new ArrayList<>();
         groupsID.add(group.getId());
-        reference.child(context.getString(R.string.branch_user)).child(user.getUid()).child("nickname").setValue(creator.getNickname());
         reference.child(context.getString(R.string.branch_user)).child(user.getUid())
                 .child(context.getString(R.string.groups)).setValue(groupsID);
         reference.child(context.getString(R.string.branch_nickname)).child(creator.getNickname()).setValue(creator.getSkill());

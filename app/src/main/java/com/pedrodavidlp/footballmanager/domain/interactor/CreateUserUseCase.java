@@ -1,26 +1,23 @@
 package com.pedrodavidlp.footballmanager.domain.interactor;
-
-import com.pedrodavidlp.footballmanager.data.UserRepository;
-import com.pedrodavidlp.footballmanager.domain.model.Player;
-import com.pedrodavidlp.footballmanager.domain.repository.PlayersRepo;
 import com.pedrodavidlp.footballmanager.domain.repository.UserRepo;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 
-public class JoinUserUseCase implements Interactor {
+public class CreateUserUseCase implements Interactor {
     public interface Callback{
-        void onSuccesfulJoin();
+        void onSuccesfulCreated();
+        void nickTaken();
         void onError(Exception e);
     }
 
-    private AddPlayerUseCase.Callback callback;
+    private Callback callback;
     private MainThread mainThread;
     private Executor executor;
-    private Player player;
     private UserRepo repository;
+    private String nickname;
 
-    public JoinUserUseCase(MainThread mainThread, Executor executor, UserRepo repository) {
+    public CreateUserUseCase(MainThread mainThread, Executor executor, UserRepo repository) {
         this.mainThread = mainThread;
         this.executor = executor;
         this.repository = repository;
@@ -29,22 +26,19 @@ public class JoinUserUseCase implements Interactor {
     @Override
     public void run() {
         try {
-           // repository.add(player);
-            callback.onSuccesfulAdded();
+            repository.add(nickname,callback);
         } catch (Exception e) {
             callback.onError(e);
-            e.printStackTrace();
         }
 
     }
 
-    public void execute(final AddPlayerUseCase.Callback callback, Player player){
+    public void execute(final Callback callback,String nickname){
         if(callback == null){
             throw new IllegalArgumentException("CALLBACK CANT BE NULL");
         }
         this.callback = callback;
-        this.player = player;
+        this.nickname = nickname;
         this.executor.run(this);
     }
-
 }

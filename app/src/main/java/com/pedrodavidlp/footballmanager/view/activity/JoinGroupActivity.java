@@ -3,6 +3,7 @@ package com.pedrodavidlp.footballmanager.view.activity;
 import android.content.Intent;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentManager;
@@ -37,15 +38,17 @@ import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 import org.w3c.dom.Text;
 
 public class JoinGroupActivity extends AppCompatActivity{
+    FloatingActionButton fab;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_group);
-
+        fab = (FloatingActionButton) findViewById(R.id.registerFab);
         setFragment(0);
     }
 
-    private void setFragment(int pos) {
+    public void setFragment(int pos) {
         FragmentManager manager;
         FragmentTransaction transaction;
         switch (pos) {
@@ -79,5 +82,8 @@ public class JoinGroupActivity extends AppCompatActivity{
                 break;
 
         }
+    }
+    public void setListenerToFab(View.OnClickListener listener){
+        fab.setOnClickListener(listener);
     }
 }

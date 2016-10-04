@@ -1,18 +1,21 @@
 package com.pedrodavidlp.footballmanager.presenter;
 
+import android.support.annotation.Nullable;
+
 import com.pedrodavidlp.footballmanager.domain.interactor.CreateGroupUseCase;
 import com.pedrodavidlp.footballmanager.domain.interactor.JoinGroupUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Group;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.presenter.common.Presenter;
 import com.pedrodavidlp.footballmanager.view.ViewQuery;
+import com.pedrodavidlp.footballmanager.view.ViewTry;
 
-public class GroupPresenter implements Presenter<ViewQuery<Group>> {
+public class GroupPresenter implements Presenter<ViewTry> {
     private CreateGroupUseCase createUseCase;
     private JoinGroupUseCase joinUseCase;
-    private ViewQuery<Group> view;
+    private  ViewTry view;
 
-    public GroupPresenter(CreateGroupUseCase createUseCase, JoinGroupUseCase joinUseCase) {
+    public GroupPresenter(@Nullable CreateGroupUseCase createUseCase, @Nullable JoinGroupUseCase joinUseCase) {
         this.createUseCase = createUseCase;
         this.joinUseCase = joinUseCase;
     }
@@ -23,7 +26,7 @@ public class GroupPresenter implements Presenter<ViewQuery<Group>> {
     }
 
     @Override
-    public void setView(ViewQuery<Group> view) {
+    public void setView(ViewTry view) {
         if (view == null){
             throw new IllegalArgumentException("Error setting view");
         }
@@ -35,17 +38,12 @@ public class GroupPresenter implements Presenter<ViewQuery<Group>> {
         createUseCase.execute(new CreateGroupUseCase.Callback() {
             @Override
             public void onSuccesfulCreated() {
-                view.successfulAccess();
+                view.succeed();
             }
 
             @Override
             public void nameTaken() {
-                view.groupNameTaken();
-            }
-
-            @Override
-            public void nickTaken() {
-                view.nickNameTaken();
+                view.failed();
             }
 
             @Override
@@ -60,7 +58,7 @@ public class GroupPresenter implements Presenter<ViewQuery<Group>> {
         joinUseCase.execute(new JoinGroupUseCase.Callback() {
             @Override
             public void onSuccesfulJoin() {
-                view.successfulAccess();
+                view.succeed();
             }
 
             @Override

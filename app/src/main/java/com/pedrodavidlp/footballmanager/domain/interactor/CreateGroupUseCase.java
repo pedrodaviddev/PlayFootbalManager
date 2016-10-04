@@ -20,7 +20,6 @@ public class CreateGroupUseCase implements Interactor {
     public interface Callback{
         void onSuccesfulCreated();
         void nameTaken();
-        void nickTaken();
         void onError(Exception e);
     }
 
