@@ -14,9 +14,10 @@ import com.pedrodavidlp.footballmanager.domain.repository.UserRepo;
 public class UserRepository implements UserRepo {
     public static String currentNickname;
 
+
     @Override
-    public void add(Object o) {
+    public void add(String nickname) {
+        currentNickname=nickname;
 
     }
-
 }

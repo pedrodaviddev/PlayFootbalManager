@@ -11,82 +11,10 @@
     tools:context="com.pedrodavidlp.footballmanager.view.activity.JoinGroupActivity"
     android:orientation="vertical"
     android:background="#3300089F">
-    <TextView
+    <FrameLayout
+        android:id="@+id/register_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Todavia no estas en ningun grupo"
-        android:textSize="30dp"
-        android:layout_margin="@dimen/fab_margin"
-        />
-    <Button
-        android:id="@+id/joinGroupButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Unirse a un grupo"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="#FFFFFF"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:background="@drawable/button_style"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="100dp"/>
-    <LinearLayout
-        android:id="@+id/containerInputsGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/nicknameInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/nicknameInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
 
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/nameGroupInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/nameGroupInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/passwordGroupInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/passwordGroupInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"/>
-
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/confirmPasswordInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/confirmPasswordInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"/>
-
-        </android.support.design.widget.TextInputLayout>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/createGroupButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Crear un grupo"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="#FFFFFF"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:background="@drawable/button_style"/>
+    </FrameLayout>
 </LinearLayout>

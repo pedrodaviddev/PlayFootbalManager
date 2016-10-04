@@ -11,4 +11,5 @@
     <color name="backgroundListTab">#F2EFD2</color>
     <color name="colorPayTab">#FFCA28</color>
     <color name="backgroundPayTab">#EFF7CF</color>
+    <color name="backgroundStart">#E6FFBF</color>
 </resources>
