@@ -3,6 +3,7 @@ package com.pedrodavidlp.footballmanager.view.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.IdRes;
+import android.support.v7.widget.Toolbar;
 import android.widget.RelativeLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,7 @@ import android.view.View;
 
 import com.github.clans.fab.FloatingActionMenu;
 import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.data.GroupRepository;
 import com.pedrodavidlp.footballmanager.view.fragment.ListPlayersFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.MatchFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.PayFragment;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setTitle(GroupRepository.currentGroup.getId());
         fabPlay=(com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabPlay);
         fabOptions=(FloatingActionMenu) findViewById(R.id.fabOptions);
         rootView = (RelativeLayout) findViewById(R.id.rootActivity);

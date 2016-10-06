@@ -189,4 +189,5 @@
     <string name="preferences_user">userPreferences</string>
     <string name="players">players</string>
     <string name="branch_nickname">nickname</string>
+    <string name="nickname">nickname</string>
 </resources>

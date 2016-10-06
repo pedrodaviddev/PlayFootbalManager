@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "724117243630-cpgmhtamktrtghvsucvb1smmab0sm7q0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pedrodavidlp.footballmanager",
+            "certificate_hash": "CD7E24BCA8D5F53B01BBA653B32D372EFC460C3A"
+          }
+        },
+        {
           "client_id": "724117243630-7tss7m2n9m3vekj4f36d3gjmi6opj1bc.apps.googleusercontent.com",
           "client_type": 3
         }

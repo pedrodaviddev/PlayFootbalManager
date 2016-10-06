@@ -41,6 +41,9 @@ public class LauncherActivity extends AppCompatActivity implements ViewMode {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
+
+        initDagger();
+
         imageView = (AppCompatImageView) findViewById(R.id.image_loading);
         imageView.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate));
         MainThread mainThread = new MainThreadImp();
@@ -49,6 +52,10 @@ public class LauncherActivity extends AppCompatActivity implements ViewMode {
         presenter = new LauncherPresenter(stateUseCase);
         presenter.setView(this);
         presenter.init();
+
+    }
+
+    private void initDagger() {
 
     }
 
@@ -62,8 +69,13 @@ public class LauncherActivity extends AppCompatActivity implements ViewMode {
             case SelectStateUseCase.NOT_LOGGED:
                 intent = new Intent(getApplicationContext(),LoginActivity.class);
                 break;
+            case SelectStateUseCase.NO_NICKNAME:
+                intent = new Intent(getApplicationContext(),JoinGroupActivity.class);
+                intent.putExtra("fragment",0);
+                break;
             case SelectStateUseCase.NO_GROUP:
                 intent = new Intent(getApplicationContext(),JoinGroupActivity.class);
+                intent.putExtra("fragment",1);
                 break;
             case SelectStateUseCase.NORMAL_USER:
                 intent = new Intent(getApplicationContext(),MainActivity.class);

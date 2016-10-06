@@ -30,6 +30,7 @@ import com.pedrodavidlp.footballmanager.view.fragment.JoinGroupFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.ListPlayersFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.MatchFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.PayFragment;
+import com.pedrodavidlp.footballmanager.view.fragment.SelectJoinOrCreateFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.TeamFragment;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;
@@ -38,17 +39,19 @@ import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 import org.w3c.dom.Text;
 
 public class JoinGroupActivity extends AppCompatActivity{
-    FloatingActionButton fab;
+    private FloatingActionButton fab;
+    private int currentFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_group);
         fab = (FloatingActionButton) findViewById(R.id.registerFab);
-        setFragment(0);
+        setFragment(getIntent().getIntExtra("fragment",0));
     }
 
     public void setFragment(int pos) {
+        currentFragment = pos;
         FragmentManager manager;
         FragmentTransaction transaction;
         switch (pos) {
@@ -58,13 +61,15 @@ public class JoinGroupActivity extends AppCompatActivity{
                 InsertNickFragment nickFragment = new InsertNickFragment();
                 transaction.replace(R.id.register_container, nickFragment, "FRAGMENT_MATCH");
                 transaction.commit();
+                fab.show();
                 break;
             case 1:
                 manager = getSupportFragmentManager();
                 transaction = manager.beginTransaction();
-                InsertGroupFragment groupFragment = new InsertGroupFragment();
-                transaction.replace(R.id.register_container, groupFragment);
+                SelectJoinOrCreateFragment selectFragment = new SelectJoinOrCreateFragment();
+                transaction.replace(R.id.register_container, selectFragment);
                 transaction.commit();
+                fab.hide();
                 break;
             case 2:
                 manager = getSupportFragmentManager();
@@ -72,18 +77,34 @@ public class JoinGroupActivity extends AppCompatActivity{
                 JoinGroupFragment joinFragment = new JoinGroupFragment();
                 transaction.replace(R.id.register_container, joinFragment);
                 transaction.commit();
+                fab.show();
                 break;
             case 3:
                 manager = getSupportFragmentManager();
                 transaction = manager.beginTransaction();
-                PayFragment payFragment = new PayFragment();
-                transaction.replace(R.id.register_container, payFragment);
+                InsertGroupFragment groupFragment = new InsertGroupFragment();
+                transaction.replace(R.id.register_container, groupFragment);
                 transaction.commit();
+                fab.show();
                 break;
-
         }
     }
     public void setListenerToFab(View.OnClickListener listener){
         fab.setOnClickListener(listener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        switch (currentFragment){
+            case 2:
+                setFragment(1);
+                break;
+            case 3:
+                setFragment(1);
+                break;
+            default:
+                super.onBackPressed();
+                break;
+        }
     }
 }

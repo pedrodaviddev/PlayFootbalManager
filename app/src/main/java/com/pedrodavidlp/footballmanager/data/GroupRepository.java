@@ -94,6 +94,9 @@ public class GroupRepository implements GroupRepo {
         groupsID.add(group.getId());
         reference.child(context.getString(R.string.branch_user)).child(user.getUid())
                 .child(context.getString(R.string.groups)).setValue(groupsID);
+        reference.child(context.getString(R.string.branch_user)).child(user.getUid())
+                .child(context.getString(R.string.current_group)).setValue(group.getId());
+        Log.d(TAG, "createGroup: "+creator.getNickname()+" "+creator+context.getString(R.string.branch_nickname));
         reference.child(context.getString(R.string.branch_nickname)).child(creator.getNickname()).setValue(creator.getSkill());
         reference.child("group").child(group.getId()).child("password").setValue(group.getPassword());
         reference.child(context.getString(R.string.branch_groups)).child(group.getId()).setValue(group);

@@ -33,6 +33,7 @@ public class UserRepository implements UserRepo {
         final DatabaseReference reference = firebaseDatabase.getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
+        currentNickname = s;
         reference.child(context.getString(R.string.branch_nickname)).child(s)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -41,6 +42,8 @@ public class UserRepository implements UserRepo {
                             callback.nickTaken();
                         } else {
                             reference.child(context.getString(R.string.branch_nickname)).child(s).setValue(user.getUid());
+                            reference.child(context.getString(R.string.branch_user)).child(user.getUid())
+                                    .child(context.getString(R.string.nickname)).setValue(s);
                             callback.onSuccesfulCreated();
                         }
                     }

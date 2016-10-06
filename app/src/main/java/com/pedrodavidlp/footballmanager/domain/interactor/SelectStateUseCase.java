@@ -29,8 +29,9 @@ public class SelectStateUseCase implements Interactor{
     private final String TAG = getClass().getSimpleName();
     public static final int NO_CONNECTION = 0;
     public static final int NOT_LOGGED = 1;
-    public static final int NO_GROUP = 2;
-    public static final int NORMAL_USER = 3;
+    public static final int NO_NICKNAME = 2;
+    public static final int NO_GROUP = 3;
+    public static final int NORMAL_USER = 4;
 
 
     public interface Callback{
@@ -61,10 +62,6 @@ public class SelectStateUseCase implements Interactor{
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseUser user = auth.getCurrentUser();
             if(user == null){
-                int i =0;
-                while(i<Integer.MAX_VALUE){
-                    i++;
-                }
                 callback.goToState(NOT_LOGGED);
             } else {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -75,15 +72,19 @@ public class SelectStateUseCase implements Interactor{
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     List<String> groups = new ArrayList<>();
-                                    for (DataSnapshot data : dataSnapshot.child(context.getString(R.string.groups)).getChildren()) {
-                                        groups.add(data.getValue(String.class));
-                                    }
-                                    if (groups.size()>0){
-                                        GroupRepository.currentGroup=new Group(groups.get(0),"");
-                                        UserRepository.currentNickname=dataSnapshot.child("nickname").getValue(String.class);
-                                        callback.goToState(NORMAL_USER);
+                                    if (dataSnapshot.child(context.getString(R.string.nickname)).getValue() == null){
+                                        callback.goToState(NO_NICKNAME);
                                     } else {
-                                        callback.goToState(NO_GROUP);
+                                        for (DataSnapshot data : dataSnapshot.child(context.getString(R.string.groups)).getChildren()) {
+                                            groups.add(data.getValue(String.class));
+                                        }
+                                        if (groups.size()>0){
+                                            GroupRepository.currentGroup=new Group(groups.get(0),"");
+                                            UserRepository.currentNickname=dataSnapshot.child(context.getString(R.string.nickname)).getValue(String.class);
+                                            callback.goToState(NORMAL_USER);
+                                        } else {
+                                            callback.goToState(NO_GROUP);
+                                        }
                                     }
                                 }
 

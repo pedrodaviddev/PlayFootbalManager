@@ -1,5 +1,7 @@
 package com.pedrodavidlp.footballmanager.domain.model;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 /**
@@ -14,7 +16,7 @@ public class Player {
     public Player() {
     }
 
-    public Player(String nickname, int skill, boolean isOrganizator, boolean isAdmin) {
+    public Player(@NonNull String nickname, int skill, boolean isOrganizator, boolean isAdmin) {
         this.nickname = nickname;
         this.skill = skill;
         this.isOrganizator = isOrganizator;
