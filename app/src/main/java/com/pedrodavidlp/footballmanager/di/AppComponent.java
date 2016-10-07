@@ -1,6 +1,8 @@
 package com.pedrodavidlp.footballmanager.di;
 
 
+import com.pedrodavidlp.footballmanager.di.player.PlayerComponent;
+import com.pedrodavidlp.footballmanager.di.player.PlayerModule;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 
@@ -11,6 +13,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = AppModule.class)
 public interface AppComponent {
-    Executor executor();
-    MainThread mainThread();
+    PlayerComponent plus(PlayerModule playerModule);
 }

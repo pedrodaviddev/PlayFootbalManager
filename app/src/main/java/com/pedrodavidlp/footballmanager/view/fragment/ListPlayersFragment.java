@@ -1,5 +1,6 @@
 package com.pedrodavidlp.footballmanager.view.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.di.player.PlayerListActivityModule;
 import com.pedrodavidlp.footballmanager.domain.interactor.GetListUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.presenter.ListPlayersPresenter;
@@ -28,31 +31,51 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
 
-/**
- * Created by PedroDavidLP on 14/9/16.
- */
+import javax.inject.Inject;
+
 public class ListPlayersFragment extends Fragment implements ViewList<Player>,ListPlayersAdapter.OnItemLongClickListener{
+
     private RecyclerView listPlayers;
     private GetListUseCase useCase;
     private ListPlayersAdapter adapter;
-    private ListPlayersPresenter presenter;
     private AVLoadingIndicatorView loading;
+
+    @Inject
+    Context context;
+
+    @Inject
+    ListPlayersPresenter presenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        initDagger();
+
         View rootView=inflater.inflate(R.layout.fragment_list,container,false);
         listPlayers = (RecyclerView) rootView.findViewById(R.id.playersRecView);
         loading = (AVLoadingIndicatorView) rootView.findViewById(R.id.loadingListPlayers);
-        Executor executor = new ThreadExecutor();
-        MainThread mainThread = new MainThreadImp();
-        useCase = new GetListUseCase(mainThread,executor,getContext());
-        presenter = new ListPlayersPresenter(useCase);
+
+        //try dagger
+        //Executor executor = new ThreadExecutor();
+        //MainThread mainThread = new MainThreadImp();
+        //useCase = new GetListUseCase(mainThread,executor,getContext());
+        //presenter = new ListPlayersPresenter(useCase);
         presenter.setView(this);
         presenter.init();
 
 
         return rootView;
+    }
+
+    private void initDagger() {
+        FootballApplication.get(getAppContext())
+                .getPlayerComponent()
+                .plus(new PlayerListActivityModule())
+                .inject(this);
+    }
+
+    private Context getAppContext() {
+        return  getActivity().getApplicationContext();
     }
 
     @Override

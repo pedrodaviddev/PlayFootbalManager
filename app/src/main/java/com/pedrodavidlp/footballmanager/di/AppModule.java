@@ -1,5 +1,7 @@
 package com.pedrodavidlp.footballmanager.di;
 
+import android.content.Context;
+
 import com.pedrodavidlp.footballmanager.view.executor.MainThreadImp;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;
@@ -12,6 +14,12 @@ import dagger.Provides;
 
 @Module
 public class AppModule {
+    private final Context context;
+
+    public AppModule(Context context) {
+        this.context = context;
+    }
+
 
     @Provides
     @Singleton
@@ -25,4 +33,9 @@ public class AppModule {
         return new ThreadExecutor();
     }
 
+    @Provides
+    @Singleton
+    public Context provideAppContext() {
+        return context;
+    }
 }
