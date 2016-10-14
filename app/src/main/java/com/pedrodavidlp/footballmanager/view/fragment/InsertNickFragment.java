@@ -49,6 +49,7 @@ public class InsertNickFragment extends Fragment implements ViewTry {
             @Override
             public void onClick(View v) {
                 presenter.insertNickname(insertNick.getText().toString());
+                ((JoinGroupActivity) getActivity()).startAnimationFab();
             }
         });
     }
@@ -65,6 +66,7 @@ public class InsertNickFragment extends Fragment implements ViewTry {
 
     @Override
     public void failed() {
+        ((JoinGroupActivity) getActivity()).stopAnimationFab();
         insertNickLayout.setError("El nombre de usuario ya existe");
         insertNick.addTextChangedListener(new TextWatcher() {
             @Override

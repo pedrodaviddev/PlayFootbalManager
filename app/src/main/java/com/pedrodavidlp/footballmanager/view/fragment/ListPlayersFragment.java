@@ -36,7 +36,6 @@ import javax.inject.Inject;
 public class ListPlayersFragment extends Fragment implements ViewList<Player>,ListPlayersAdapter.OnItemLongClickListener{
 
     private RecyclerView listPlayers;
-    private GetListUseCase useCase;
     private ListPlayersAdapter adapter;
     private AVLoadingIndicatorView loading;
 

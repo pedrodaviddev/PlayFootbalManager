@@ -3,7 +3,6 @@ package com.pedrodavidlp.footballmanager.view.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -21,7 +20,7 @@ import com.pedrodavidlp.footballmanager.domain.model.Group;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.domain.repository.GroupRepo;
 import com.pedrodavidlp.footballmanager.presenter.GroupPresenter;
-import com.pedrodavidlp.footballmanager.view.ViewTry;
+import com.pedrodavidlp.footballmanager.view.ViewLogin;
 import com.pedrodavidlp.footballmanager.view.activity.JoinGroupActivity;
 import com.pedrodavidlp.footballmanager.view.activity.MainActivity;
 import com.pedrodavidlp.footballmanager.view.executor.MainThreadImp;
@@ -29,7 +28,7 @@ import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 
-public class InsertGroupFragment extends Fragment implements ViewTry{
+public class CreateGroupFragment extends Fragment implements ViewLogin{
     private TextInputLayout groupNameLayout;
     private TextInputEditText groupName;
     private TextInputLayout groupPassLayout;
@@ -63,32 +62,29 @@ public class InsertGroupFragment extends Fragment implements ViewTry{
     }
 
     @Override
-    public void succeed() {
+    public void success() {
         startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
         getActivity().finish();
     }
 
     @Override
-    public void failed() {
-
-    }
-
-    @Override
     public void initUi() {
+        ((JoinGroupActivity) getActivity()).stopAnimationFab();
         ((JoinGroupActivity) getActivity()).setListenerToFab(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkPass()) {
+                    ((JoinGroupActivity) getActivity()).startAnimationFab();
                     presenter.createGroup(new Group(groupName.getText().toString(),groupPass.getText().toString())
                             ,new Player(UserRepository.currentNickname,0,true,true));
                 } else {
-                    passDontMatch();
+                    passNotMatch();
                 }
             }
         });
     }
 
-    private void passDontMatch() {
+    private void passNotMatch() {
         groupPass.getText().clear();
         confirmPass.getText().clear();
         groupPassLayout.setError("Las contraseñas no coinciden");
@@ -117,6 +113,16 @@ public class InsertGroupFragment extends Fragment implements ViewTry{
 
     @Override
     public void error(Exception e) {
+
+    }
+
+    @Override
+    public void wrongId() {
+        groupNameLayout.setError("El nombre del grupo ya existe");
+    }
+
+    @Override
+    public void wrongPass() {
 
     }
 }

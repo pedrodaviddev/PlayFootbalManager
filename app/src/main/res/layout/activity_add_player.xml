@@ -22,9 +22,10 @@
     </LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addPlayerFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
         app:srcCompat="@drawable/icon_done"
+        android:scaleType="center"
         android:layout_gravity="bottom|center"
         />
 </android.support.design.widget.CoordinatorLayout>

@@ -28,6 +28,7 @@
                 android:id="@+id/passGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:layout_margin="@dimen/activity_horizontal_margin"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -41,6 +42,7 @@
                 android:id="@+id/confirmPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:layout_margin="@dimen/activity_horizontal_margin"/>
         </android.support.design.widget.TextInputLayout>
 </LinearLayout>

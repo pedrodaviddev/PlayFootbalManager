@@ -34,8 +34,7 @@ public class UserRepository implements UserRepo {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
         currentNickname = s;
-        reference.child(context.getString(R.string.branch_nickname)).child(s)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(context.getString(R.string.branch_nickname)).child(s).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){

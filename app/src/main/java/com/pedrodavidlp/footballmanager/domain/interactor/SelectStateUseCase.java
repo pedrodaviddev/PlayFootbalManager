@@ -83,6 +83,7 @@ public class SelectStateUseCase implements Interactor{
                                             UserRepository.currentNickname=dataSnapshot.child(context.getString(R.string.nickname)).getValue(String.class);
                                             callback.goToState(NORMAL_USER);
                                         } else {
+                                            UserRepository.currentNickname=dataSnapshot.child(context.getString(R.string.nickname)).getValue(String.class);
                                             callback.goToState(NO_GROUP);
                                         }
                                     }

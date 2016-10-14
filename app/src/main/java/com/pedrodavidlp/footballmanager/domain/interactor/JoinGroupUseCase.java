@@ -11,6 +11,8 @@ import com.tonilopezmr.interactorexecutor.MainThread;
 public class JoinGroupUseCase implements Interactor {
     public interface Callback{
         void onSuccesfulJoin();
+        void groupNotExist();
+        void wrongPassword();
         void onError(Exception e);
     }
 
@@ -30,8 +32,7 @@ public class JoinGroupUseCase implements Interactor {
     @Override
     public void run() {
         try {
-            repository.join(group,toJoin);
-            callback.onSuccesfulJoin();
+            repository.join(group,toJoin,callback);
         } catch (Exception e) {
             callback.onError(e);
             e.printStackTrace();
