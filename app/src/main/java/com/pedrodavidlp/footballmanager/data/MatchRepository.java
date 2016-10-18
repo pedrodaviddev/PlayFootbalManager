@@ -1,10 +1,7 @@
 package com.pedrodavidlp.footballmanager.data;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

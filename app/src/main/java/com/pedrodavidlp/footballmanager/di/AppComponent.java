@@ -5,8 +5,6 @@ import com.pedrodavidlp.footballmanager.di.group.GroupComponent;
 import com.pedrodavidlp.footballmanager.di.group.GroupModule;
 import com.pedrodavidlp.footballmanager.di.player.PlayerComponent;
 import com.pedrodavidlp.footballmanager.di.player.PlayerModule;
-import com.tonilopezmr.interactorexecutor.Executor;
-import com.tonilopezmr.interactorexecutor.MainThread;
 
 import javax.inject.Singleton;
 

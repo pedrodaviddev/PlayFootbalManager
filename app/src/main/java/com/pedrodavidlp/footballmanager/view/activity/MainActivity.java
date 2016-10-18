@@ -2,15 +2,14 @@ package com.pedrodavidlp.footballmanager.view.activity;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v7.widget.Toolbar;
-import android.widget.RelativeLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.github.clans.fab.FloatingActionMenu;
 import com.pedrodavidlp.footballmanager.FootballApplication;

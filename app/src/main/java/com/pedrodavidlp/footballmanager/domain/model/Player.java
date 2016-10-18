@@ -2,8 +2,6 @@ package com.pedrodavidlp.footballmanager.domain.model;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 /**
  * Created by PedroDavidLP on 14/9/16.
  */

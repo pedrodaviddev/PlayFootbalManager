@@ -3,7 +3,6 @@ package com.pedrodavidlp.footballmanager.domain.interactor;
 import com.pedrodavidlp.footballmanager.domain.model.Group;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.domain.repository.GroupRepo;
-import com.pedrodavidlp.footballmanager.domain.repository.MatchRepo;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;
 import com.tonilopezmr.interactorexecutor.MainThread;

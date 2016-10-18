@@ -34,9 +34,6 @@ public class ListPlayersFragment extends Fragment implements ViewList<Player>,Li
     private AVLoadingIndicatorView loading;
 
     @Inject
-    Context context;
-
-    @Inject
     ListPlayersPresenter presenter;
 
     @Nullable

@@ -12,7 +12,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.domain.interactor.CreateUserUseCase;
-import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.domain.repository.UserRepo;
 
 public class UserRepository implements UserRepo {

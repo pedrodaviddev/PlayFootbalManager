@@ -7,7 +7,6 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.view.activity.JoinGroupActivity;

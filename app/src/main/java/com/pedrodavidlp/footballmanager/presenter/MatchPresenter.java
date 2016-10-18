@@ -1,7 +1,7 @@
 package com.pedrodavidlp.footballmanager.presenter;
 
-import com.pedrodavidlp.footballmanager.domain.interactor.GetPlayersOnMatchUseCase;
 import com.pedrodavidlp.footballmanager.domain.interactor.ChangeMatchUseCase;
+import com.pedrodavidlp.footballmanager.domain.interactor.GetPlayersOnMatchUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.presenter.common.ListPresenter;
 import com.pedrodavidlp.footballmanager.view.ViewList;

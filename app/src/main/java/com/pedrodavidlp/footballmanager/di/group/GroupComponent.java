@@ -1,6 +1,9 @@
 package com.pedrodavidlp.footballmanager.di.group;
 
-@GroupScope
-public interface GroupComponent {
+import dagger.Subcomponent;
 
+@GroupScope
+@Subcomponent(modules = GroupModule.class)
+public interface GroupComponent {
+    GroupFragmentComponent plus(GroupFragmentModule activityModule);
 }

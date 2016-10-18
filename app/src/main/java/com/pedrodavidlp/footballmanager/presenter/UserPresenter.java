@@ -1,9 +1,7 @@
 package com.pedrodavidlp.footballmanager.presenter;
 
 import com.pedrodavidlp.footballmanager.domain.interactor.CreateUserUseCase;
-import com.pedrodavidlp.footballmanager.domain.interactor.JoinUserUseCase;
 import com.pedrodavidlp.footballmanager.presenter.common.Presenter;
-import com.pedrodavidlp.footballmanager.view.View;
 import com.pedrodavidlp.footballmanager.view.ViewTry;
 
 public class UserPresenter implements Presenter<ViewTry> {

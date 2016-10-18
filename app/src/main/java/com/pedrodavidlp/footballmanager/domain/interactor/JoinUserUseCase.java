@@ -1,8 +1,6 @@
 package com.pedrodavidlp.footballmanager.domain.interactor;
 
-import com.pedrodavidlp.footballmanager.data.UserRepository;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
-import com.pedrodavidlp.footballmanager.domain.repository.PlayersRepo;
 import com.pedrodavidlp.footballmanager.domain.repository.UserRepo;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;

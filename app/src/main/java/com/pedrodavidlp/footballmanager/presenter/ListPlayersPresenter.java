@@ -1,7 +1,5 @@
 package com.pedrodavidlp.footballmanager.presenter;
 
-import android.util.Log;
-
 import com.pedrodavidlp.footballmanager.domain.interactor.GetListUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.presenter.common.ListPresenter;

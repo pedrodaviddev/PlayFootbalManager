@@ -8,7 +8,6 @@ import com.pedrodavidlp.footballmanager.domain.model.Group;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.presenter.common.Presenter;
 import com.pedrodavidlp.footballmanager.view.ViewLogin;
-import com.pedrodavidlp.footballmanager.view.ViewTry;
 
 public class GroupPresenter implements Presenter<ViewLogin> {
     private CreateGroupUseCase createUseCase;

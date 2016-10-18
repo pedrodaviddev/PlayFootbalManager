@@ -11,36 +11,48 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
-import com.pedrodavidlp.footballmanager.data.UserRepository;
-import com.pedrodavidlp.footballmanager.domain.interactor.CreateUserUseCase;
+import com.pedrodavidlp.footballmanager.di.group.GroupFragmentModule;
 import com.pedrodavidlp.footballmanager.presenter.UserPresenter;
 import com.pedrodavidlp.footballmanager.view.ViewTry;
 import com.pedrodavidlp.footballmanager.view.activity.JoinGroupActivity;
-import com.pedrodavidlp.footballmanager.view.executor.MainThreadImp;
-import com.tonilopezmr.interactorexecutor.Executor;
-import com.tonilopezmr.interactorexecutor.MainThread;
-import com.tonilopezmr.interactorexecutor.ThreadExecutor;
+
+import javax.inject.Inject;
 
 public class InsertNickFragment extends Fragment implements ViewTry {
     private TextInputEditText insertNick;
     private TextInputLayout insertNickLayout;
-    private UserPresenter presenter;
+
+    @Inject UserPresenter presenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_insert_nickname,container,false);
+
+        initDagger();
+
         insertNick = (TextInputEditText) view.findViewById(R.id.insertNickName);
         insertNickLayout = (TextInputLayout) view.findViewById(R.id.insertNickNameLayout);
-        MainThread mainThread = new MainThreadImp();
-        Executor executor = new ThreadExecutor();
-        UserRepository repository = new UserRepository(getContext());
-        CreateUserUseCase userUseCase = new CreateUserUseCase(mainThread,executor,repository);
-        presenter = new UserPresenter(userUseCase);
+
+
+        //da g g er
+        //MainThread mainThread = new MainThreadImp();
+        //Executor executor = new ThreadExecutor();
+        // UserRepository repository = new UserRepository(getContext());
+        // CreateUserUseCase userUseCase = new CreateUserUseCase(mainThread,executor,repository);
+        //presenter = new UserPresenter(userUseCase);
         presenter.setView(this);
         presenter.init();
         return view;
+    }
+
+    private void initDagger() {
+        FootballApplication.get(getContext().getApplicationContext())
+                .getGroupComponent()
+                .plus(new GroupFragmentModule())
+                .inject(this);
     }
 
     @Override

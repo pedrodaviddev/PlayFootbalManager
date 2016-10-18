@@ -12,21 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
-import com.pedrodavidlp.footballmanager.data.GroupRepository;
 import com.pedrodavidlp.footballmanager.data.UserRepository;
-import com.pedrodavidlp.footballmanager.domain.interactor.CreateGroupUseCase;
+import com.pedrodavidlp.footballmanager.di.group.GroupFragmentModule;
 import com.pedrodavidlp.footballmanager.domain.model.Group;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
-import com.pedrodavidlp.footballmanager.domain.repository.GroupRepo;
 import com.pedrodavidlp.footballmanager.presenter.GroupPresenter;
 import com.pedrodavidlp.footballmanager.view.ViewLogin;
 import com.pedrodavidlp.footballmanager.view.activity.JoinGroupActivity;
 import com.pedrodavidlp.footballmanager.view.activity.MainActivity;
-import com.pedrodavidlp.footballmanager.view.executor.MainThreadImp;
-import com.tonilopezmr.interactorexecutor.Executor;
-import com.tonilopezmr.interactorexecutor.MainThread;
-import com.tonilopezmr.interactorexecutor.ThreadExecutor;
+
+import javax.inject.Inject;
 
 public class CreateGroupFragment extends Fragment implements ViewLogin{
     private TextInputLayout groupNameLayout;
@@ -35,13 +32,16 @@ public class CreateGroupFragment extends Fragment implements ViewLogin{
     private TextInputEditText groupPass;
     private TextInputLayout confirmPassLayout;
     private TextInputEditText confirmPass;
-    private GroupPresenter presenter;
+
+    @Inject GroupPresenter presenter;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_group,container,false);
+
+        initDagger();
 
         groupNameLayout = (TextInputLayout) view.findViewById(R.id.groupNameLayout);
         groupName = (TextInputEditText) view.findViewById(R.id.groupName);
@@ -50,15 +50,24 @@ public class CreateGroupFragment extends Fragment implements ViewLogin{
         confirmPassLayout = (TextInputLayout) view.findViewById(R.id.confirmPassLayout);
         confirmPass = (TextInputEditText) view.findViewById(R.id.confirmPass);
 
-        MainThread mainThread = new MainThreadImp();
-        Executor executor = new ThreadExecutor();
-        GroupRepo repository = new GroupRepository(getContext());
-        CreateGroupUseCase useCase = new CreateGroupUseCase(mainThread,executor,repository);
-        presenter = new GroupPresenter(useCase,null);
+        //dagger pls
+        //MainThread mainThread = new MainThreadImp();
+        //Executor executor = new ThreadExecutor();
+        //GroupRepo repository = new GroupRepository(getContext());
+        //CreateGroupUseCase useCase = new CreateGroupUseCase(mainThread,executor,repository);
+        //presenter = new GroupPresenter(useCase,null);
+
         presenter.setView(this);
         presenter.init();
 
         return view;
+    }
+
+    private void initDagger() {
+        FootballApplication.get(getContext().getApplicationContext())
+                .getGroupComponent()
+                .plus(new GroupFragmentModule())
+                .inject(this);
     }
 
     @Override

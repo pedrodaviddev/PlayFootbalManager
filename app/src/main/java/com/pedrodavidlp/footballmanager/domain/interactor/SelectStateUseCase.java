@@ -3,7 +3,6 @@ package com.pedrodavidlp.footballmanager.domain.interactor;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,8 +15,6 @@ import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.data.GroupRepository;
 import com.pedrodavidlp.footballmanager.data.UserRepository;
 import com.pedrodavidlp.footballmanager.domain.model.Group;
-import com.pedrodavidlp.footballmanager.domain.model.Player;
-import com.pedrodavidlp.footballmanager.domain.repository.PlayersRepo;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;
 import com.tonilopezmr.interactorexecutor.MainThread;

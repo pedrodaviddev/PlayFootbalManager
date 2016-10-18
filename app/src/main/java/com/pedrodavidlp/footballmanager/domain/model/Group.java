@@ -1,7 +1,5 @@
 package com.pedrodavidlp.footballmanager.domain.model;
 
-import java.util.List;
-
 public class Group {
     private String id;
     private String password;

@@ -2,7 +2,6 @@ package com.pedrodavidlp.footballmanager.presenter;
 
 import com.pedrodavidlp.footballmanager.domain.interactor.SelectStateUseCase;
 import com.pedrodavidlp.footballmanager.presenter.common.Presenter;
-import com.pedrodavidlp.footballmanager.view.View;
 import com.pedrodavidlp.footballmanager.view.ViewMode;
 
 public class LauncherPresenter implements Presenter<ViewMode> {

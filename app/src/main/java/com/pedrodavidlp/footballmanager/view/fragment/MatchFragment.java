@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.data.MatchRepository;
-import com.pedrodavidlp.footballmanager.domain.interactor.GetPlayersOnMatchUseCase;
 import com.pedrodavidlp.footballmanager.domain.interactor.ChangeMatchUseCase;
+import com.pedrodavidlp.footballmanager.domain.interactor.GetPlayersOnMatchUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.domain.repository.MatchRepo;
 import com.pedrodavidlp.footballmanager.presenter.MatchPresenter;
