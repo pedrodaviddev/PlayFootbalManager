@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.github.clans.fab.FloatingActionMenu;
+import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.data.GroupRepository;
 import com.pedrodavidlp.footballmanager.view.fragment.ListPlayersFragment;
@@ -143,7 +144,15 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
     public void setFabMenu(){
         fabOptions.showMenuButton(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FootballApplication app = FootballApplication.get(getApplicationContext());
+        app.releasePlayerComponent();
     }
 }

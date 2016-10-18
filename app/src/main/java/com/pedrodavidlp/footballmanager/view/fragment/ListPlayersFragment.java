@@ -1,7 +1,6 @@
 package com.pedrodavidlp.footballmanager.view.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,17 +15,12 @@ import android.view.ViewGroup;
 
 import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
-import com.pedrodavidlp.footballmanager.di.player.PlayerListActivityModule;
-import com.pedrodavidlp.footballmanager.domain.interactor.GetListUseCase;
+import com.pedrodavidlp.footballmanager.di.player.PlayerListFragmentModule;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.presenter.ListPlayersPresenter;
 import com.pedrodavidlp.footballmanager.view.ViewList;
 import com.pedrodavidlp.footballmanager.view.activity.MainActivity;
 import com.pedrodavidlp.footballmanager.view.adapter.ListPlayersAdapter;
-import com.pedrodavidlp.footballmanager.view.executor.MainThreadImp;
-import com.tonilopezmr.interactorexecutor.Executor;
-import com.tonilopezmr.interactorexecutor.MainThread;
-import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
@@ -69,7 +63,7 @@ public class ListPlayersFragment extends Fragment implements ViewList<Player>,Li
     private void initDagger() {
         FootballApplication.get(getAppContext())
                 .getPlayerComponent()
-                .plus(new PlayerListActivityModule())
+                .plus(new PlayerListFragmentModule())
                 .inject(this);
     }
 

@@ -6,7 +6,7 @@ import com.pedrodavidlp.footballmanager.view.fragment.ListPlayersFragment;
 import dagger.Subcomponent;
 
 @ActivityScope
-@Subcomponent(modules = PlayerListActivityModule.class)
-public interface PlayerListActivityComponent {
+@Subcomponent(modules = PlayerListFragmentModule.class)
+public interface PlayerListFragmentComponent {
     ListPlayersFragment inject(ListPlayersFragment listPlayersFragment);
 }

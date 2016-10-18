@@ -12,7 +12,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class PlayerListActivityModule extends ActivityModule{
+public class PlayerListFragmentModule extends ActivityModule{
     @Provides
     @ActivityScope
     @Player
