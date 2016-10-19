@@ -36,13 +36,6 @@ public class InsertNickFragment extends Fragment implements ViewTry {
         insertNick = (TextInputEditText) view.findViewById(R.id.insertNickName);
         insertNickLayout = (TextInputLayout) view.findViewById(R.id.insertNickNameLayout);
 
-
-        //da g g er
-        //MainThread mainThread = new MainThreadImp();
-        //Executor executor = new ThreadExecutor();
-        // UserRepository repository = new UserRepository(getContext());
-        // CreateUserUseCase userUseCase = new CreateUserUseCase(mainThread,executor,repository);
-        //presenter = new UserPresenter(userUseCase);
         presenter.setView(this);
         presenter.init();
         return view;

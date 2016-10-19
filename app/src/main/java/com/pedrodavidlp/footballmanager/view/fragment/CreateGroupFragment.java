@@ -50,13 +50,6 @@ public class CreateGroupFragment extends Fragment implements ViewLogin{
         confirmPassLayout = (TextInputLayout) view.findViewById(R.id.confirmPassLayout);
         confirmPass = (TextInputEditText) view.findViewById(R.id.confirmPass);
 
-        //dagger pls
-        //MainThread mainThread = new MainThreadImp();
-        //Executor executor = new ThreadExecutor();
-        //GroupRepo repository = new GroupRepository(getContext());
-        //CreateGroupUseCase useCase = new CreateGroupUseCase(mainThread,executor,repository);
-        //presenter = new GroupPresenter(useCase,null);
-
         presenter.setView(this);
         presenter.init();
 

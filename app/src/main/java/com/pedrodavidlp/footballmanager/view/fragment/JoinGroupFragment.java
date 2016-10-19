@@ -45,12 +45,6 @@ public class JoinGroupFragment extends Fragment implements ViewLogin{
         nameGroupLayout = (TextInputLayout) view.findViewById(R.id.nameGroupToJoinLayout);
         passGroupLayout = (TextInputLayout) view.findViewById(R.id.passGroupToJoinLayout);
 
-        //rico daggersito
-        //MainThread mainThread = new MainThreadImp();
-        //Executor executor = new ThreadExecutor();
-        //GroupRepo repository = new GroupRepository(getContext());
-        //JoinGroupUseCase useCase = new JoinGroupUseCase(mainThread,executor,repository);
-        //presenter = new GroupPresenter(null,useCase);
         presenter.setView(this);
         presenter.init();
         return view;

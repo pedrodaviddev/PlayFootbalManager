@@ -5,5 +5,5 @@ import dagger.Subcomponent;
 @PlayerScope
 @Subcomponent(modules = PlayerModule.class)
 public interface PlayerComponent {
-    PlayerListFragmentComponent plus(PlayerListFragmentModule activityModule);
+    PlayerFragmentComponent plus(PlayerFragmentModule activityModule);
 }

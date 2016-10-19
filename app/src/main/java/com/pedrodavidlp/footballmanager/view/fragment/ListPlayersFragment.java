@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
-import com.pedrodavidlp.footballmanager.di.player.PlayerListFragmentModule;
+import com.pedrodavidlp.footballmanager.di.player.PlayerFragmentModule;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.presenter.ListPlayersPresenter;
 import com.pedrodavidlp.footballmanager.view.ViewList;
@@ -33,8 +33,7 @@ public class ListPlayersFragment extends Fragment implements ViewList<Player>,Li
     private ListPlayersAdapter adapter;
     private AVLoadingIndicatorView loading;
 
-    @Inject
-    ListPlayersPresenter presenter;
+    @Inject ListPlayersPresenter presenter;
 
     @Nullable
     @Override
@@ -45,11 +44,6 @@ public class ListPlayersFragment extends Fragment implements ViewList<Player>,Li
         listPlayers = (RecyclerView) rootView.findViewById(R.id.playersRecView);
         loading = (AVLoadingIndicatorView) rootView.findViewById(R.id.loadingListPlayers);
 
-        //try dagger
-        //Executor executor = new ThreadExecutor();
-        //MainThread mainThread = new MainThreadImp();
-        //useCase = new GetListUseCase(mainThread,executor,getContext());
-        //presenter = new ListPlayersPresenter(useCase);
         presenter.setView(this);
         presenter.init();
 
@@ -60,7 +54,7 @@ public class ListPlayersFragment extends Fragment implements ViewList<Player>,Li
     private void initDagger() {
         FootballApplication.get(getAppContext())
                 .getPlayerComponent()
-                .plus(new PlayerListFragmentModule())
+                .plus(new PlayerFragmentModule())
                 .inject(this);
     }
 

@@ -1,6 +1,5 @@
 package com.pedrodavidlp.footballmanager.di.group;
 
-import com.pedrodavidlp.footballmanager.di.Activity;
 import com.pedrodavidlp.footballmanager.di.ActivityScope;
 import com.pedrodavidlp.footballmanager.domain.interactor.CreateGroupUseCase;
 import com.pedrodavidlp.footballmanager.domain.interactor.CreateUserUseCase;
@@ -20,8 +19,8 @@ public class GroupFragmentModule {
 
     @Provides
     @ActivityScope
-    public GroupPresenter provideGroupPresenter(@Group JoinGroupUseCase joinGroupUseCase){
-        return new GroupPresenter(null, joinGroupUseCase);
+    public GroupPresenter provideGroupPresenter(@Group CreateGroupUseCase createGroupUseCase,@Group JoinGroupUseCase joinGroupUseCase){
+        return new GroupPresenter(createGroupUseCase, joinGroupUseCase);
     }
 
     @Provides

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.view.fragment.CreateGroupFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.InsertNickFragment;
@@ -104,5 +105,12 @@ public class JoinGroupActivity extends AppCompatActivity{
     public void stopAnimationFab(){
         fab.setImageResource(R.drawable.icon_next);
         fab.pauseAnimation();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FootballApplication.get(getApplicationContext())
+                .releaseGroupComponent();
     }
 }
