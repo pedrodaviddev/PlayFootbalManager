@@ -1,6 +1,7 @@
 package com.pedrodavidlp.footballmanager.view.activity;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -27,7 +28,13 @@ public class JoinGroupActivity extends AppCompatActivity{
         setContentView(R.layout.activity_join_group);
         fab = (LoadingView) findViewById(R.id.registerFab);
         setFragment(getIntent().getIntExtra("fragment",0));
-        fab.setImageResource(R.drawable.icon_next);
+        //TODO : ALL IMAGES IN VECTORS
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            fab.setImageResource(R.drawable.icon_next);
+        } else {
+            fab.setImageResource(R.drawable.image_next);
+        }
+
     }
 
     public void setFragment(int pos) {
@@ -90,13 +97,18 @@ public class JoinGroupActivity extends AppCompatActivity{
     }
 
     public void startAnimationFab() {
-        fab.addAnimation(Color.parseColor("#FFD200"), R.drawable.icon_fire_ball,
+        boolean isLollipop = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+        int fireball = isLollipop ? R.drawable.icon_fire_ball : R.drawable.image_fire_ball;
+        int shorts = isLollipop ? R.drawable.icon_shorts : R.drawable.image_shorts;
+        int gloves = isLollipop ? R.drawable.icon_gloves : R.drawable.image_gloves;
+        int tactic = isLollipop ? R.drawable.icon_tactic : R.drawable.image_tactic;
+        fab.addAnimation(Color.parseColor("#FFD200"), fireball,
                 LoadingView.FROM_LEFT);
-        fab.addAnimation(Color.parseColor("#2F5DA9"), R.drawable.icon_shorts,
+        fab.addAnimation(Color.parseColor("#2F5DA9"), shorts,
                 LoadingView.FROM_TOP);
-        fab.addAnimation(Color.parseColor("#FF4218"), R.drawable.icon_gloves,
+        fab.addAnimation(Color.parseColor("#FF4218"), gloves,
                 LoadingView.FROM_RIGHT);
-        fab.addAnimation(Color.parseColor("#C7E7FB"), R.drawable.icon_tactic,
+        fab.addAnimation(Color.parseColor("#C7E7FB"), tactic,
                 LoadingView.FROM_BOTTOM);
         fab.setRepeat(Integer.MAX_VALUE);
         fab.resumeAnimation();
