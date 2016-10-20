@@ -190,4 +190,5 @@
     <string name="players">players</string>
     <string name="branch_nickname">nickname</string>
     <string name="nickname">nickname</string>
+    <string name="password">password</string>
 </resources>

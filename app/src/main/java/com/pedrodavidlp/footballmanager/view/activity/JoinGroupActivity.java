@@ -115,7 +115,11 @@ public class JoinGroupActivity extends AppCompatActivity{
         fab.startAnimation();
     }
     public void stopAnimationFab(){
-        fab.setImageResource(R.drawable.icon_next);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            fab.setImageResource(R.drawable.icon_next);
+        } else {
+            fab.setImageResource(R.drawable.image_next);
+        }
         fab.pauseAnimation();
     }
 

@@ -20,6 +20,8 @@ import com.pedrodavidlp.footballmanager.domain.repository.GroupRepo;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pedrodavidlp.footballmanager.R.string.password;
+
 public class GroupRepository implements GroupRepo {
     private final String TAG = getClass().getSimpleName();
     public static Group currentGroup;
@@ -40,9 +42,13 @@ public class GroupRepository implements GroupRepo {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(group.getId()).exists()){
                     Group onDatabase = dataSnapshot.child(group.getId()).getValue(Group.class);
-                    if(onDatabase.getPassword().equals(group.getPassword())){
+                    String pass = dataSnapshot.child(group.getId()).child(context.getString(password)).getValue(String.class);
+                    Log.d(TAG, "onDataChange: pass and pass "+group.getPassword()+" : "+pass);
+                    if(group.getPassword().equals(pass)){
+
                         Log.d(TAG, "onDataChange: "+onDatabase.getPassword()+" : "+ group.getPassword());
                         joinGruop(group,toJoin,callback);
+
                     } else{
                         callback.wrongPassword();
                     }
