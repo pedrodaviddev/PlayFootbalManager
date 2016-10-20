@@ -40,19 +40,24 @@ public class GroupRepository implements GroupRepo {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(group.getId()).exists()){
+                if (dataSnapshot.child(group.getId()).getValue() != null){
+
+                    Log.d(TAG, "onDataChange: "+dataSnapshot.child(group.getId()).exists());
                     Group onDatabase = dataSnapshot.child(group.getId()).getValue(Group.class);
                     String pass = dataSnapshot.child(group.getId()).child(context.getString(password)).getValue(String.class);
                     Log.d(TAG, "onDataChange: pass and pass "+group.getPassword()+" : "+pass);
-                    if(group.getPassword().equals(pass)){
 
+                    if(group.getPassword().compareTo(pass) == 0){
+                        Log.d(TAG, "CONTRASEÑA CORRECTA");
                         Log.d(TAG, "onDataChange: "+onDatabase.getPassword()+" : "+ group.getPassword());
                         joinGruop(group,toJoin,callback);
 
-                    } else{
+                    } else {
+                        Log.d(TAG, "onDataChange: me voy por aqui que es que sa equivocao");
                         callback.wrongPassword();
                     }
                 } else {
+                    Log.d(TAG, "onDataChange: pero que dise");
                     callback.groupNotExist();
                 }
             }
@@ -63,7 +68,6 @@ public class GroupRepository implements GroupRepo {
             }
         });
 
-        joinGruop(group, toJoin, callback);
     }
 
     private void joinGruop(Group group, Player toJoin, JoinGroupUseCase.Callback callback) {
