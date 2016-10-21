@@ -40,7 +40,7 @@ public class GroupRepository implements GroupRepo {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(group.getId()).getValue() != null){
+                if (dataSnapshot.child(group.getId()).child("password").exists()){
 
                     Log.d(TAG, "onDataChange: "+dataSnapshot.child(group.getId()).exists());
                     Group onDatabase = dataSnapshot.child(group.getId()).getValue(Group.class);
