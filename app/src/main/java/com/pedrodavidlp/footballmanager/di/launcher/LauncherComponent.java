@@ -1,8 +1,5 @@
 package com.pedrodavidlp.footballmanager.di.launcher;
 
-import com.pedrodavidlp.footballmanager.view.activity.LauncherActivity;
-
-import dagger.Component;
 import dagger.Subcomponent;
 
 @LauncherScope

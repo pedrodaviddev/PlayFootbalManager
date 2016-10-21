@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.data.GroupRepository;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
+import com.pedrodavidlp.footballmanager.domain.repository.PlayersRepo;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;
 import com.tonilopezmr.interactorexecutor.MainThread;
@@ -21,59 +22,22 @@ import java.util.List;
 /**
  * Created by PedroDavidLP on 15/9/16.
  */
-public class GetListUseCase implements Interactor{
-    private Context context;
-
-    private final String TAG = getClass().getSimpleName();
-
+public class GetListUseCase extends UseCase<GetListUseCase.Callback>{
     public interface Callback{
         void onListLoaded(List<Player> list);
         void onError(Exception e);
     }
 
-    private Callback callback;
-    private MainThread mainThread;
-    private Executor executor;
+    private PlayersRepo repository;
 
-    public GetListUseCase(MainThread mainThread, Executor executor, Context context) {
-        this.mainThread = mainThread;
-        this.executor = executor;
-        this.context = context;
+    public GetListUseCase(MainThread mainThread, Executor executor, PlayersRepo repository) {
+        super(mainThread,executor);
+        this.repository = repository;
     }
 
     @Override
     public void run() {
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = firebaseDatabase.getReference();
-
-        reference.child(context.getString(R.string.branch_groups)).child(GroupRepository.currentGroup.getId())
-                .child("players").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Player> res = new ArrayList<>();
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    res.add(data.getValue(Player.class));
-                }
-                for (Player player : res) {
-                    Log.d(TAG, "onDataChange: "+player.getNickname());
-                    Log.d(TAG, "onDataChange: "+res.size());
-                }
-                callback.onListLoaded(res);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                callback.onError(new Exception(databaseError.getMessage()));
-            }
-        });
-    }
-
-    public void execute(final Callback callback){
-        if(callback == null){
-            throw new IllegalArgumentException("CALLBACK CANT BE NULL");
-        }
-       this.callback = callback;
-       this.executor.run(this);
+      repository.loadList(callback);
     }
 
 

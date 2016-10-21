@@ -3,6 +3,7 @@ package com.pedrodavidlp.footballmanager.di.launcher;
 import android.content.Context;
 
 import com.pedrodavidlp.footballmanager.domain.interactor.SelectStateUseCase;
+import com.pedrodavidlp.footballmanager.domain.repository.UserRepo;
 import com.pedrodavidlp.footballmanager.presenter.LauncherPresenter;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;
@@ -21,10 +22,10 @@ public class LauncherActivityModule {
 
     @Provides
     @LauncherScope
-    SelectStateUseCase provideSelectStateUseCase(Context context,
-                                                 MainThread mainThread,
-                                                 Executor executor){
-        return new SelectStateUseCase(context,mainThread,executor);
+    SelectStateUseCase provideSelectStateUseCase(MainThread mainThread,
+                                                 Executor executor,
+                                                 UserRepo repository){
+        return new SelectStateUseCase(mainThread,executor,repository);
     }
 
 

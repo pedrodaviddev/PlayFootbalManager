@@ -10,14 +10,9 @@ import android.view.animation.AnimationUtils;
 import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.di.launcher.LauncherActivityModule;
-import com.pedrodavidlp.footballmanager.di.launcher.LauncherModule;
 import com.pedrodavidlp.footballmanager.domain.interactor.SelectStateUseCase;
 import com.pedrodavidlp.footballmanager.presenter.LauncherPresenter;
 import com.pedrodavidlp.footballmanager.view.ViewMode;
-import com.pedrodavidlp.footballmanager.view.executor.MainThreadImp;
-import com.tonilopezmr.interactorexecutor.Executor;
-import com.tonilopezmr.interactorexecutor.MainThread;
-import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 
 import javax.inject.Inject;
 

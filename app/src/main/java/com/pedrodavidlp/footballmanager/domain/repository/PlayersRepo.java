@@ -1,5 +1,6 @@
 package com.pedrodavidlp.footballmanager.domain.repository;
 
+import com.pedrodavidlp.footballmanager.domain.interactor.GetListUseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 import com.pedrodavidlp.footballmanager.domain.repository.common.Repository;
 
@@ -8,4 +9,5 @@ import com.pedrodavidlp.footballmanager.domain.repository.common.Repository;
  */
 public interface PlayersRepo extends Repository<Player> {
 
+    void loadList(GetListUseCase.Callback callback);
 }

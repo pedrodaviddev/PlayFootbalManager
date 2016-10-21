@@ -1,8 +1,5 @@
 package com.pedrodavidlp.footballmanager.presenter.common;
 
-import android.widget.ListView;
-
-import com.pedrodavidlp.footballmanager.view.View;
 import com.pedrodavidlp.footballmanager.view.ViewList;
 
 /**

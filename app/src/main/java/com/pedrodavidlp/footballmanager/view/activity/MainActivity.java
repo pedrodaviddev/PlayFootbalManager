@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private BottomBar bottomBar;
     private FloatingActionMenu fabOptions;
     private com.github.clans.fab.FloatingActionButton fabPlay;
-    private com.github.clans.fab.FloatingActionButton addActionMenu;
     private RelativeLayout rootView;
 
     @Override
@@ -44,14 +43,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             bottomBar.getTabAtPosition(3).setVisibility(View.GONE);
         }
-        addActionMenu=(com.github.clans.fab.FloatingActionButton)findViewById(R.id.addActionMenu);
-        addActionMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),AddPlayerActivity.class));
-                fabOptions.close(false);
-            }
-        });
+
 
         fabPlay.setOnClickListener(new View.OnClickListener() {
             @Override

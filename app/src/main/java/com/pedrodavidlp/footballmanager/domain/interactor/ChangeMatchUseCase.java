@@ -5,21 +5,17 @@ import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 
-public class ChangeMatchUseCase implements Interactor {
+public class ChangeMatchUseCase extends UseCase<ChangeMatchUseCase.Callback>{
     public interface Callback{
         void hasJoined();
         void hasLeft();
         void onError(Exception e);
     }
 
-    private Callback callback;
-    private MainThread mainThread;
-    private Executor executor;
     private MatchRepo repository;
 
     public ChangeMatchUseCase(MainThread mainThread, Executor executor, MatchRepo repository) {
-        this.mainThread = mainThread;
-        this.executor = executor;
+        super(mainThread, executor);
         this.repository = repository;
     }
 
@@ -34,12 +30,5 @@ public class ChangeMatchUseCase implements Interactor {
 
     }
 
-    public void execute(final Callback callback){
-        if(callback == null){
-            throw new IllegalArgumentException("CALLBACK CANT BE NULL");
-        }
-        this.callback = callback;
-        this.executor.run(this);
-    }
 
 }

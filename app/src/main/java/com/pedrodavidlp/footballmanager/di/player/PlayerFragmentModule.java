@@ -2,13 +2,13 @@ package com.pedrodavidlp.footballmanager.di.player;
 
 import android.content.Context;
 
-import com.pedrodavidlp.footballmanager.data.MatchRepository;
 import com.pedrodavidlp.footballmanager.di.ActivityModule;
 import com.pedrodavidlp.footballmanager.di.FragmentScope;
 import com.pedrodavidlp.footballmanager.domain.interactor.ChangeMatchUseCase;
 import com.pedrodavidlp.footballmanager.domain.interactor.GetListUseCase;
 import com.pedrodavidlp.footballmanager.domain.interactor.GetPlayersOnMatchUseCase;
 import com.pedrodavidlp.footballmanager.domain.repository.MatchRepo;
+import com.pedrodavidlp.footballmanager.domain.repository.PlayersRepo;
 import com.pedrodavidlp.footballmanager.presenter.ListPlayersPresenter;
 import com.pedrodavidlp.footballmanager.presenter.MatchPresenter;
 import com.tonilopezmr.interactorexecutor.Executor;
@@ -36,10 +36,10 @@ public class PlayerFragmentModule extends ActivityModule{
     @Provides
     @FragmentScope
     @Player
-    public GetListUseCase provideListPlayersUseCase( Executor executor,
-                                                     MainThread mainThread,
-                                                     Context context){
-        return new GetListUseCase(mainThread,executor,context);
+    public GetListUseCase provideListPlayersUseCase(Executor executor,
+                                                    MainThread mainThread,
+                                                    PlayersRepo repository){
+        return new GetListUseCase(mainThread,executor,repository);
     }
 
     @Provides
