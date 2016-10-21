@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
         bottomBar=(BottomBar)findViewById(R.id.bottomBar);
 
         if(getIntent().getBooleanExtra("admin",false)){
-            bottomBar.getTabAtPosition(3).setVisibility(View.GONE);
-        } else {
             bottomBar.getTabAtPosition(3).setVisibility(View.VISIBLE);
+        } else {
+            bottomBar.getTabAtPosition(3).setVisibility(View.GONE);
         }
         addActionMenu=(com.github.clans.fab.FloatingActionButton)findViewById(R.id.addActionMenu);
         addActionMenu.setOnClickListener(new View.OnClickListener() {
@@ -97,8 +97,13 @@ public class MainActivity extends AppCompatActivity {
                         fabPlay.hide(true);
                         fabOptions.hideMenuButton(true);
                         break;
-                    case 3:
+                    case R.id.tab_pay:
                         setFragment(3);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            rootView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.backgroundPayTab));
+                        }else {
+                            rootView.setBackgroundColor(getResources().getColor(R.color.colorPayTab));
+                        }
                         fabPlay.hide(true);
                         fabOptions.hideMenuButton(true);
                         break;

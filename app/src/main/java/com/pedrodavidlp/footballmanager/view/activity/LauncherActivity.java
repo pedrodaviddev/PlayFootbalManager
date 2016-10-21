@@ -7,7 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.animation.AnimationUtils;
 
+import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.di.launcher.LauncherActivityModule;
+import com.pedrodavidlp.footballmanager.di.launcher.LauncherModule;
 import com.pedrodavidlp.footballmanager.domain.interactor.SelectStateUseCase;
 import com.pedrodavidlp.footballmanager.presenter.LauncherPresenter;
 import com.pedrodavidlp.footballmanager.view.ViewMode;
@@ -16,9 +19,12 @@ import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 
+import javax.inject.Inject;
+
 public class LauncherActivity extends AppCompatActivity implements ViewMode {
-    private LauncherPresenter presenter;
     private AppCompatImageView imageView;
+
+    @Inject LauncherPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +35,17 @@ public class LauncherActivity extends AppCompatActivity implements ViewMode {
 
         imageView = (AppCompatImageView) findViewById(R.id.image_loading);
         imageView.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate));
-        MainThread mainThread = new MainThreadImp();
-        Executor executor = new ThreadExecutor();
-        SelectStateUseCase stateUseCase = new SelectStateUseCase(getApplicationContext(),mainThread,executor);
-        presenter = new LauncherPresenter(stateUseCase);
+
         presenter.setView(this);
         presenter.init();
 
     }
 
     private void initDagger() {
-
+        FootballApplication.get(getApplicationContext())
+                .getLauncherComponent()
+                .plus(new LauncherActivityModule())
+                .inject(this);
     }
 
     @Override
@@ -60,6 +66,10 @@ public class LauncherActivity extends AppCompatActivity implements ViewMode {
                 intent = new Intent(getApplicationContext(),JoinGroupActivity.class);
                 intent.putExtra("fragment",1);
                 break;
+            case SelectStateUseCase.ADMIN_USER:
+                intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.putExtra("admin",true);
+                break;
             case SelectStateUseCase.NORMAL_USER:
                 intent = new Intent(getApplicationContext(),MainActivity.class);
                 intent.putExtra("admin",false);
@@ -78,5 +88,12 @@ public class LauncherActivity extends AppCompatActivity implements ViewMode {
     @Override
     public void error(Exception e) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FootballApplication.get(getApplicationContext())
+                .releaseLauncherComponent();
     }
 }

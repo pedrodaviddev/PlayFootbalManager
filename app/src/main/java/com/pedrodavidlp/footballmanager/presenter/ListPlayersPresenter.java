@@ -11,7 +11,6 @@ import java.util.List;
  * Created by PedroDavidLP on 15/9/16.
  */
 public class ListPlayersPresenter implements ListPresenter<Player> {
-    private final String TAG = getClass().getSimpleName();
     private GetListUseCase getListUseCase;
     private ViewList<Player> viewList;
 
