@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.data.UserRepository;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
 
 import java.util.ArrayList;
@@ -35,21 +36,25 @@ public class PlayersOnMatchAdapter extends RecyclerView.Adapter<PlayersOnMatchAd
         players.removeAll(list);
         NotificationCompat.Builder builder=null;
         builder = new NotificationCompat.Builder(context);
-        if(players.size()>0){
+        if(players.size()>0 && !players.get(0).getNickname().equals(UserRepository.currentNickname)){
             builder.setContentTitle("Se ha ido del partido :(");
             builder.setContentText(players.get(0).getNickname() + "se ha ido.");
+            builder.setSmallIcon(R.drawable.icon_play);
+            NotificationManager mNotificationManager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationManager.notify(123123,builder.build());
         } else {
             list.removeAll(aux);
-            if (list.size() > 0) {
-
+            if (list.size() > 0 && !list.get(0).getNickname().equals(UserRepository.currentNickname)) {
                 builder.setContentTitle("Se han unido al partidoooo");
                 builder.setContentText(list.get(0).getNickname() + "se ha unido.");
+                builder.setSmallIcon(R.drawable.icon_play);
+                NotificationManager mNotificationManager =
+                        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                mNotificationManager.notify(123123,builder.build());
             }
         }
-        builder.setSmallIcon(R.drawable.icon_play);
-        NotificationManager mNotificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(123123,builder.build());
+
     }
 
     public static class PlayersOnMatchHolder extends RecyclerView.ViewHolder{

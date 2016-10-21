@@ -7,10 +7,8 @@ import com.pedrodavidlp.footballmanager.view.ViewList;
 
 import java.util.List;
 
-/**
- * Created by PedroDavidLP on 15/9/16.
- */
-public class ListPlayersPresenter implements ListPresenter<Player> {
+
+public class ListPlayersPresenter implements ListPresenter<ViewList<Player>> {
     private GetListUseCase getListUseCase;
     private ViewList<Player> viewList;
 

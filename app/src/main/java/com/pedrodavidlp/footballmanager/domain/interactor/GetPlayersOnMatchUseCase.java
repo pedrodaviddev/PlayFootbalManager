@@ -10,6 +10,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pedrodavidlp.footballmanager.R;
 import com.pedrodavidlp.footballmanager.data.GroupRepository;
 import com.pedrodavidlp.footballmanager.domain.model.Player;
+import com.pedrodavidlp.footballmanager.domain.repository.MatchRepo;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;
 import com.tonilopezmr.interactorexecutor.MainThread;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetPlayersOnMatchUseCase implements Interactor{
-    private Context context;
     public interface Callback{
         void onListMatchLoaded(List<Player> list);
         void onError(Exception e);
@@ -27,33 +27,21 @@ public class GetPlayersOnMatchUseCase implements Interactor{
     private Callback callback;
     private MainThread mainThread;
     private Executor executor;
+    private MatchRepo repository;
 
-    public GetPlayersOnMatchUseCase(MainThread mainThread, Executor executor, Context context) {
+    public GetPlayersOnMatchUseCase(MainThread mainThread, Executor executor, MatchRepo repository) {
         this.mainThread = mainThread;
         this.executor = executor;
-        this.context = context;
+        this.repository = repository;
     }
 
     @Override
     public void run() {
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference();
-        reference.child(context.getString(R.string.branch_groups)).child(GroupRepository.currentGroup.getId()).child("match")
-                .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Player> res = new ArrayList<>();
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    res.add(data.getValue(Player.class));
-                }
-                callback.onListMatchLoaded(res);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                callback.onError(new Exception(databaseError.getMessage()));
-            }
-        });
+       try{
+           repository.loadListMatch(callback);
+       } catch (Exception e){
+           callback.onError(e);
+       }
     }
 
     public void execute(final Callback callback){

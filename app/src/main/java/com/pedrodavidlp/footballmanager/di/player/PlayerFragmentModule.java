@@ -46,9 +46,9 @@ public class PlayerFragmentModule extends ActivityModule{
     @FragmentScope
     @Player
     public GetPlayersOnMatchUseCase provideGetPlayersOnMatchUseCase( Executor executor,
-                                                     MainThread mainThread,
-                                                     Context context){
-        return new GetPlayersOnMatchUseCase(mainThread,executor,context);
+                                                                     MainThread mainThread,
+                                                                     MatchRepo repository){
+        return new GetPlayersOnMatchUseCase(mainThread,executor,repository);
     }
 
     @Provides

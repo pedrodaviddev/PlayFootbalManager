@@ -8,10 +8,10 @@ import com.pedrodavidlp.footballmanager.view.ViewList;
 
 import java.util.List;
 
-public class MatchPresenter implements ListPresenter<Player> {
+public class MatchPresenter implements ListPresenter<ViewList> {
     private GetPlayersOnMatchUseCase playersOnMatchUseCase;
     private ChangeMatchUseCase changeMatchUseCase;
-    private  ViewList<Player> view;
+    private ViewList<Player> view;
 
     public MatchPresenter(GetPlayersOnMatchUseCase playersOnMatchUseCase, ChangeMatchUseCase changeMatchUseCase) {
         this.playersOnMatchUseCase = playersOnMatchUseCase;
@@ -25,12 +25,13 @@ public class MatchPresenter implements ListPresenter<Player> {
     }
 
     @Override
-    public void setView(ViewList<Player> view) {
+    public void setView(ViewList view) {
         if (view == null) {
             throw new IllegalArgumentException("Error setting view");
         }
         this.view = view;
     }
+
 
     @Override
     public void loadList() {

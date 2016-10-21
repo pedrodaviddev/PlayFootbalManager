@@ -21,7 +21,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MatchFragment extends Fragment implements ViewList<Player>{
+public class MatchFragment extends Fragment implements ViewList<Player> {
     private RecyclerView playersOnMatch;
     private PlayersOnMatchAdapter adapter;
 
@@ -70,4 +70,6 @@ public class MatchFragment extends Fragment implements ViewList<Player>{
     public void changeStateMatch() {
         presenter.changeMatch();
     }
+
+
 }
