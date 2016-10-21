@@ -41,23 +41,13 @@ public class GroupRepository implements GroupRepo {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(group.getId()).child("password").exists()){
-
-                    Log.d(TAG, "onDataChange: "+dataSnapshot.child(group.getId()).exists());
-                    Group onDatabase = dataSnapshot.child(group.getId()).getValue(Group.class);
                     String pass = dataSnapshot.child(group.getId()).child(context.getString(password)).getValue(String.class);
-                    Log.d(TAG, "onDataChange: pass and pass "+group.getPassword()+" : "+pass);
-
                     if(group.getPassword().compareTo(pass) == 0){
-                        Log.d(TAG, "CONTRASEÑA CORRECTA");
-                        Log.d(TAG, "onDataChange: "+onDatabase.getPassword()+" : "+ group.getPassword());
                         joinGruop(group,toJoin,callback);
-
                     } else {
-                        Log.d(TAG, "onDataChange: me voy por aqui que es que sa equivocao");
                         callback.wrongPassword();
                     }
                 } else {
-                    Log.d(TAG, "onDataChange: pero que dise");
                     callback.groupNotExist();
                 }
             }
@@ -98,7 +88,6 @@ public class GroupRepository implements GroupRepo {
         reference.child(context.getString(R.string.branch_groups)).child(group.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "onDataChange: "+dataSnapshot+" "+dataSnapshot.exists()+dataSnapshot.getChildren());
                 if (dataSnapshot.exists()){
                    callback.nameTaken();
                 } else {
