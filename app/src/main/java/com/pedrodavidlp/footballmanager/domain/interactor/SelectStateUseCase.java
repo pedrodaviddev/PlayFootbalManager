@@ -1,11 +1,11 @@
 package com.pedrodavidlp.footballmanager.domain.interactor;
 
+import com.pedrodavidlp.footballmanager.domain.interactor.common.UseCase;
 import com.pedrodavidlp.footballmanager.domain.repository.UserRepo;
 import com.tonilopezmr.interactorexecutor.Executor;
-import com.tonilopezmr.interactorexecutor.Interactor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 
-public class SelectStateUseCase extends UseCase<SelectStateUseCase.Callback>{
+public class SelectStateUseCase extends UseCase<SelectStateUseCase.Callback> {
     public static final int NO_CONNECTION = 0;
     public static final int NOT_LOGGED = 1;
     public static final int NO_NICKNAME = 2;

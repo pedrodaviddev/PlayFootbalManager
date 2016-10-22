@@ -1,11 +1,11 @@
 package com.pedrodavidlp.footballmanager.domain.interactor;
 
+import com.pedrodavidlp.footballmanager.domain.interactor.common.UseCase;
 import com.pedrodavidlp.footballmanager.domain.repository.MatchRepo;
 import com.tonilopezmr.interactorexecutor.Executor;
-import com.tonilopezmr.interactorexecutor.Interactor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 
-public class ChangeMatchUseCase extends UseCase<ChangeMatchUseCase.Callback>{
+public class ChangeMatchUseCase extends UseCase<ChangeMatchUseCase.Callback> {
     public interface Callback{
         void hasJoined();
         void hasLeft();

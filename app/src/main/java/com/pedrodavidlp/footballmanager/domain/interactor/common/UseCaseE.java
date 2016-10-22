@@ -1,4 +1,4 @@
-package com.pedrodavidlp.footballmanager.domain.interactor;
+package com.pedrodavidlp.footballmanager.domain.interactor.common;
 
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;
@@ -9,6 +9,7 @@ public abstract class UseCaseE<C,E> implements Interactor {
     private Executor executor;
     protected C callback;
     protected E entity;
+
     public UseCaseE(MainThread mainThread, Executor executor) {
         this.mainThread = mainThread;
         this.executor = executor;

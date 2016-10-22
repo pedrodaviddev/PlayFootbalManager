@@ -1,4 +1,4 @@
-package com.pedrodavidlp.footballmanager.domain.interactor;
+package com.pedrodavidlp.footballmanager.domain.interactor.common;
 
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.Interactor;

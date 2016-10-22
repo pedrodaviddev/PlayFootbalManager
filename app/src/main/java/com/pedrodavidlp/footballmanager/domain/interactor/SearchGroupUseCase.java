@@ -1,11 +1,11 @@
 package com.pedrodavidlp.footballmanager.domain.interactor;
 
+import com.pedrodavidlp.footballmanager.domain.interactor.common.UseCase;
 import com.pedrodavidlp.footballmanager.domain.model.Group;
 import com.tonilopezmr.interactorexecutor.Executor;
-import com.tonilopezmr.interactorexecutor.Interactor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 
-public class SearchGroupUseCase extends UseCase<SearchGroupUseCase.Callback>{
+public class SearchGroupUseCase extends UseCase<SearchGroupUseCase.Callback> {
     public interface Callback{
         void onSuccessfulSearch(Group group);
         void onError(Exception e);
