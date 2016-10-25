@@ -6,11 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
+import android.widget.ScrollView;
 
 import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
@@ -27,6 +30,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CreateGroupFragment extends Fragment implements ViewLogin{
     @BindView(R.id.groupNameLayout) TextInputLayout groupNameLayout;
@@ -35,9 +39,14 @@ public class CreateGroupFragment extends Fragment implements ViewLogin{
     @BindView(R.id.passGroup) TextInputEditText groupPass;
     @BindView(R.id.confirmPassLayout) TextInputLayout confirmPassLayout;
     @BindView(R.id.confirmPass) TextInputEditText confirmPass;
-
+    @BindView(R.id.selectNumberPlayers) NumberPicker numberPicker;
+    @BindView(R.id.selectDateButton) AppCompatButton selectDateButton;
     @Inject GroupPresenter presenter;
 
+    @OnClick(R.id.selectDateButton)
+    public void selectDate(){
+
+    }
 
     @Nullable
     @Override
@@ -69,13 +78,16 @@ public class CreateGroupFragment extends Fragment implements ViewLogin{
 
     @Override
     public void initUi() {
+        ((JoinGroupActivity) getActivity()).setFabBehavior();
+        numberPicker.setMaxValue(24);
+        numberPicker.setMinValue(0);
         ((JoinGroupActivity) getActivity()).stopAnimationFab();
         ((JoinGroupActivity) getActivity()).setListenerToFab(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkPass()) {
                     ((JoinGroupActivity) getActivity()).startAnimationFab();
-                    presenter.createGroup(new Group(groupName.getText().toString(),groupPass.getText().toString())
+                    presenter.createGroup(new Group(groupName.getText().toString(),groupPass.getText().toString(),numberPicker.getValue(),0)
                             ,new Player(UserRepository.currentNickname,0,true,true));
                 } else {
                     passNotMatch();

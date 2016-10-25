@@ -22,10 +22,6 @@ public class GetPlayersOnMatchUseCase extends UseCase<GetPlayersOnMatchUseCase.C
 
     @Override
     public void run() {
-       try{
            repository.loadListMatch(callback);
-       } catch (Exception e){
-           callback.onError(e);
-       }
     }
 }

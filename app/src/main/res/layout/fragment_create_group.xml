@@ -2,24 +2,25 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/backgroundStart">
+    android:layout_height="match_parent">
     <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:id="@+id/scrollView"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_margin="@dimen/fab_margin">
         <android.support.design.widget.TextInputLayout
             android:id="@+id/groupNameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Elige nombre de tu grupo"
             style="@style/Widget.Design.TextInputLayout"
-            android:layout_margin="@dimen/fab_margin">
+            android:layout_marginTop="@dimen/fab_margin">
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/groupName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_horizontal_margin"/>
+                android:layout_height="wrap_content"/>
         </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/passGroupLayout"
@@ -27,13 +28,12 @@
                 android:layout_height="wrap_content"
                 android:hint="Escribe una contraseña"
                 style="@style/Widget.Design.TextInputLayout"
-                android:layout_margin="@dimen/fab_margin">
+                android:layout_marginTop="@dimen/fab_margin">
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/passGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:layout_margin="@dimen/activity_horizontal_margin"/>
+                    android:inputType="textPassword"/>
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/confirmPassLayout"
@@ -41,31 +41,53 @@
                 android:layout_height="wrap_content"
                 android:hint="Vuelve a escribir tu contraseña"
                 style="@style/Widget.Design.TextInputLayout"
-                android:layout_margin="@dimen/fab_margin" >
+                android:layout_marginTop="@dimen/fab_margin">
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/confirmPass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:layout_margin="@dimen/activity_horizontal_margin"/>
+                    android:inputType="textPassword"/>
             </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/numberPlayersLayout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Numero de jugadores por partido"
-            style="@style/Widget.Design.TextInputLayout"
-            android:layout_margin="@dimen/fab_margin" >
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/numberPlayers"
-                android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/fab_margin">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:layout_margin="@dimen/activity_horizontal_margin"/>
-        </android.support.design.widget.TextInputLayout>
-        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:text="Jugadores por partido: "
+                android:textSize="20dp"/>
+            <NumberPicker
+                android:id="@+id/selectNumberPlayers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Juego todas las semanas"
+            android:layout_gravity="start"
+            android:layout_marginTop="@dimen/fab_margin"/>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/selectDateButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:text="Seleccionar fecha"
+            android:layout_marginTop="@dimen/fab_margin"/>
+        <!-- TODO: ADD LOCATION -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+        </View>
+
 
     </LinearLayout>
 </ScrollView>

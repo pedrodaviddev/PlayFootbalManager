@@ -34,9 +34,7 @@ import com.pedrodavidlp.footballmanager.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * A login screen that offers login via email/password.
- */
+
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
     public static final int STARTUP_DELAY = 300;
     public static final int ANIM_ITEM_DURATION = 1000;

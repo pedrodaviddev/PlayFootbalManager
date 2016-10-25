@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.View;
 
 import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.view.adapter.FabBehavior;
 import com.pedrodavidlp.footballmanager.view.fragment.CreateGroupFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.InsertNickFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.JoinGroupFragment;
@@ -22,6 +24,7 @@ import io.saeid.fabloading.LoadingView;
 
 public class JoinGroupActivity extends AppCompatActivity{
     @BindView(R.id.registerFab) LoadingView fab;
+    @BindView(R.id.joinGroupContainer) CoordinatorLayout container;
     private int currentFragment;
 
     @Override
@@ -130,5 +133,8 @@ public class JoinGroupActivity extends AppCompatActivity{
         super.onDestroy();
         FootballApplication.get(getApplicationContext())
                 .releaseGroupComponent();
+    }
+
+    public void setFabBehavior(){
     }
 }

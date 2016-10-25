@@ -8,9 +8,6 @@ import com.tonilopezmr.interactorexecutor.MainThread;
 
 import java.util.List;
 
-/**
- * Created by PedroDavidLP on 15/9/16.
- */
 public class GetListUseCase extends UseCase<GetListUseCase.Callback> {
     public interface Callback{
         void onListLoaded(List<Player> list);
