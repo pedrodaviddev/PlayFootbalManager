@@ -29,15 +29,11 @@ public class LauncherActivity extends AppCompatActivity implements ViewMode {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
-        initDagger();
         ButterKnife.bind(this);
-
-        imageView = (AppCompatImageView) findViewById(R.id.image_loading);
-        imageView.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate));
+        initDagger();
 
         presenter.setView(this);
         presenter.init();
-
     }
 
     private void initDagger() {
@@ -52,7 +48,7 @@ public class LauncherActivity extends AppCompatActivity implements ViewMode {
         Intent intent=null;
         switch (mode){
             case SelectStateUseCase.NO_CONNECTION:
-                Snackbar.make(getWindow().getCurrentFocus(),"No hay conexion a internet",Snackbar.LENGTH_INDEFINITE).show();
+                Snackbar.make(getCurrentFocus().getRootView(),"No hay conexion a internet",Snackbar.LENGTH_INDEFINITE).show();
                 return;
             case SelectStateUseCase.NOT_LOGGED:
                 intent = new Intent(getApplicationContext(),LoginActivity.class);
@@ -81,7 +77,7 @@ public class LauncherActivity extends AppCompatActivity implements ViewMode {
 
     @Override
     public void initUi() {
-
+        imageView.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate));
     }
 
     @Override

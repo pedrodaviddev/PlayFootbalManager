@@ -14,6 +14,7 @@ public class LauncherPresenter implements Presenter<ViewMode> {
 
     @Override
     public void init() {
+        view.initUi();
         stateUseCase.execute(new SelectStateUseCase.Callback() {
             @Override
             public void goToState(int state) {

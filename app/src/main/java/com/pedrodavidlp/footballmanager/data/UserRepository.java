@@ -4,6 +4,7 @@ package com.pedrodavidlp.footballmanager.data;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,6 +37,7 @@ public class UserRepository implements UserRepo {
     private DatabaseReference reference;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private final String TAG = getClass().getSimpleName();
 
     public UserRepository(Context context) {
         this.context = context;
@@ -87,19 +89,23 @@ public class UserRepository implements UserRepo {
     }
 
     private void getUserState(final SelectStateUseCase.Callback callback) {
+        Log.d(TAG, "getUserState: aqui no llegasoque");
         reference.child(context.getString(R.string.branch_user))
                 .child(user.getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         List<String> groups = new ArrayList<>();
+                        Log.d(TAG, "onDataChange: primer if " +(dataSnapshot.child(context.getString(R.string.nickname)).getValue() == null) + "");
                         if (dataSnapshot.child(context.getString(R.string.nickname)).getValue() == null){
                             callback.goToState(NO_NICKNAME);
                         } else {
                             for (DataSnapshot data : dataSnapshot.child(context.getString(R.string.groups)).getChildren()) {
                                 groups.add(data.getValue(String.class));
+                                Log.d(TAG, "onDataChange: grupos : "+groups.add(data.getValue(String.class)));
                             }
                             if (groups.size()>0){
+                                Log.d(TAG, "onDataChange: ramaño"+groups.size());
                                 GroupRepository.currentGroup=new Group(groups.get(0),"");
                                 UserRepository.currentNickname=dataSnapshot.child(context.getString(R.string.nickname)).getValue(String.class);
                                 reference.child(context.getString(branch_groups)).child(GroupRepository.currentGroup.getId())
@@ -129,7 +135,7 @@ public class UserRepository implements UserRepo {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        Log.d(TAG, "onCancelled: error database "+databaseError.getDetails()+" "+databaseError.getMessage());
                     }
                 });
     }

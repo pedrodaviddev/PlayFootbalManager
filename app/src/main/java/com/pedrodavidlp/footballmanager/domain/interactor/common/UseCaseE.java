@@ -15,7 +15,7 @@ public abstract class UseCaseE<C,E> implements Interactor {
         this.executor = executor;
     }
 
-    public void execute(E entity, final C callback){
+    public void execute(final C callback,  E entity){
         if(callback == null){
             throw new IllegalArgumentException("CALLBACK CANT BE NULL");
         }
