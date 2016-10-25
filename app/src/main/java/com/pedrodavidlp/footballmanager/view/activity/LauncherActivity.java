@@ -16,8 +16,11 @@ import com.pedrodavidlp.footballmanager.view.ViewMode;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LauncherActivity extends AppCompatActivity implements ViewMode {
-    private AppCompatImageView imageView;
+    @BindView(R.id.image_loading) AppCompatImageView imageView;
 
     @Inject LauncherPresenter presenter;
 
@@ -27,6 +30,7 @@ public class LauncherActivity extends AppCompatActivity implements ViewMode {
         setContentView(R.layout.activity_launcher);
 
         initDagger();
+        ButterKnife.bind(this);
 
         imageView = (AppCompatImageView) findViewById(R.id.image_loading);
         imageView.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate));

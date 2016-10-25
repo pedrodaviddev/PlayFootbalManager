@@ -22,21 +22,22 @@ import com.pedrodavidlp.footballmanager.view.fragment.TeamFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
-    private BottomBar bottomBar;
-    private FloatingActionMenu fabOptions;
-    private com.github.clans.fab.FloatingActionButton fabPlay;
-    private RelativeLayout rootView;
+    @BindView(R.id.bottomBar) BottomBar bottomBar;
+    @BindView(R.id.fabOptions) FloatingActionMenu fabOptions;
+    @BindView(R.id.fabPlay) com.github.clans.fab.FloatingActionButton fabPlay;
+    @BindView(R.id.rootActivity) RelativeLayout rootView;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle(GroupRepository.currentGroup.getId());
-        fabPlay=(com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabPlay);
-        fabOptions=(FloatingActionMenu) findViewById(R.id.fabOptions);
-        rootView = (RelativeLayout) findViewById(R.id.rootActivity);
-        bottomBar=(BottomBar)findViewById(R.id.bottomBar);
+
+        ButterKnife.bind(this);
 
         if(getIntent().getBooleanExtra("admin",false)){
             bottomBar.getTabAtPosition(3).setVisibility(View.VISIBLE);

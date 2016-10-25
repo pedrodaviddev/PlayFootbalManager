@@ -31,6 +31,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.pedrodavidlp.footballmanager.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -40,12 +43,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public static final int ITEM_DELAY = 300;
     private GoogleApiClient apiClient;
     private boolean animationStarted = false;
-    private SignInButton signWithGoogleButton;
+    @BindView(R.id.signWithGoogleButton) SignInButton signWithGoogleButton;
     private static final int RC_SIGN_IN = 9001;
     private FirebaseUser user;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private final String TAG = getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        ButterKnife.bind(this);
 
         loginGoogle();
         loginFacebook();
@@ -71,8 +74,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void loginGoogle() {
-        Log.d(TAG, "loginGoogle: gola");
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.client_id_server))
                 .requestEmail()
@@ -90,15 +91,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
                 //updateUI(null);
             }
         };
-
-        signWithGoogleButton = (SignInButton) findViewById(R.id.signWithGoogleButton);
         signWithGoogleButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,11 +110,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: "+requestCode+"   "+resultCode);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result =
                     Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            Log.d(TAG, "onActivityResult: "+result.getStatus().getStatusMessage() + " ");
             if (result.isSuccess()) {
 
                 GoogleSignInAccount account = result.getSignInAccount();
@@ -151,17 +146,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onWindowFocusChanged(hasFocus);
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
 
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
                         }
                     }
                 });

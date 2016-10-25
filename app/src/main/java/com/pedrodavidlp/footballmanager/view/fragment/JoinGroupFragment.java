@@ -25,11 +25,14 @@ import com.pedrodavidlp.footballmanager.view.activity.MainActivity;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class JoinGroupFragment extends Fragment implements ViewLogin{
-    private TextInputLayout nameGroupLayout;
-    private TextInputLayout passGroupLayout;
-    private TextInputEditText nameGroup;
-    private TextInputEditText passGroup;
+    @BindView(R.id.nameGroupToJoinLayout) TextInputLayout nameGroupLayout;
+    @BindView(R.id.passGroupToJoinLayout) TextInputLayout passGroupLayout;
+    @BindView(R.id.nameGroupToJoin) TextInputEditText nameGroup;
+    @BindView(R.id.passGroupToJoin) TextInputEditText passGroup;
 
     @Inject GroupPresenter presenter;
 
@@ -39,11 +42,7 @@ public class JoinGroupFragment extends Fragment implements ViewLogin{
         View view = inflater.inflate(R.layout.fragment_join_group,container,false);
 
         initDagger();
-
-        nameGroup = (TextInputEditText) view.findViewById(R.id.nameGroupToJoin);
-        passGroup = (TextInputEditText) view.findViewById(R.id.passGroupToJoin);
-        nameGroupLayout = (TextInputLayout) view.findViewById(R.id.nameGroupToJoinLayout);
-        passGroupLayout = (TextInputLayout) view.findViewById(R.id.passGroupToJoinLayout);
+        ButterKnife.bind(this,view);
 
         presenter.setView(this);
         presenter.init();

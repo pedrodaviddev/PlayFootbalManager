@@ -25,13 +25,16 @@ import com.pedrodavidlp.footballmanager.view.activity.MainActivity;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class CreateGroupFragment extends Fragment implements ViewLogin{
-    private TextInputLayout groupNameLayout;
-    private TextInputEditText groupName;
-    private TextInputLayout groupPassLayout;
-    private TextInputEditText groupPass;
-    private TextInputLayout confirmPassLayout;
-    private TextInputEditText confirmPass;
+    @BindView(R.id.groupNameLayout) TextInputLayout groupNameLayout;
+    @BindView(R.id.groupName) TextInputEditText groupName;
+    @BindView(R.id.passGroupLayout) TextInputLayout groupPassLayout;
+    @BindView(R.id.passGroup) TextInputEditText groupPass;
+    @BindView(R.id.confirmPassLayout) TextInputLayout confirmPassLayout;
+    @BindView(R.id.confirmPass) TextInputEditText confirmPass;
 
     @Inject GroupPresenter presenter;
 
@@ -43,12 +46,7 @@ public class CreateGroupFragment extends Fragment implements ViewLogin{
 
         initDagger();
 
-        groupNameLayout = (TextInputLayout) view.findViewById(R.id.groupNameLayout);
-        groupName = (TextInputEditText) view.findViewById(R.id.groupName);
-        groupPassLayout = (TextInputLayout) view.findViewById(R.id.passGroupLayout);
-        groupPass = (TextInputEditText) view.findViewById(R.id.passGroup);
-        confirmPassLayout = (TextInputLayout) view.findViewById(R.id.confirmPassLayout);
-        confirmPass = (TextInputEditText) view.findViewById(R.id.confirmPass);
+        ButterKnife.bind(this,view);
 
         presenter.setView(this);
         presenter.init();

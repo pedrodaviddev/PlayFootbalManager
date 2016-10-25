@@ -21,24 +21,27 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MatchFragment extends Fragment implements ViewList<Player> {
-    private RecyclerView playersOnMatch;
     private PlayersOnMatchAdapter adapter;
+    @BindView(R.id.playersOnMatchRecView) RecyclerView playersOnMatch;
 
     @Inject MatchPresenter presenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView=inflater.inflate(R.layout.fragment_match,container,false);
+        View view=inflater.inflate(R.layout.fragment_match,container,false);
 
         initDagger();
 
-        playersOnMatch = (RecyclerView) rootView.findViewById(R.id.playersOnMatchRecView);
+        ButterKnife.bind(this,view);
 
         presenter.setView(this);
         presenter.init();
-        return rootView;
+        return view;
 
     }
 

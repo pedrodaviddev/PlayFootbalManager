@@ -20,9 +20,12 @@ import com.pedrodavidlp.footballmanager.view.activity.JoinGroupActivity;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class InsertNickFragment extends Fragment implements ViewTry {
-    private TextInputEditText insertNick;
-    private TextInputLayout insertNickLayout;
+    @BindView(R.id.insertNickName) TextInputEditText insertNick;
+    @BindView(R.id.insertNickNameLayout) TextInputLayout insertNickLayout;
 
     @Inject UserPresenter presenter;
 
@@ -32,9 +35,7 @@ public class InsertNickFragment extends Fragment implements ViewTry {
         View view = inflater.inflate(R.layout.fragment_insert_nickname,container,false);
 
         initDagger();
-
-        insertNick = (TextInputEditText) view.findViewById(R.id.insertNickName);
-        insertNickLayout = (TextInputLayout) view.findViewById(R.id.insertNickNameLayout);
+        ButterKnife.bind(this,view);
 
         presenter.setView(this);
         presenter.init();

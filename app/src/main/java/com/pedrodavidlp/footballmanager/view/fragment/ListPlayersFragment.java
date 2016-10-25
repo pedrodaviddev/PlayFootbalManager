@@ -27,11 +27,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class ListPlayersFragment extends Fragment implements ViewList<Player>,ListPlayersAdapter.OnItemLongClickListener{
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private RecyclerView listPlayers;
+public class ListPlayersFragment extends Fragment implements ViewList<Player>,ListPlayersAdapter.OnItemLongClickListener{
     private ListPlayersAdapter adapter;
-    private AVLoadingIndicatorView loading;
+    @BindView(R.id.playersRecView) RecyclerView listPlayers;
+    @BindView(R.id.loadingListPlayers) AVLoadingIndicatorView loading;
 
     @Inject ListPlayersPresenter presenter;
 
@@ -40,15 +42,13 @@ public class ListPlayersFragment extends Fragment implements ViewList<Player>,Li
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initDagger();
 
-        View rootView=inflater.inflate(R.layout.fragment_list,container,false);
-        listPlayers = (RecyclerView) rootView.findViewById(R.id.playersRecView);
-        loading = (AVLoadingIndicatorView) rootView.findViewById(R.id.loadingListPlayers);
+        View view=inflater.inflate(R.layout.fragment_list,container,false);
+        ButterKnife.bind(this,view);
 
         presenter.setView(this);
         presenter.init();
 
-
-        return rootView;
+        return view;
     }
 
     private void initDagger() {

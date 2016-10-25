@@ -39,6 +39,8 @@ dependencies {
     apt "com.google.dagger:dagger-compiler:${daggerVersion}"
     testCompile 'junit:junit:4.12'
     compile 'io.saeid:fab-loading:1.0.0'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }
 
 

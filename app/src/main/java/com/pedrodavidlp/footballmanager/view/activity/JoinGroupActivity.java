@@ -16,17 +16,19 @@ import com.pedrodavidlp.footballmanager.view.fragment.InsertNickFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.JoinGroupFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.SelectJoinOrCreateFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.saeid.fabloading.LoadingView;
 
 public class JoinGroupActivity extends AppCompatActivity{
-    private LoadingView fab;
+    @BindView(R.id.registerFab) LoadingView fab;
     private int currentFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_group);
-        fab = (LoadingView) findViewById(R.id.registerFab);
+        ButterKnife.bind(this);
         setFragment(getIntent().getIntExtra("fragment",0));
         //TODO : ALL IMAGES IN VECTORS
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
