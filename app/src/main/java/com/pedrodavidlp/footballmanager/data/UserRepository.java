@@ -106,7 +106,7 @@ public class UserRepository implements UserRepo {
                             }
                             if (groups.size()>0){
                                 Log.d(TAG, "onDataChange: ramaño"+groups.size());
-                                GroupRepository.currentGroup=new Group(groups.get(0),"");
+                                GroupRepository.currentGroup=new Group(groups.get(0),"",0,0);
                                 UserRepository.currentNickname=dataSnapshot.child(context.getString(R.string.nickname)).getValue(String.class);
                                 reference.child(context.getString(branch_groups)).child(GroupRepository.currentGroup.getId())
                                         .child(context.getString(players)).child(UserRepository.currentNickname)

@@ -64,7 +64,7 @@ public class JoinGroupFragment extends Fragment implements ViewLogin{
             @Override
             public void onClick(View view) {
                 ((JoinGroupActivity) getActivity()).startAnimationFab();
-                presenter.joinGroup(new Group(nameGroup.getText().toString(),passGroup.getText().toString()),
+                presenter.joinGroup(new Group(nameGroup.getText().toString(),passGroup.getText().toString(),0,0),
                         new Player(UserRepository.currentNickname,0,false,false));
             }
         });
