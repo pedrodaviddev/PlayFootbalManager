@@ -1,7 +1,5 @@
 package com.pedrodavidlp.footballmanager.di.player;
 
-import android.content.Context;
-
 import com.pedrodavidlp.footballmanager.di.ActivityModule;
 import com.pedrodavidlp.footballmanager.di.FragmentScope;
 import com.pedrodavidlp.footballmanager.domain.interactor.ChangeMatchUseCase;

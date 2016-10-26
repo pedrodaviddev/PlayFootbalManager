@@ -12,7 +12,6 @@ import android.view.View;
 
 import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
-import com.pedrodavidlp.footballmanager.view.adapter.FabBehavior;
 import com.pedrodavidlp.footballmanager.view.fragment.CreateGroupFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.InsertNickFragment;
 import com.pedrodavidlp.footballmanager.view.fragment.JoinGroupFragment;

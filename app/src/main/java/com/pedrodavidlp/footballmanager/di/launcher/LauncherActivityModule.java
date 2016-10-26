@@ -1,7 +1,5 @@
 package com.pedrodavidlp.footballmanager.di.launcher;
 
-import android.content.Context;
-
 import com.pedrodavidlp.footballmanager.domain.interactor.SelectStateUseCase;
 import com.pedrodavidlp.footballmanager.domain.repository.UserRepo;
 import com.pedrodavidlp.footballmanager.presenter.LauncherPresenter;
