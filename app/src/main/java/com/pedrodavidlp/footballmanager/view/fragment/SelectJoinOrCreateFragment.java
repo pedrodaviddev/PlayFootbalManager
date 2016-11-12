@@ -16,14 +16,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SelectJoinOrCreateFragment extends Fragment {
-    @BindView(R.id.joinGroupButton) AppCompatButton join;
-    @BindView(R.id.createGroupButton) AppCompatButton create;
+    @BindView(R.id.joinGroupBranch) AppCompatButton join;
+    @BindView(R.id.createGroupBranch) AppCompatButton create;
 
-    @OnClick(R.id.joinGroupButton)
+    @OnClick(R.id.joinGroupBranch)
     public void setFragment2(){
         ((JoinGroupActivity) getActivity()).setFragment(2);
     }
-    @OnClick(R.id.createGroupButton)
+    @OnClick(R.id.createGroupBranch)
     public void setFragment3(){
         ((JoinGroupActivity) getActivity()).setFragment(3);
     }

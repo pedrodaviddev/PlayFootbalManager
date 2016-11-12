@@ -31,4 +31,12 @@
                 android:inputType="textPassword"
                 android:layout_margin="@dimen/activity_horizontal_margin"/>
         </android.support.design.widget.TextInputLayout>
+        <Button
+            android:id="@+id/joinGroupButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unirse"
+            android:background="@color/colorPrimary"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_margin="@dimen/fab_margin"/>
     </LinearLayout>

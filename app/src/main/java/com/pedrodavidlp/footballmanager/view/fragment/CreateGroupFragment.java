@@ -50,6 +50,7 @@ public class CreateGroupFragment extends Fragment implements ViewLogin{
     @BindView(R.id.confirmPass) TextInputEditText confirmPass;
     @BindView(R.id.selectNumberPlayers) NumberPicker numberPicker;
     @BindView(R.id.selectDateButton) AppCompatButton selectDateButton;
+    @BindView(R.id.createGroupButton) AppCompatButton createButton;
     @Inject GroupPresenter presenter;
     private static final String FRAG_TAG_DATE_PICKER = "timePickerDialogFragment";
 
@@ -101,13 +102,11 @@ public class CreateGroupFragment extends Fragment implements ViewLogin{
         ((JoinGroupActivity) getActivity()).setFabBehavior();
         numberPicker.setMaxValue(24);
         numberPicker.setMinValue(0);
-        ((JoinGroupActivity) getActivity()).stopAnimationFab();
-        ((JoinGroupActivity) getActivity()).setListenerToFab(new View.OnClickListener() {
+        createButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (checkPass()) {
-                    ((JoinGroupActivity) getActivity()).startAnimationFab();
-                    presenter.createGroup(new Group(groupName.getText().toString(),groupPass.getText().toString(),numberPicker.getValue(),0)
+            public void onClick(View view) {
+                if(checkPass()){
+                    presenter.createGroup(new Group(groupName.getText().toString(),groupName.getText().toString(),numberPicker.getValue(),0)
                             ,new Player(UserRepository.currentNickname,0,true,true));
                 } else {
                     passNotMatch();

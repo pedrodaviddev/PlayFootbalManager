@@ -78,6 +78,7 @@ public class UserRepository implements UserRepo {
     public void selectState(final SelectStateUseCase.Callback callback) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = cm.getActiveNetworkInfo();
+        Log.d(TAG, "selectState: "+user);
         if(!checkConnection(info,callback)){
             if(user == null){
                 callback.goToState(NOT_LOGGED);
@@ -85,6 +86,8 @@ public class UserRepository implements UserRepo {
                 getUserState(callback);
             }
 
+        } else {
+            callback.error(new Exception("NO HAY CONEXION A INTERNET"));
         }
     }
 

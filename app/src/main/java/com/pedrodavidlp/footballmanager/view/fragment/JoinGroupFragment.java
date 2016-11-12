@@ -11,9 +11,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
+import com.pedrodavidlp.footballmanager.data.PlayerRepository;
 import com.pedrodavidlp.footballmanager.data.UserRepository;
 import com.pedrodavidlp.footballmanager.di.group.GroupFragmentModule;
 import com.pedrodavidlp.footballmanager.domain.model.Group;
@@ -33,6 +35,7 @@ public class JoinGroupFragment extends Fragment implements ViewLogin{
     @BindView(R.id.passGroupToJoinLayout) TextInputLayout passGroupLayout;
     @BindView(R.id.nameGroupToJoin) TextInputEditText nameGroup;
     @BindView(R.id.passGroupToJoin) TextInputEditText passGroup;
+    @BindView(R.id.joinGroupButton) Button joinGroup;
 
     @Inject GroupPresenter presenter;
 
@@ -59,13 +62,10 @@ public class JoinGroupFragment extends Fragment implements ViewLogin{
 
     @Override
     public void initUi() {
-        ((JoinGroupActivity) getActivity()).stopAnimationFab();
-        ((JoinGroupActivity) getActivity()).setListenerToFab(new View.OnClickListener() {
+        joinGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((JoinGroupActivity) getActivity()).startAnimationFab();
-                presenter.joinGroup(new Group(nameGroup.getText().toString(),passGroup.getText().toString(),0,0),
-                        new Player(UserRepository.currentNickname,0,false,false));
+                presenter.joinGroup(new Group(nameGroup.getText().toString(),passGroup.getText().toString(),0,0),new Player(UserRepository.currentNickname,0,false,false));
             }
         });
     }

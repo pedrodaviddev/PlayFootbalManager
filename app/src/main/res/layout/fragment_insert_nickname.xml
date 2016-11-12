@@ -17,5 +17,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_horizontal_margin"/>
     </android.support.design.widget.TextInputLayout>
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Siguiente"
+        android:background="@color/colorPrimary"
+        android:layout_margin="@dimen/fab_margin"
+        style="@style/Base.Widget.AppCompat.Button.Colored"/>
 
 </LinearLayout>

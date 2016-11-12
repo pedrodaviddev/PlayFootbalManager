@@ -78,16 +78,27 @@
             android:id="@+id/selectDateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:textColor="@color/colorPrimary"
             android:text="Seleccionar fecha"
             android:layout_marginTop="@dimen/fab_margin"/>
         <!-- TODO: ADD LOCATION -->
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/createGroupButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:text="Crear grupo"
+            android:layout_marginBottom="@dimen/fab_margin"
+            />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="300dp">
 
         </View>
-
 
     </LinearLayout>
 </ScrollView>

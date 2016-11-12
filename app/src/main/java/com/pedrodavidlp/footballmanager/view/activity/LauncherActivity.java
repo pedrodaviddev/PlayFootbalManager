@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.animation.AnimationUtils;
 
 import com.pedrodavidlp.footballmanager.FootballApplication;
@@ -21,6 +22,7 @@ import butterknife.ButterKnife;
 
 public class LauncherActivity extends AppCompatActivity implements ViewMode {
     @BindView(R.id.image_loading) AppCompatImageView imageView;
+    private final String TAG = getClass().getSimpleName();
 
     @Inject LauncherPresenter presenter;
 
@@ -46,6 +48,7 @@ public class LauncherActivity extends AppCompatActivity implements ViewMode {
     @Override
     public void initUi(int mode) {
         Intent intent=null;
+        Log.d(TAG, "initUi: "+mode);
         switch (mode){
             case SelectStateUseCase.NO_CONNECTION:
                 Snackbar.make(getCurrentFocus().getRootView(),"No hay conexion a internet",Snackbar.LENGTH_INDEFINITE).show();

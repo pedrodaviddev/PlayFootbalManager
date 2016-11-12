@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
@@ -26,6 +27,7 @@ import butterknife.ButterKnife;
 public class InsertNickFragment extends Fragment implements ViewTry {
     @BindView(R.id.insertNickName) TextInputEditText insertNick;
     @BindView(R.id.insertNickNameLayout) TextInputLayout insertNickLayout;
+    @BindView(R.id.nextButton) Button next;
 
     @Inject UserPresenter presenter;
 
@@ -51,11 +53,10 @@ public class InsertNickFragment extends Fragment implements ViewTry {
 
     @Override
     public void initUi() {
-        ((JoinGroupActivity) getActivity()).setListenerToFab(new View.OnClickListener() {
+        next.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 presenter.insertNickname(insertNick.getText().toString());
-                ((JoinGroupActivity) getActivity()).startAnimationFab();
             }
         });
     }
@@ -72,7 +73,6 @@ public class InsertNickFragment extends Fragment implements ViewTry {
 
     @Override
     public void failed() {
-        ((JoinGroupActivity) getActivity()).stopAnimationFab();
         insertNickLayout.setError("El nombre de usuario ya existe");
         insertNick.addTextChangedListener(new TextWatcher() {
             @Override

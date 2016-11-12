@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 
 import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
@@ -22,7 +23,6 @@ import butterknife.ButterKnife;
 import io.saeid.fabloading.LoadingView;
 
 public class JoinGroupActivity extends AppCompatActivity{
-    @BindView(R.id.registerFab) LoadingView fab;
     @BindView(R.id.joinGroupContainer) CoordinatorLayout container;
     private int currentFragment;
 
@@ -32,20 +32,13 @@ public class JoinGroupActivity extends AppCompatActivity{
         setContentView(R.layout.activity_join_group);
         ButterKnife.bind(this);
         setFragment(getIntent().getIntExtra("fragment",0));
-        //TODO : ALL IMAGES IN VECTORS
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            fab.setImageResource(R.drawable.icon_next);
-        } else {
-            fab.setImageResource(R.drawable.image_next);
-        }
-
     }
 
     public void setFragment(int pos) {
         currentFragment = pos;
         FragmentManager manager;
         FragmentTransaction transaction;
-        fab.pauseAnimation();
+
         switch (pos) {
             case 0:
                 manager = getSupportFragmentManager();
@@ -53,7 +46,6 @@ public class JoinGroupActivity extends AppCompatActivity{
                 InsertNickFragment nickFragment = new InsertNickFragment();
                 transaction.replace(R.id.register_container, nickFragment, "FRAGMENT_MATCH");
                 transaction.commit();
-                fab.show();
                 break;
             case 1:
                 manager = getSupportFragmentManager();
@@ -61,7 +53,6 @@ public class JoinGroupActivity extends AppCompatActivity{
                 SelectJoinOrCreateFragment selectFragment = new SelectJoinOrCreateFragment();
                 transaction.replace(R.id.register_container, selectFragment);
                 transaction.commit();
-                fab.hide();
                 break;
             case 2:
                 manager = getSupportFragmentManager();
@@ -69,7 +60,6 @@ public class JoinGroupActivity extends AppCompatActivity{
                 JoinGroupFragment joinFragment = new JoinGroupFragment();
                 transaction.replace(R.id.register_container, joinFragment);
                 transaction.commit();
-                fab.show();
                 break;
             case 3:
                 manager = getSupportFragmentManager();
@@ -77,12 +67,8 @@ public class JoinGroupActivity extends AppCompatActivity{
                 CreateGroupFragment groupFragment = new CreateGroupFragment();
                 transaction.replace(R.id.register_container, groupFragment);
                 transaction.commit();
-                fab.show();
                 break;
         }
-    }
-    public void setListenerToFab(View.OnClickListener listener){
-        fab.setOnClickListener(listener);
     }
 
     @Override
@@ -98,33 +84,6 @@ public class JoinGroupActivity extends AppCompatActivity{
                 super.onBackPressed();
                 break;
         }
-    }
-
-    public void startAnimationFab() {
-        boolean isLollipop = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-        int fireball = isLollipop ? R.drawable.icon_fire_ball : R.drawable.image_fire_ball;
-        int shorts = isLollipop ? R.drawable.icon_shorts : R.drawable.image_shorts;
-        int gloves = isLollipop ? R.drawable.icon_gloves : R.drawable.image_gloves;
-        int tactic = isLollipop ? R.drawable.icon_tactic : R.drawable.image_tactic;
-        fab.addAnimation(Color.parseColor("#FFD200"), fireball,
-                LoadingView.FROM_LEFT);
-        fab.addAnimation(Color.parseColor("#2F5DA9"), shorts,
-                LoadingView.FROM_TOP);
-        fab.addAnimation(Color.parseColor("#FF4218"), gloves,
-                LoadingView.FROM_RIGHT);
-        fab.addAnimation(Color.parseColor("#C7E7FB"), tactic,
-                LoadingView.FROM_BOTTOM);
-        fab.setRepeat(Integer.MAX_VALUE);
-        fab.resumeAnimation();
-        fab.startAnimation();
-    }
-    public void stopAnimationFab(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            fab.setImageResource(R.drawable.icon_next);
-        } else {
-            fab.setImageResource(R.drawable.image_next);
-        }
-        fab.pauseAnimation();
     }
 
     @Override
