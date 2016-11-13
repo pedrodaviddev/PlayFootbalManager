@@ -39,18 +39,14 @@
             app:menu_colorNormal="@color/colorListTab"
             app:menu_icon="@drawable/image_more_options"
             >
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/addActionMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/image_add"
-                app:fab_size="mini"
-                app:fab_label="Añadir jugador sin cuenta"/>
+
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/deletePlayer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/image_delete_player"
+                app:fab_colorNormal="@color/colorListTab"
+                app:fab_colorPressed="@color/backgroundListTab"
                 app:fab_size="mini"
                 app:fab_label="Expulsar jugador" />
             <com.github.clans.fab.FloatingActionButton
@@ -58,6 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/image_edit_permissions"
+                app:fab_colorNormal="@color/colorListTab"
+                app:fab_colorPressed="@color/backgroundListTab"
                 app:fab_size="mini"
                 app:fab_label="Cambiar permisos"/>
             <com.github.clans.fab.FloatingActionButton
@@ -65,6 +63,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/image_see_info_player"
+                app:fab_colorNormal="@color/colorListTab"
+                app:fab_colorPressed="@color/backgroundListTab"
                 app:fab_size="mini"
                 app:fab_label="Ver informacion del jugador"/>
             <com.github.clans.fab.FloatingActionButton
@@ -72,6 +72,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/image_send"
+                app:fab_colorNormal="@color/colorListTab"
+                app:fab_colorPressed="@color/backgroundListTab"
                 app:fab_size="mini"
                 app:fab_label="Enviar notificacion"/>
 

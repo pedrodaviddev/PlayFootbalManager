@@ -1,5 +1,6 @@
 package com.pedrodavidlp.footballmanager.view.activity;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.pedrodavidlp.footballmanager.FootballApplication;
 import com.pedrodavidlp.footballmanager.R;
@@ -27,15 +29,19 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottomBar) BottomBar bottomBar;
     @BindView(R.id.fabOptions) FloatingActionMenu fabOptions;
-    @BindView(R.id.fabPlay) com.github.clans.fab.FloatingActionButton fabPlay;
+    @BindView(R.id.fabPlay) FloatingActionButton fabPlay;
     @BindView(R.id.rootActivity) RelativeLayout rootView;
+    @BindView(R.id.changePermissions) FloatingActionButton changePermissionsFab;
+    @BindView(R.id.deletePlayer) FloatingActionButton deletePlayerFab;
+    @BindView(R.id.seeInfo) FloatingActionButton seeInfoFab;
+    @BindView(R.id.sendMessage) FloatingActionButton sendMessageFab;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle(GroupRepository.currentGroup.getId());
-
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(),R.color.colorMatchTab)));
         ButterKnife.bind(this);
 
         if(getIntent().getBooleanExtra("admin",false)){
@@ -43,7 +49,16 @@ public class MainActivity extends AppCompatActivity {
         } else {
             bottomBar.getTabAtPosition(3).setVisibility(View.GONE);
         }
-
+        View.OnClickListener listener = new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                fabOptions.close(true);
+            }
+        };
+        changePermissionsFab.setOnClickListener(listener);
+        deletePlayerFab.setOnClickListener(listener);
+        seeInfoFab.setOnClickListener(listener);
+        sendMessageFab.setOnClickListener(listener);
 
         fabPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,16 +81,14 @@ public class MainActivity extends AppCompatActivity {
                         }else {
                             rootView.setBackgroundColor(getResources().getColor(R.color.backgroundMatchTab));
                         }
+                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(),R.color.colorMatchTab)));
                         fabOptions.hideMenuButton(true);
                         fabPlay.show(true);
                         break;
                     case R.id.tab_teams:
                         setFragment(1);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            rootView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.backgroundTeamTab));
-                        }else {
-                            rootView.setBackgroundColor(getResources().getColor(R.color.backgroundTeamTab));
-                        }
+                        rootView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.backgroundTeamTab));
+                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(),R.color.colorTeamTab)));
                         fabOptions.hideMenuButton(true);
                         fabPlay.hide(true);
                         break;
@@ -86,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         }else {
                             rootView.setBackgroundColor(getResources().getColor(R.color.backgroundListTab));
                         }
+                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(),R.color.colorListTab)));
                         fabPlay.hide(true);
                         fabOptions.hideMenuButton(true);
                         break;
@@ -96,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                         }else {
                             rootView.setBackgroundColor(getResources().getColor(R.color.colorPayTab));
                         }
+                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(),R.color.colorPayTab)));
                         fabPlay.hide(true);
                         fabOptions.hideMenuButton(true);
                         break;

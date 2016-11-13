@@ -14,7 +14,7 @@
         android:id="@+id/joinGroupBranch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:background="@color/blue_normal"
         android:text="Unete a un grupo"
         android:layout_margin="@dimen/fab_margin"/>
@@ -23,7 +23,7 @@
         android:id="@+id/createGroupBranch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:background="@color/blue_normal"
         android:text="Crea tu propio grupo"
         android:layout_margin="@dimen/fab_margin"/>

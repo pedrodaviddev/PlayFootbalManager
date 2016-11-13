@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorMatchTab">#66BB6A</color>
-    <color name="backgroundMatchTab">#C9F2C7</color>
-    <color name="colorTeamTab">#29B6F6</color>
-    <color name="backgroundTeamTab">#E0FBFC</color>
-    <color name="colorListTab">#C0CA33</color>
-    <color name="backgroundListTab">#F2EFD2</color>
-    <color name="colorPayTab">#FFCA28</color>
-    <color name="backgroundPayTab">#EFF7CF</color>
-    <color name="backgroundStart">#E6FFBF</color>
+    <color name="colorPrimary">#607D8B</color>
+    <color name="colorPrimaryDark">#455A64</color>
+    <color name="colorAccent">#FF5722</color>
+
+    <color name="colorMatchTab">#9CCC65</color>
+    <color name="backgroundMatchTab">#F1F8E9</color>
+
+    <color name="colorTeamTab">#26C6DA</color>
+    <color name="backgroundTeamTab">#E0F7FA</color>
+
+    <color name="colorListTab">#FF8A65</color>
+    <color name="backgroundListTab">#FBE9E7</color>
+
+    <color name="colorPayTab">#ffca28</color>
+    <color name="backgroundPayTab">#fff8e1</color>
+
+    <color name="backgroundStart">#f0f4c3</color>
 </resources>

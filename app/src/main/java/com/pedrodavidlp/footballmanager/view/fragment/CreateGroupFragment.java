@@ -93,7 +93,9 @@ public class CreateGroupFragment extends Fragment implements ViewLogin{
 
     @Override
     public void success() {
-        startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
+        Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+        intent.putExtra("admin",true);
+        startActivity(intent);
         getActivity().finish();
     }
 

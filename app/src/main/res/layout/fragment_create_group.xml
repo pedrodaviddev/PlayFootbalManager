@@ -88,15 +88,16 @@
             android:id="@+id/createGroupButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/blue_normal"
             style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_marginTop="50dp"
             android:text="Crear grupo"
             android:layout_marginBottom="@dimen/fab_margin"
             />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="300dp">
+            android:layout_height="100dp">
 
         </View>
 
